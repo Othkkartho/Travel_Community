@@ -14,16 +14,18 @@ public class OAuthAttributes {
     private String email;
     private String nickname;
     private String picture;
+    private String socialId;
     private String accessToken;
 
     @Builder
 
-    public OAuthAttributes(Map<String, Object> attributes, String nameAttributeKey, String email, String nickname, String picture, String accessToken) {
+    public OAuthAttributes(Map<String, Object> attributes, String nameAttributeKey, String email, String nickname, String picture, String socialId, String accessToken) {
         this.attributes = attributes;
         this.nameAttributeKey = nameAttributeKey;
         this.email = email;
         this.nickname = nickname;
         this.picture = picture;
+        this.socialId = socialId;
         this.accessToken = accessToken;
     }
 
@@ -41,6 +43,7 @@ public class OAuthAttributes {
                 .nickname((String) attributes.get("name"))
                 .email((String) attributes.get("email"))
                 .picture((String) attributes.get("picture"))
+                .socialId("google")
                 .accessToken(accessToken)
                 .attributes(attributes)
                 .nameAttributeKey(userNameAttributeName)
@@ -54,6 +57,7 @@ public class OAuthAttributes {
                 .nickname((String) response.get("name"))
                 .email((String) response.get("email"))
                 .picture((String) response.get("profile-image"))
+                .socialId("naver")
                 .accessToken(accessToken)
                 .attributes(response)
                 .nameAttributeKey(userNameAttributeName)
@@ -68,6 +72,7 @@ public class OAuthAttributes {
                 .nickname((String) profile.get("nickname"))
                 .email((String) response.get("email"))
                 .picture((String) profile.get("profile_image_url"))
+                .socialId("kakao")
                 .accessToken(accessToken)
                 .attributes(attributes)
                 .nameAttributeKey(userNameAttributeName)
@@ -79,6 +84,7 @@ public class OAuthAttributes {
                 .nickname(nickname)
                 .email(email)
                 .picture(picture)
+                .socialId(socialId)
                 .accessToken(accessToken)
                 .role(Role.USER)
                 .build();

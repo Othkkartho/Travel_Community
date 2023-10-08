@@ -32,6 +32,8 @@ public class Member extends BaseTimeEntity {
     @Column(length = 500)
     private String introduce = "자기소개를 작성하시지 않았습니다";
 
+    @Column(length = 10)
+    private String socialId;
     @Column()
     private String accessToken;
 
@@ -40,13 +42,14 @@ public class Member extends BaseTimeEntity {
     private Role role;
 
     @Builder
-    public Member(String email, String nickname, String picture, String age, String gender, String introduce, String accessToken, Role role) {
+    public Member(String email, String nickname, String picture, String age, String gender, String introduce, String socialId, String accessToken, Role role) {
         this.email = email;
         this.nickname = nickname;
         this.picture = picture;
         this.age = age;
         this.gender = gender;
         this.introduce = introduce;
+        this.socialId = socialId;
         this.accessToken = accessToken;
         this.role = role;
     }
