@@ -32,24 +32,29 @@ public class Member extends BaseTimeEntity {
     @Column(length = 500)
     private String introduce = "자기소개를 작성하시지 않았습니다";
 
+    @Column()
+    private String accessToken;
+
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private Role role;
 
     @Builder
-    public Member(String email, String nickname, String picture, String age, String gender, String introduce, Role role) {
+    public Member(String email, String nickname, String picture, String age, String gender, String introduce, String accessToken, Role role) {
         this.email = email;
         this.nickname = nickname;
         this.picture = picture;
         this.age = age;
         this.gender = gender;
         this.introduce = introduce;
+        this.accessToken = accessToken;
         this.role = role;
     }
 
-    public Member update(String nickname, String picture) {
+    public Member update(String nickname, String picture, String accessToken) {
         this.nickname = nickname;
         this.picture = picture;
+        this.accessToken = accessToken;
 
         return this;
     }

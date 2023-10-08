@@ -14,49 +14,53 @@ public class OAuthAttributes {
     private String email;
     private String nickname;
     private String picture;
+    private String accessToken;
 
     @Builder
 
-    public OAuthAttributes(Map<String, Object> attributes, String nameAttributeKey, String email, String nickname, String picture) {
+    public OAuthAttributes(Map<String, Object> attributes, String nameAttributeKey, String email, String nickname, String picture, String accessToken) {
         this.attributes = attributes;
         this.nameAttributeKey = nameAttributeKey;
         this.email = email;
         this.nickname = nickname;
         this.picture = picture;
+        this.accessToken = accessToken;
     }
 
-    public static OAuthAttributes of(String registrationId, String userNameAttributeName, Map<String, Object> attributes) {
+    public static OAuthAttributes of(String registrationId, String userNameAttributeName, Map<String, Object> attributes, String accessToken) {
         if ("naver".equals(registrationId))
-            return ofNaver("id", attributes);
+            return ofNaver("id", attributes, accessToken);
         else if ("kakao".equals(registrationId))
-            return ofKakao("id", attributes);
+            return ofKakao("id", attributes, accessToken);
 
-        return ofGoogle(userNameAttributeName, attributes);
+        return ofGoogle(userNameAttributeName, attributes, accessToken);
     }
 
-    private static OAuthAttributes ofGoogle(String userNameAttributeName, Map<String, Object> attributes) {
+    private static OAuthAttributes ofGoogle(String userNameAttributeName, Map<String, Object> attributes, String accessToken) {
         return OAuthAttributes.builder()
                 .nickname((String) attributes.get("name"))
                 .email((String) attributes.get("email"))
                 .picture((String) attributes.get("picture"))
+                .accessToken(accessToken)
                 .attributes(attributes)
                 .nameAttributeKey(userNameAttributeName)
                 .build();
     }
 
-    private static OAuthAttributes ofNaver(String userNameAttributeName, Map<String, Object> attributes) {
+    private static OAuthAttributes ofNaver(String userNameAttributeName, Map<String, Object> attributes, String accessToken) {
         Map<String, Object> response = (Map<String, Object>) attributes.get("response");
 
         return OAuthAttributes.builder()
                 .nickname((String) response.get("name"))
                 .email((String) response.get("email"))
                 .picture((String) response.get("profile-image"))
+                .accessToken(accessToken)
                 .attributes(response)
                 .nameAttributeKey(userNameAttributeName)
                 .build();
     }
 
-    private static OAuthAttributes ofKakao(String userNameAttributeName, Map<String, Object> attributes) {
+    private static OAuthAttributes ofKakao(String userNameAttributeName, Map<String, Object> attributes, String accessToken) {
         Map<String, Object> response = (Map<String, Object>) attributes.get("kakao_account");
         Map<String, Object> profile = (Map<String, Object>) response.get("profile");
 
@@ -64,6 +68,7 @@ public class OAuthAttributes {
                 .nickname((String) profile.get("nickname"))
                 .email((String) response.get("email"))
                 .picture((String) profile.get("profile_image_url"))
+                .accessToken(accessToken)
                 .attributes(attributes)
                 .nameAttributeKey(userNameAttributeName)
                 .build();
@@ -74,6 +79,7 @@ public class OAuthAttributes {
                 .nickname(nickname)
                 .email(email)
                 .picture(picture)
+                .accessToken(accessToken)
                 .role(Role.USER)
                 .build();
     }

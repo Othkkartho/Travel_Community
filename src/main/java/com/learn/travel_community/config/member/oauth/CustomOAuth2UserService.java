@@ -30,7 +30,7 @@ public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequ
 
         String registrationId = userRequest.getClientRegistration().getRegistrationId();
         String userNameAttributeName = userRequest.getClientRegistration().getProviderDetails().getUserInfoEndpoint().getUserNameAttributeName();
-        OAuthAttributes attributes = OAuthAttributes.of(registrationId, userNameAttributeName, oAuth2User.getAttributes());
+        OAuthAttributes attributes = OAuthAttributes.of(registrationId, userNameAttributeName, oAuth2User.getAttributes(), userRequest.getAccessToken().getTokenValue());
 
         Member member = saveOrUpdate(attributes);
 
@@ -44,7 +44,7 @@ public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequ
 
     private Member saveOrUpdate(OAuthAttributes attributes) {
         Member user = memberRepository.findByEmail(attributes.getEmail())
-                .map(entity -> entity.update(attributes.getNickname(), attributes.getPicture()))
+                .map(entity -> entity.update(attributes.getNickname(), attributes.getPicture(), attributes.getAccessToken()))
                 .orElse(attributes.toEntity());
 
         return memberRepository.save(user);
