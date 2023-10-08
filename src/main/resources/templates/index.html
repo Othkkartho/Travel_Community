@@ -6,6 +6,15 @@
 </head>
 <body>
     <button onclick="saveReq()">글작성</button>
+    <div th:if="${userName}">
+        Logged in as : <span id="user" th:text="${userName}"></span>
+        <a th:href="@{/logout}" class="btn btn-info active" role="button">Logout</a>
+    </div>
+    <div th:unless="${userName}">
+        <a th:href="@{/oauth2/authorization/google}" class="btn btn-success active" role="button">Google Login</a>
+        <a th:href="@{/oauth2/authorization/naver}" class="btn btn-success active" role="button">Naver Login</a>
+        <a th:href="@{/oauth2/authorization/kakao}" class="btn btn-success active" role="button">kakao Login</a>
+    </div>
 </body>
 <script>
     const saveReq = () => {

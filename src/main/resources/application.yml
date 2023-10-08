@@ -6,4 +6,7 @@ server:
 spring:
   profiles:
     include:
+      - oauth
       - db
+  main:
+    allow-bean-definition-overriding: true
