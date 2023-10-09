@@ -8,6 +8,7 @@
     <button onclick="saveReq()">글작성</button>
     <div th:if="${userName}">
         Logged in as : <span id="user" th:text="${userName}"></span>
+        <a th:href="@{/member/edit}" role="button">회원정보 수정하기</a>
         <a th:href="@{/logout}" class="btn btn-info active" role="button">Logout</a>
     </div>
     <div th:unless="${userName}">
