@@ -22,9 +22,6 @@ public class BaseTimeEntity {
     @UpdateTimestamp
     @Column(insertable = false)
     private LocalDateTime updatedTime;
-
-    @LastModifiedDate
-    private LocalDateTime modifiedDate;
 }
 
 
