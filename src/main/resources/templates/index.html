@@ -5,7 +5,8 @@
     <title>index</title>
 </head>
 <body>
-    <button onclick="saveReq()">글작성</button>
+<button onclick="saveReq()">글작성</button>
+<button onclick="pagingReq()">페이징목록</button>
     <div th:if="${userName}">
         Logged in as : <span id="user" th:text="${userName}"></span>
         <a th:href="@{/member/edit}" role="button">회원정보 수정하기</a>
@@ -20,8 +21,14 @@
     </div>
 </body>
 <script>
-    const saveReq = () => {
-        location.href = "/board/save";
-    }
+
+  const saveReq = () => {
+    location.href = "/board/save";
+  }
+  const pagingReq = () => {
+    location.href = "/board/paging";
+  }
+
+
 </script>
 </html>
