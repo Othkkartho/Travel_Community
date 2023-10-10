@@ -23,7 +23,7 @@ public class BoardController {
     private final CommentService commentService;
 
     @GetMapping("/save")
-    public String saveForm() { return "save"; }
+    public String saveForm() { return "/board/save"; }
 
     @PostMapping("/save")
     public String save(@ModelAttribute BoardDTO boardDTO) throws IOException {
@@ -36,7 +36,7 @@ public class BoardController {
     public String findAll(Model model) {
         List<BoardDTO> boardDTOList = boardService.findAll();
         model.addAttribute("boardList", boardDTOList);
-        return "list";
+        return "/board/list";
     }
 
     @GetMapping("/{id}")
@@ -48,21 +48,22 @@ public class BoardController {
         model.addAttribute("commentList", commentDTOList);
         model.addAttribute("board", boardDTO);
         model.addAttribute("page", pageable.getPageNumber());
-        return "detail";
+        return "/board/detail";
     }
 
     @GetMapping("/update/{id}")
     public String updateForm(@PathVariable Long id, Model model) {
         BoardDTO boardDTO = boardService.findById(id);
         model.addAttribute("boardUpdate", boardDTO);
-        return "update";
+        return "/board/update";
     }
 
     @PostMapping("/update")
     public String update(@ModelAttribute BoardDTO boardDTO, Model model) {
         BoardDTO board = boardService.update(boardDTO);
         model.addAttribute("board", board);
-        return "board/{id}";
+        Long id = boardDTO.getId();
+        return "redirect:/board/" + id;
     }
 
     @GetMapping("/delete/{id}")
@@ -81,6 +82,6 @@ public class BoardController {
         model.addAttribute("boardList", boardList);
         model.addAttribute("startPage", startPage);
         model.addAttribute("endPage", endPage);
-        return "paging";
+        return "/board/paging";
     }
 }
