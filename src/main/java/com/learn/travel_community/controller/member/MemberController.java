@@ -6,13 +6,11 @@ import com.learn.travel_community.domain.member.MemberRepository;
 import com.learn.travel_community.dto.member.MemberDto;
 import com.learn.travel_community.service.member.MemberService;
 import jakarta.servlet.http.HttpSession;
-import jakarta.websocket.server.PathParam;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 @RequiredArgsConstructor

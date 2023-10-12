@@ -18,6 +18,7 @@ import java.util.Objects;
 public class MemberServiceImpl implements MemberService {
     private final MemberRepository memberRepository;
     private final HttpSession httpSession;
+    private final RevokeService revokeService;
 
     @Transactional
     @Override
@@ -33,6 +34,12 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     public void memberRemove(String email) {
-        memberRepository.deleteById(Objects.requireNonNull(memberRepository.findByEmail(email).orElse(null)).getUid());
+        Member member = memberRepository.findByEmail(email).orElse(null);
+        switch (Objects.requireNonNull(member).getSocialId()) {
+            case "google" -> revokeService.deleteGoogleAccount(member.getAccessToken());
+            case "naver" -> revokeService.deleteNaverAccount(member.getAccessToken());
+            default -> revokeService.deleteKakaoAccount(member.getAccessToken());
+        }
+        memberRepository.deleteById(member.getUid());
     }
 }
