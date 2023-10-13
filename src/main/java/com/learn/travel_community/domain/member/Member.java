@@ -12,6 +12,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
+@Builder
 public class Member extends BaseTimeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -43,19 +44,6 @@ public class Member extends BaseTimeEntity {
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private Role role;
-
-    @Builder
-    public Member(String email, String nickname, String picture, int age, int gender, String introduce, String socialId, String accessToken, Role role) {
-        this.email = email;
-        this.nickname = nickname;
-        this.picture = picture;
-        this.age = age;
-        this.gender = gender;
-        this.introduce = introduce;
-        this.socialId = socialId;
-        this.accessToken = accessToken;
-        this.role = role;
-    }
 
     public Member update(String nickname, String accessToken) {
         this.nickname = nickname;

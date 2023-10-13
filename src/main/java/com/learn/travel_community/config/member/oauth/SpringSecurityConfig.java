@@ -38,7 +38,7 @@ public class SpringSecurityConfig {
                                 .requestMatchers(new AntPathRequestMatcher("/api/v1/**")).hasRole(Role.USER.name())
                                 .anyRequest().authenticated()
                 )
-                .logout((logoutConfig) -> logoutConfig.logoutSuccessUrl("/"))
+                .logout(logoutConfig -> logoutConfig.logoutSuccessUrl("/"))
                 .oauth2Login(oauth2 -> oauth2
                         .userInfoEndpoint(userInfoEndpoint -> userInfoEndpoint
                                 .userService(customOAuth2UserService)

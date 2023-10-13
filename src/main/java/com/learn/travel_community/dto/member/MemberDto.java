@@ -2,9 +2,7 @@ package com.learn.travel_community.dto.member;
 
 import com.learn.travel_community.domain.member.Member;
 import com.learn.travel_community.domain.member.Role;
-import jakarta.persistence.Column;
 import lombok.Getter;
-import org.springframework.web.multipart.MultipartFile;
 
 @Getter
 public class MemberDto {

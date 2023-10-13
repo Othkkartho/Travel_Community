@@ -29,6 +29,8 @@ public class MemberServiceImpl implements MemberService {
     private final HttpSession httpSession;
     private final RevokeService revokeService;
 
+    private static final String ANONYMOUS = "/profile/anonymous.png";
+
     @Transactional
     @Override
     public void memberModify(MemberDto memberDto) {
@@ -59,7 +61,7 @@ public class MemberServiceImpl implements MemberService {
     @Override
     public void profileImgChange(ProfileImgDto profileImgDto, String email) {
         Member member = memberRepository.findByEmail(email).orElseThrow(() -> new UsernameNotFoundException("이메일이 존재하지 않습니다."));
-        if (!member.getPicture().equals("/profile/anonymous.png")) {
+        if (!member.getPicture().equals(ANONYMOUS)) {
             try {
                 Files.delete(Path.of(uploadFolder + member.getPicture()));
             } catch (IOException e) {
@@ -89,7 +91,7 @@ public class MemberServiceImpl implements MemberService {
     public void profileImgRemove(String email) {
         Member member = memberRepository.findByEmail(email).orElseThrow(() -> new UsernameNotFoundException("이메일이 존재하지 않습니다."));
 
-        if (member.getPicture().equals("/profile/anonymous.png")) {
+        if (member.getPicture().equals(ANONYMOUS)) {
             return;
         }
 
@@ -99,7 +101,7 @@ public class MemberServiceImpl implements MemberService {
             throw new RuntimeException(e);
         }
 
-        member.updatePicture("/profile/anonymous.png");
+        member.updatePicture(ANONYMOUS);
 
         memberRepository.save(member);
     }

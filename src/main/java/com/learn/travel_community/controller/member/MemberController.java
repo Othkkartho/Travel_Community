@@ -22,10 +22,13 @@ public class MemberController {
     private final MemberService memberService;
     private final HttpSession httpSession;
 
+    private static final String ATTRIBUTENAME = "member";
+    private static final String REDIRECTHOME = "redirect:/";
+
     @GetMapping(value="/profile")
     public String getMyProfile(Model model) {
         Member member = memberRepository.findByEmail(((SessionMember) httpSession.getAttribute("user")).getEmail()).orElse(null);
-        model.addAttribute("member", member);
+        model.addAttribute(ATTRIBUTENAME, member);
 
         return "/member/profile";
     }
@@ -33,7 +36,7 @@ public class MemberController {
     @GetMapping(value="/profile/{uid}")
     public String getOthersProfile(@PathVariable String uid, Model model) {
         Member member = memberRepository.findById(Long.parseLong(uid)).orElse(null);
-        model.addAttribute("member", member);
+        model.addAttribute(ATTRIBUTENAME, member);
 
         return "/member/profile";
     }
@@ -41,7 +44,7 @@ public class MemberController {
     @GetMapping(value="/edit")
     public String getUsers(Model model) {
         Member member = memberRepository.findByEmail(((SessionMember) httpSession.getAttribute("user")).getEmail()).orElse(null);
-        model.addAttribute("member", member);
+        model.addAttribute(ATTRIBUTENAME, member);
 
         return "/member/edit";
     }
@@ -50,7 +53,7 @@ public class MemberController {
     public String memberModify(@ModelAttribute MemberDto memberDto) {
         memberService.memberModify(memberDto);
 
-        return "redirect:/";
+        return REDIRECTHOME;
     }
 
     @GetMapping("/profileImg/modify")
@@ -62,14 +65,14 @@ public class MemberController {
     public String imgChange(@ModelAttribute ProfileImgDto profileImgDto) {
         memberService.profileImgChange(profileImgDto, ((SessionMember) httpSession.getAttribute("user")).getEmail());
 
-        return "redirect:/";
+        return REDIRECTHOME;
     }
 
     @GetMapping("/profileImg/remove")
     public String removeProfileImg() {
         memberService.profileImgRemove(((SessionMember) httpSession.getAttribute("user")).getEmail());
 
-        return "redirect:/";
+        return REDIRECTHOME;
     }
 
     @GetMapping("/remove")
