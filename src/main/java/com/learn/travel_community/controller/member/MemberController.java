@@ -4,6 +4,7 @@ import com.learn.travel_community.config.member.oauth.dto.SessionMember;
 import com.learn.travel_community.domain.member.Member;
 import com.learn.travel_community.domain.member.MemberRepository;
 import com.learn.travel_community.dto.member.MemberDto;
+import com.learn.travel_community.dto.member.ProfileImgDto;
 import com.learn.travel_community.service.member.MemberService;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
@@ -46,8 +47,27 @@ public class MemberController {
     }
 
     @PostMapping( "/modify")
-    public String memberModify(MemberDto memberDto) {
+    public String memberModify(@ModelAttribute MemberDto memberDto) {
         memberService.memberModify(memberDto);
+
+        return "redirect:/";
+    }
+
+    @GetMapping("/profileImg/modify")
+    public String getImgChange() {
+        return "/member/profileImg";
+    }
+
+    @PostMapping("/profileImg/modify")
+    public String imgChange(@ModelAttribute ProfileImgDto profileImgDto) {
+        memberService.profileImgChange(profileImgDto, ((SessionMember) httpSession.getAttribute("user")).getEmail());
+
+        return "redirect:/";
+    }
+
+    @GetMapping("/profileImg/remove")
+    public String removeProfileImg() {
+        memberService.profileImgRemove(((SessionMember) httpSession.getAttribute("user")).getEmail());
 
         return "redirect:/";
     }

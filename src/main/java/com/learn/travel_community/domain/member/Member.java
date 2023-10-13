@@ -17,7 +17,7 @@ public class Member extends BaseTimeEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long uid;
 
-    @Column(length = 100, nullable = false)
+    @Column(length = 100, nullable = false, unique = true)
     private String email;
 
     @Column(length = 30, nullable = false)
@@ -57,17 +57,19 @@ public class Member extends BaseTimeEntity {
         this.role = role;
     }
 
-    public Member update(String nickname, String picture, String accessToken) {
+    public Member update(String nickname, String accessToken) {
         this.nickname = nickname;
-        this.picture = picture;
         this.accessToken = accessToken;
 
         return this;
     }
 
+    public void updatePicture(String picture) {
+        this.picture = picture;
+    }
+
     public Member modify(MemberDto memberDto) {
         this.nickname = memberDto.getNickname();
-        this.picture = memberDto.getPicture();
         this.age = memberDto.getAge();
         this.gender = memberDto.getGender();
         this.introduce = memberDto.getIntroduce();

@@ -4,20 +4,19 @@ import com.learn.travel_community.domain.member.Member;
 import com.learn.travel_community.domain.member.Role;
 import jakarta.persistence.Column;
 import lombok.Getter;
+import org.springframework.web.multipart.MultipartFile;
 
 @Getter
 public class MemberDto {
     private String email;
     private String nickname;
-    private String picture;
     private int age;
     private int gender;
     private String introduce;
 
-    public MemberDto(String email, String nickname, String picture, int age, int gender, String introduce) {
+    public MemberDto(String email, String nickname, int age, int gender, String introduce) {
         this.email = email;
         this.nickname = nickname;
-        this.picture = picture;
         this.age = age;
         this.gender = gender;
         this.introduce = introduce;
@@ -27,7 +26,9 @@ public class MemberDto {
         return Member.builder()
                 .nickname(nickname)
                 .email(email)
-                .picture(picture)
+                .age(age)
+                .gender(gender)
+                .introduce(introduce)
                 .role(Role.USER)
                 .build();
     }

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <div>
+        <form class="form-horizontal" th:action="@{/member/profileImg/modify}" method="post" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="profileImg" class="col-sm-2 control-label">프로필 사진</label>
+                <div class="col-sm-10">
+                    <input type="file" class="form-control input-large" name="profileImg" id="profileImg" accept="image/*">
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-offset-1 col-sm-10">
+                    <button type="Submit" class="btn btn-dark btn-lg">수정</button>
+                    <button type="button" onclick="removeProfileImg();"> 이미지 삭제하기 </button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <script>
+        function removeProfileImg() {
+            if(window.confirm("프로필 이미지를 삭제하시겠습니까?")){
+                location.href="/member/profileImg/remove";
+            }
+        }
+    </script>
+</body>
+</html>

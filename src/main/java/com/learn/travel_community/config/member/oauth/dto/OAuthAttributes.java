@@ -18,7 +18,6 @@ public class OAuthAttributes {
     private String accessToken;
 
     @Builder
-
     public OAuthAttributes(Map<String, Object> attributes, String nameAttributeKey, String email, String nickname, String picture, String socialId, String accessToken) {
         this.attributes = attributes;
         this.nameAttributeKey = nameAttributeKey;
@@ -42,7 +41,7 @@ public class OAuthAttributes {
         return OAuthAttributes.builder()
                 .nickname((String) attributes.get("name"))
                 .email((String) attributes.get("email"))
-                .picture((String) attributes.get("picture"))
+                .picture("/profile/anonymous.png")
                 .socialId("google")
                 .accessToken(accessToken)
                 .attributes(attributes)
@@ -54,9 +53,9 @@ public class OAuthAttributes {
         Map<String, Object> response = (Map<String, Object>) attributes.get("response");
 
         return OAuthAttributes.builder()
-                .nickname((String) response.get("name"))
+                .nickname((String) response.get("nickname"))
                 .email((String) response.get("email"))
-                .picture((String) response.get("profile-image"))
+                .picture("/profile/anonymous.png")
                 .socialId("naver")
                 .accessToken(accessToken)
                 .attributes(response)
@@ -71,7 +70,7 @@ public class OAuthAttributes {
         return OAuthAttributes.builder()
                 .nickname((String) profile.get("nickname"))
                 .email((String) response.get("email"))
-                .picture((String) profile.get("profile_image_url"))
+                .picture("/profile/anonymous.png")
                 .socialId("kakao")
                 .accessToken(accessToken)
                 .attributes(attributes)
