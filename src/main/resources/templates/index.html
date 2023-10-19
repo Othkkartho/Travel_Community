@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>index</title>
+</head>
+<body>
+<button onclick="saveReq()">글작성</button>
+<button onclick="pagingReq()">페이징목록</button>
+    <div th:if="${userName}">
+        Logged in as : <span id="user" th:text="${userName}"></span>
+        <a th:href="@{/member/edit}" role="button">회원정보 수정하기</a>
+        <a th:href="@{/member/profile}" role="button">프로필 보기</a>
+        <a th:href="@{/member/profileImg/modify}" role="button">이미지 변경</a>
+        <a th:href="@{/logout}" class="btn btn-info active" role="button">Logout</a>
+    </div>
+    <div th:unless="${userName}">
+        <a th:href="@{/oauth2/authorization/google}" class="btn btn-success active" role="button">Google Login</a>
+        <a th:href="@{/oauth2/authorization/naver}" class="btn btn-success active" role="button">Naver Login</a>
+        <a th:href="@{/oauth2/authorization/kakao}" class="btn btn-success active" role="button">kakao Login</a>
+    </div>
+</body>
+<script>
+
+  const saveReq = () => {
+    location.href = "/board/save";
+  }
+  const pagingReq = () => {
+    location.href = "/board/paging";
+  }
+
+
+</script>
+</html>
