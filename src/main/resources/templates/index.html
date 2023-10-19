@@ -2,33 +2,156 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>index</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- FontAwesome 아이콘 라이브러리 추가 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/style.css"/>
+    <!-- Chart js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+
+    <title>MyTravelDiary</title>
+
 </head>
 <body>
-<button onclick="saveReq()">글작성</button>
-<button onclick="pagingReq()">페이징목록</button>
-    <div th:if="${userName}">
-        Logged in as : <span id="user" th:text="${userName}"></span>
-        <a th:href="@{/member/edit}" role="button">회원정보 수정하기</a>
-        <a th:href="@{/member/profile}" role="button">프로필 보기</a>
-        <a th:href="@{/member/profileImg/modify}" role="button">이미지 변경</a>
-        <a th:href="@{/logout}" class="btn btn-info active" role="button">Logout</a>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-light" id="header-main">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+              <a href="index.html">
+                <img class="navbar-brand" src="img/main/logo/Green.png" id="logo_img" alt="">
+              </a>
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">여행지</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">커뮤니티</a>
+                    </li>
+                </ul>
+            </div>
+            <div th:if="${userName}">
+                <img id="picture" th:src="|/img${profileImg}|" width="180" height="180" alt="">
+            </div>
+            <div th:unless="${userName}">
+                <button class="btn btn-light" data-bs-toggle="modal" data-bs-target="#exampleModal" id="login">로그인</button>
+            </div>
+        </nav>
+    </header>
+    <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+      <div class="carousel-inner">
+        <div class="carousel-item active">
+          <img src="img/testImg/cafe.jpg" class="d-block w-100" alt="..." id="slide">
+
+          <div class="text-overlay-main">고생 끝에 커피 와요, 언덕 위 해방촌 카페 3
+            <br>
+            <div class="text-overlay"> ‘해방촌’은 놀러 온 이들에게 고생과 재미를 함께 주는 곳이다. 해방 이후 조국으로 돌아온 동포들과 한국전쟁 이후 서울에 정착한 피난민들이 모여 살았다는 동네.<br>
+              다양한 국적의 사람들이 섞여 만들어 내는 자유로운 분위기와 이국적인 음식점을 경험하는 재미는 짜릿하지만, 이를 온전히 누리려면 험난한 급경사와 인도/차도 구분 없는 좁은 도로를 견뎌야만 한다.
+            </div>
+
+          </div>
+
+
+        </div>
+        <div class="carousel-item">
+          <img src="img/main/logo/logo2.png" class="d-block w-100" alt="...">
+        </div>
+        <div class="carousel-item">
+          <img src="img/testImg/pngwing.com.png" class="d-block w-100" alt="...">
+        </div>
+      </div>
+      <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+      </button>
     </div>
-    <div th:unless="${userName}">
-        <a th:href="@{/oauth2/authorization/google}" class="btn btn-success active" role="button">Google Login</a>
-        <a th:href="@{/oauth2/authorization/naver}" class="btn btn-success active" role="button">Naver Login</a>
-        <a th:href="@{/oauth2/authorization/kakao}" class="btn btn-success active" role="button">kakao Login</a>
-    </div>
-</body>
-<script>
 
-  const saveReq = () => {
-    location.href = "/board/save";
-  }
-  const pagingReq = () => {
-    location.href = "/board/paging";
-  }
-
-
+    <div class="chart">
+      <canvas id="bar-chart" width="500"  height="450"></canvas>
+      <script> new Chart(document.getElementById("bar-chart"), {
+        type: 'bar',
+        data: {
+          labels: ["서울", "수원", "담양", "천안"],
+          datasets: [
+            {
+              label: "국내 여행 인기 지역 (명)",
+              backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9"],
+              data: [5478,2267,734,784]
+            }
+          ]
+        },
+        options: {
+          responsive: false,
+          legend: { display: false },
+        }
+    });
+  </script>
+  <canvas id="bar-chart2" width="500"  height="450"></canvas>
+  <script> new Chart(document.getElementById("bar-chart2"), {
+    type: 'pie',
+    data: {
+      labels: ["오사카", "도쿄", "후쿠오카", "교토"],
+      datasets: [
+        {
+          label: "해외 여행 인기 지역 (명)",
+          backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9"],
+          data: [2478,5267,734,784,433]
+        }
+      ]
+    },
+    options: {
+      responsive: false,
+      legend: { display: false },
+    }
+});
 </script>
+<!-- 로그인 -->
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal-dialog">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h5 class="modal-title" id="exampleModalLabel"></h5>
+      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    </div>
+    <div class="modal-body text-center">
+      <a th:href="@{/oauth2/authorization/kakao}" role="button"><img src="img/member/oauthLogo/kakao.png" alt=""></a>
+      <a th:href="@{/oauth2/authorization/naver}" role="button"><img src="img/member/oauthLogo/naver.png" alt=""></a>
+      <a th:href="@{/oauth2/authorization/google}" role="button"><img src="img/member/oauthLogo/google.png" alt=""></a>
+    </div>
+    <div class="modal-footer">
+      <!--
+      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      <button type="button" class="btn btn-primary">Save changes</button>
+      -->
+    </div>
+  </div>
+</div>
+</div>
+</div>
+    <br>
+    <br>
+    <footer class="text-black py-4" id="footerbg">
+        <div class="container">
+            <div class="row text-start">
+                <div class="col-md-6">
+                    <h5>소개</h5>
+                    <p>이용 약관</p>
+                    <p>문의하기</p>
+                </div>
+
+                <div class="col-md-6">
+                  <img src="img/main/logo/Green.png" id="logo_img">
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
 </html>

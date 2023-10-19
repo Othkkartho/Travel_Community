@@ -29,7 +29,7 @@ public class MemberServiceImpl implements MemberService {
     private final HttpSession httpSession;
     private final RevokeService revokeService;
 
-    private static final String ANONYMOUS = "/profile/anonymous.png";
+    private static final String ANONYMOUS = "/profile/profile.png";
 
     @Transactional
     @Override
