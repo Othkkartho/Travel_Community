@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -32,8 +32,15 @@
                 </li>
             </ul>
             </div>
-            <div th:if="${userName}">
-                <img id="picture" th:src="|images${profileImg}|" width="180" height="180" alt="">
+            <div class="dropdown" th:if="${userName}">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                    <img th:src="|images${profileImg}|">
+                </button>
+                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton" id="profile-menu">
+                    <li><p class="dropdown-item disabled" href="#" tabindex="-1" aria-disabled="true" id="profile-name">[[${userName}]]</p></li>
+                    <li><a class="dropdown-item" href="/member/profile" id="profile-info">프로필정보</a></li>
+                    <li><a class="dropdown-item" href="/logout" id="profile-logout">로그아웃</a></li>
+                </ul>
             </div>
             <div th:unless="${userName}">
                 <button class="btn btn-light" data-bs-toggle="modal" data-bs-target="#exampleModal" id="login">로그인</button>

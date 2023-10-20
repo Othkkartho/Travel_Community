@@ -178,7 +178,7 @@
         }
         #mypage-cover{
             height: 250px;
-            background-image: url(travel.jpg);
+            background-image: url(/images/testImg/travel.jpg);
         }
         #mypage-icon img{
             padding: 30px;

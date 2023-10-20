@@ -30,7 +30,7 @@ public class MemberController {
         Member member = memberRepository.findByEmail(((SessionMember) httpSession.getAttribute("user")).getEmail()).orElse(null);
         model.addAttribute(ATTRIBUTENAME, member);
 
-        return "/member/profile";
+        return "member/profile";
     }
 
     @GetMapping(value="/profile/{uid}")
@@ -38,7 +38,7 @@ public class MemberController {
         Member member = memberRepository.findById(Long.parseLong(uid)).orElse(null);
         model.addAttribute(ATTRIBUTENAME, member);
 
-        return "/member/profile";
+        return "member/profile";
     }
 
     @GetMapping(value="/edit")
@@ -46,7 +46,7 @@ public class MemberController {
         Member member = memberRepository.findByEmail(((SessionMember) httpSession.getAttribute("user")).getEmail()).orElse(null);
         model.addAttribute(ATTRIBUTENAME, member);
 
-        return "/member/edit";
+        return "member/edit";
     }
 
     @PostMapping( "/modify")
@@ -58,7 +58,7 @@ public class MemberController {
 
     @GetMapping("/profileImg/modify")
     public String getImgChange() {
-        return "/member/profileImg";
+        return "member/profileImg";
     }
 
     @PostMapping("/profileImg/modify")
