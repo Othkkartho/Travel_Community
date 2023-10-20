@@ -1,6 +1,7 @@
 package com.learn.travel_community.domain.board;
 
 import com.learn.travel_community.domain.BaseTimeEntity;
+import com.learn.travel_community.domain.member.Member;
 import com.learn.travel_community.dto.board.BoardDTO;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -18,12 +19,6 @@ public class BoardEntity extends BaseTimeEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY) // auto_increment
     private Long id;
 
-    @Column(length = 20, nullable = false)
-    private String boardWriter;
-
-    @Column
-    private String boardPass;
-
     @Column
     private String boardTitle;
 
@@ -36,16 +31,19 @@ public class BoardEntity extends BaseTimeEntity {
     @Column
     private int fileAttached; // 1 or 0
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(nullable = false, name = "member_id")
+    private Member member;
+
     @OneToMany(mappedBy = "boardEntity", cascade = CascadeType.REMOVE, orphanRemoval = true, fetch = FetchType.LAZY)
     private List<BoardFileEntity> boardFileEntityList = new ArrayList<>();
 
     @OneToMany(mappedBy = "boardEntity", cascade = CascadeType.REMOVE, orphanRemoval = true, fetch = FetchType.LAZY)
     private List<CommentEntity> commentEntityList = new ArrayList<>();
 
-    public static BoardEntity toSaveEntity(BoardDTO boardDTO) {
+    public static BoardEntity toSaveEntity(Member member, BoardDTO boardDTO) {
         BoardEntity boardEntity = new BoardEntity();
-        boardEntity.setBoardWriter(boardDTO.getBoardWriter());
-        boardEntity.setBoardPass(boardDTO.getBoardPass());
+        boardEntity.setMember(member);
         boardEntity.setBoardTitle(boardDTO.getBoardTitle());
         boardEntity.setBoardContents(boardDTO.getBoardContents());
         boardEntity.setBoardHits(0);
@@ -53,21 +51,19 @@ public class BoardEntity extends BaseTimeEntity {
         return boardEntity;
     }
 
-    public static BoardEntity toUpdateEntity(BoardDTO boardDTO) {
+    public static BoardEntity toUpdateEntity(Member member, BoardDTO boardDTO) {
         BoardEntity boardEntity = new BoardEntity();
         boardEntity.setId(boardDTO.getId());
-        boardEntity.setBoardWriter(boardDTO.getBoardWriter());
-        boardEntity.setBoardPass(boardDTO.getBoardPass());
+        boardEntity.setMember(member);
         boardEntity.setBoardTitle(boardDTO.getBoardTitle());
         boardEntity.setBoardContents(boardDTO.getBoardContents());
         boardEntity.setBoardHits(boardDTO.getBoardHits());
         return boardEntity;
     }
 
-    public static BoardEntity toSaveFileEntity(BoardDTO boardDTO) {
+    public static BoardEntity toSaveFileEntity(Member member, BoardDTO boardDTO) {
         BoardEntity boardEntity = new BoardEntity();
-        boardEntity.setBoardWriter(boardDTO.getBoardWriter());
-        boardEntity.setBoardPass(boardDTO.getBoardPass());
+        boardEntity.setMember(member);
         boardEntity.setBoardTitle(boardDTO.getBoardTitle());
         boardEntity.setBoardContents(boardDTO.getBoardContents());
         boardEntity.setBoardHits(0);

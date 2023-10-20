@@ -1,9 +1,13 @@
 package com.learn.travel_community.controller.board;
 
+import com.learn.travel_community.config.member.oauth.dto.SessionMember;
+import com.learn.travel_community.domain.member.Member;
+import com.learn.travel_community.domain.member.MemberRepository;
 import com.learn.travel_community.dto.board.BoardDTO;
 import com.learn.travel_community.dto.board.CommentDTO;
 import com.learn.travel_community.service.board.BoardService;
 import com.learn.travel_community.service.board.CommentService;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -19,17 +23,26 @@ import java.util.List;
 @RequiredArgsConstructor
 @RequestMapping("/board")
 public class BoardController {
+    private final MemberRepository memberRepository;
     private final BoardService boardService;
     private final CommentService commentService;
+    private final HttpSession httpSession;
 
     @GetMapping("/save")
-    public String saveForm() { return "/board/save"; }
+    public String saveForm(Model model) {
+        SessionMember member = (SessionMember) httpSession.getAttribute("user");
+        model.addAttribute("userName", member.getNickname());
+        model.addAttribute("profileImg", member.getPicture());
+
+        return "/board/save";
+    }
 
     @PostMapping("/save")
     public String save(@ModelAttribute BoardDTO boardDTO) throws IOException {
-        System.out.println("boardDTO = " + boardDTO);
-        boardService.save(boardDTO);
-        return "index";
+        Member member = memberRepository.findByEmail(((SessionMember) httpSession.getAttribute("user")).getEmail()).orElse(null);
+        boardService.save(member, boardDTO);
+
+        return "redirect:/";
     }
 
     @GetMapping("/")
@@ -60,7 +73,8 @@ public class BoardController {
 
     @PostMapping("/update")
     public String update(@ModelAttribute BoardDTO boardDTO, Model model) {
-        BoardDTO board = boardService.update(boardDTO);
+        Member member = memberRepository.findByEmail(((SessionMember) httpSession.getAttribute("user")).getEmail()).orElse(null);
+        BoardDTO board = boardService.update(member, boardDTO);
         model.addAttribute("board", board);
         Long id = boardDTO.getId();
         return "redirect:/board/" + id;

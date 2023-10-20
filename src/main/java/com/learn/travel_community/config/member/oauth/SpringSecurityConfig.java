@@ -35,7 +35,7 @@ public class SpringSecurityConfig {
                                         new AntPathRequestMatcher("/profile"),
                                         new AntPathRequestMatcher("/board/**")
                                 ).permitAll()
-                                .requestMatchers(new AntPathRequestMatcher("/api/v1/**")).hasRole(Role.USER.name())
+                                .requestMatchers(new AntPathRequestMatcher("/board/save/**")).hasRole(Role.USER.name())
                                 .anyRequest().authenticated()
                 )
                 .logout(logoutConfig -> logoutConfig.logoutSuccessUrl("/"))

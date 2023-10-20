@@ -1,6 +1,7 @@
 package com.learn.travel_community.domain.board;
 
 import com.learn.travel_community.domain.BaseTimeEntity;
+import com.learn.travel_community.domain.member.Member;
 import com.learn.travel_community.dto.board.CommentDTO;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -25,6 +26,10 @@ public class CommentEntity extends BaseTimeEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "board_id")
     private BoardEntity boardEntity;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(nullable = false)
+    private Member member;
 
 
     public static CommentEntity toSaveEntity(CommentDTO commentDTO, BoardEntity boardEntity) {

@@ -6,7 +6,7 @@ build/
 !**/src/test/**/build/
 src/main/resources/application-db.yml
 src/main/resources/application-oauth.yml
-src/main/resources/static/img/profile/*
+src/main/resources/static/img/**
 
 ### STS ###
 .apt_generated
