@@ -27,7 +27,7 @@ public class CommentEntity extends BaseTimeEntity {
     @JoinColumn(name = "board_id")
     private BoardEntity boardEntity;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(nullable = false)
     private Member member;
 

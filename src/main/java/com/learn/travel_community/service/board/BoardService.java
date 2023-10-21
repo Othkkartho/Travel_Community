@@ -2,11 +2,11 @@ package com.learn.travel_community.service.board;
 
 import com.learn.travel_community.domain.board.BoardFileEntity;
 import com.learn.travel_community.domain.member.Member;
+import com.learn.travel_community.domain.member.MemberRepository;
 import com.learn.travel_community.dto.board.BoardDTO;
 import com.learn.travel_community.domain.board.BoardEntity;
 import com.learn.travel_community.repository.board.BoardFileRepository;
 import com.learn.travel_community.repository.board.BoardRepository;
-import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
@@ -14,13 +14,11 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -31,7 +29,9 @@ public class BoardService {
 
     @Value("${file.path}")
     private String uploadFolder;
+    private final MemberRepository memberRepository;
 
+    @Transactional
     public void save(Member member, BoardDTO boardDTO) throws IOException {
         // 파일 첨부 여부에 따라 로직 분리
         if (boardDTO.getBoardFile().isEmpty()) {
@@ -54,16 +54,6 @@ public class BoardService {
             boardFileRepository.save(boardFileEntity);
         }
 
-    }
-
-    @Transactional
-    public List<BoardDTO> findAll() {
-        List<BoardEntity> boardEntityList = boardRepository.findAll();
-        List<BoardDTO> boardDTOList = new ArrayList<>();
-        for (BoardEntity boardEntity: boardEntityList) {
-            boardDTOList.add(BoardDTO.toBoardDTO(boardEntity));
-        }
-        return boardDTOList;
     }
 
     @Transactional
@@ -90,11 +80,15 @@ public class BoardService {
         return findById(boardDTO.getId());
     }
 
-    public void delete(Long id) {
+    @Transactional
+    public void delete(Long uid, Long id) {
+        Member member = memberRepository.findById(uid).orElseThrow();
+
+        member.getBoards().removeIf(board -> board.getId().equals(id));
         boardRepository.deleteById(id);
     }
 
-    @Transactional
+    @Transactional(readOnly = true)
     public Page<BoardDTO> paging(Pageable pageable) {
         int page = pageable.getPageNumber() - 1;
         int pageLimit = 10; // 한 페이지에 보여줄 글 갯수
@@ -104,7 +98,6 @@ public class BoardService {
                 boardRepository.findAll(PageRequest.of(page, pageLimit, Sort.by(Sort.Direction.DESC, "id")));
 
         // 목록: id, member, title, hits, createdTime
-        Page<BoardDTO> boardDTOS = boardEntities.map(board -> new BoardDTO(board.getId(), board.getMember(), board.getBoardTitle(), board.getBoardHits(), board.getCreatedTime()));
-        return boardDTOS;
+        return boardEntities.map(board -> new BoardDTO(board.getId(), board.getMember(), board.getBoardTitle(), board.getBoardHits(), board.getCreatedTime()));
     }
 }

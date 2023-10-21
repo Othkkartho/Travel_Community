@@ -1,10 +1,12 @@
 package com.learn.travel_community.controller.board;
 
 import com.learn.travel_community.config.member.oauth.dto.SessionMember;
+import com.learn.travel_community.domain.board.BoardEntity;
 import com.learn.travel_community.domain.member.Member;
 import com.learn.travel_community.domain.member.MemberRepository;
 import com.learn.travel_community.dto.board.BoardDTO;
 import com.learn.travel_community.dto.board.CommentDTO;
+import com.learn.travel_community.repository.board.BoardRepository;
 import com.learn.travel_community.service.board.BoardService;
 import com.learn.travel_community.service.board.CommentService;
 import jakarta.servlet.http.HttpSession;
@@ -27,6 +29,7 @@ public class BoardController {
     private final BoardService boardService;
     private final CommentService commentService;
     private final HttpSession httpSession;
+    private final BoardRepository boardRepository;
 
     @GetMapping("/save")
     public String saveForm(Model model) {
@@ -34,7 +37,7 @@ public class BoardController {
         model.addAttribute("userName", member.getNickname());
         model.addAttribute("profileImg", member.getPicture());
 
-        return "/board/save";
+        return "board/save";
     }
 
     @PostMapping("/save")
@@ -43,13 +46,6 @@ public class BoardController {
         boardService.save(member, boardDTO);
 
         return "redirect:/";
-    }
-
-    @GetMapping("/")
-    public String findAll(Model model) {
-        List<BoardDTO> boardDTOList = boardService.findAll();
-        model.addAttribute("boardList", boardDTOList);
-        return "/board/list";
     }
 
     @GetMapping("/{id}")
@@ -61,14 +57,14 @@ public class BoardController {
         model.addAttribute("commentList", commentDTOList);
         model.addAttribute("board", boardDTO);
         model.addAttribute("page", pageable.getPageNumber());
-        return "/board/detail";
+        return "board/detail";
     }
 
     @GetMapping("/update/{id}")
     public String updateForm(@PathVariable Long id, Model model) {
         BoardDTO boardDTO = boardService.findById(id);
         model.addAttribute("boardUpdate", boardDTO);
-        return "/board/update";
+        return "board/update";
     }
 
     @PostMapping("/update")
@@ -80,10 +76,11 @@ public class BoardController {
         return "redirect:/board/" + id;
     }
 
-    @GetMapping("/delete{id}")
+    @GetMapping("/delete/{id}")
     public String delete(@PathVariable Long id) {
-        boardService.delete(id);
-        return "redirect:/board/";
+        BoardEntity boardEntity = boardRepository.findById(id).orElseThrow();
+        boardService.delete(boardEntity.getMember().getUid(), id);
+        return "redirect:/board/paging";
     }
 
     @GetMapping("/paging")
@@ -96,6 +93,6 @@ public class BoardController {
         model.addAttribute("boardList", boardList);
         model.addAttribute("startPage", startPage);
         model.addAttribute("endPage", endPage);
-        return "/board/paging";
+        return "board/paging";
     }
 }
