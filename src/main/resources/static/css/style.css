@@ -8,9 +8,6 @@
             text-align: center;
             
           }
-          img {
-            width: 400px;
-          }
           
           .inner {
             position: relative;
@@ -44,7 +41,10 @@
           i:hover {
             cursor: pointer;
           }
-          
+          #dropdownMenuButton img{
+              width: 50px;
+              margin-right: 10px;
+          }
           
           .weegle_inner {
             width: 160px;
@@ -178,7 +178,7 @@
         }
         #mypage-cover{
             height: 250px;
-            background-image: url(/images/testImg/travel.jpg);
+            background-image: url(../images/testImg/travel.jpg);
         }
         #mypage-icon img{
             padding: 30px;
