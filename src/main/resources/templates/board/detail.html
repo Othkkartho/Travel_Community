@@ -34,7 +34,7 @@
     </tr>
     <tr th:if="${board.fileAttached == 1}">
         <th>image</th>
-        <td><img th:src="@{|/img/board/${board.storedFileName}|}" alt="이미지 못찾음"></td>
+        <td><img th:src="@{|images|}" alt="이미지 못찾음"></td>
     </tr>
 </table>
 <button onclick="listReq()">목록</button>
