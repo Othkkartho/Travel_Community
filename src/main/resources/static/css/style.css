@@ -22,7 +22,7 @@
             
           }
           
-          input {
+          #search {
             width: 90%;
             height: 100%;
             border-color: #bdc1c6;
@@ -128,10 +128,15 @@
           max-height: 400px;
           filter: brightness(70%);
         }
-        .logo_img{
+        #logo_img{
           width: 100px;
           height: 100px;
           float: right;
+        }
+        .logo_img{
+            width: 100px;
+            height: 100px;
+            float: right;
         }
         #login{
             color: #2FAF53;
@@ -224,4 +229,38 @@
             width: 120px;
             height: 50px;
             text-align: center;
+        }
+        .form-group label{
+          color: #2FAF53;
+        }
+        #profile_h1 {
+          color: #2FAF53;
+          font-weight: bold;
+          margin: 10px;
+        }
+        .tbl_wrp{
+          margin: 30px;
+        }
+        .tbl_wrp > form > .form-group{
+          margin-bottom: 10px;
+        }
+        #profile_acde{
+          margin-top: 10px;
+        }
+        #profile_submit{
+          margin-right: 10px;
+        }
+        #profile_edit {
+            background-color: #2FAF53;
+        }
+        #profile_imgpage{
+            margin: 20px;
+        }
+        #profile_imgpage label{
+            font-size: large;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        #profileImg{
+            margin-bottom: 20px;
         }

@@ -50,11 +50,13 @@
     <div id="mypage-cover">    
     </div>
     <!-- 프로필 아이콘 및 이름 좋아요-->
-    <div id="mypage-icon" class="row" th:object="${member}">
-        <img th:src="|/images*{picture}|" class="col-1">
-        <p class="d-flex align-items-end col-1">[[*{nickname}]]</p>
-        <p class="d-flex align-items-end col-1"> 좋아요 </p>
-        <p class="d-flex align-items-end col-1" id="icon-fav">7</p>
+    <div id="mypage-icon" class="d-flex bd-highlight mb-3" th:object="${member}">
+        <img th:src="|/images*{picture}|" class="p-2 bd-highlight">
+        <p class="p-2 bd-highlight align-self-center">[[*{nickname}]]</p>
+        <p class="p-2 bd-highlight align-self-center"> 좋아요 </p>
+        <p class="p-2 bd-highlight align-self-center" id="icon-fav">7</p>
+        <a class="btn btn-primary ms-auto p-2 bd-highlight align-self-center" id="profile_imgedit" role="button">프로필 사진 수정</a>
+        <a class="btn btn-primary p-2 bd-highlight align-self-center" id="profile_edit" href="/member/edit" role="button">회원정보 수정</a>
         
     </div>
     <!-- 프로필 탭 -->
@@ -194,6 +196,11 @@
                 dis.style.display = "block";
             } else {
                 dis.style.display = "none";
+            }
+
+            /* 프로필 이미지 변경 모달 */
+            function openimgModal(){
+                $('#exampleModal').load("member/profileImg/modify");
             }
         </script>
 </body>
