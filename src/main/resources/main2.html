@@ -7,12 +7,170 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
         <!-- FontAwesome 아이콘 라이브러리 추가 -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"/>
-        <link rel="stylesheet" href="style.css"/>
         <!-- Chart js -->
         <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
         
         <title>MyTravelDiary</title>
-        
+        <style>
+            body {
+                background-color: white;
+                margin: 0;
+                box-sizing: border-box;
+              }
+              
+              .container {
+                text-align: center;
+                
+              }
+              img {
+                width: 400px;
+              }
+              
+              .inner {
+                position: relative;
+                width:80%;
+                height: 60px;
+                margin: 20px auto;
+                border: 1px solid #bdc1c6;
+                border-radius: 35px;
+                margin-bottom: 100px;
+                
+                
+              }
+              
+              input {
+                width: 90%;
+                height: 100%;
+                border-color: #bdc1c6;
+                border: 0px;
+                font-size: 16px;
+                outline: none;
+    
+              }
+              
+              .searching {
+                position: absolute;
+                right: 20px;
+                top: 30%;
+              }
+              
+              i:hover {
+                cursor: pointer;
+              }
+              
+              
+              .weegle_inner {
+                width: 160px;
+                height: 40px;
+                padding: 10px;
+                margin: 10px;
+                border-radius: 10px;
+                border: 0px;
+                vertical-align: middle;
+              }
+              
+              .weegle_inner:hover {
+                cursor: pointer;
+              }
+              
+              footer {
+                margin-top: 10px;
+                font-weight: bold;
+              }
+              
+              a {
+                text-decoration: none;
+              }
+              .position-relative {
+                position: relative;
+                max-width: 400px;
+              
+              }
+              .img-fluid{
+                filter: brightness(70%);
+                height: 300px;
+                object-fit: fill;
+              }
+              .text-overlay-main{
+                position: absolute;
+                bottom: 10px;
+                left: 0;
+                color: white;
+                font-size: 22px;
+                font-weight: bold;
+                
+                padding: 10px; /* 텍스트 주변 여백 설정 */
+              }
+              .text-overlay {
+                position: relative;
+                top: 0px;
+                left: 0;
+                color: white;
+                font-size: 16px;
+                font-weight: bold;
+                
+              } 
+            .soft_title{
+                text-align: left;
+                padding-left: 10px;
+                padding-top: 20px;
+            }
+            .logo_title{
+              font-weight:bold ; 
+            }
+            #footerbg{
+                width: 100%;  
+                margin-top: 150px;
+                background-color: #F7FFEC;
+            }
+            hr {
+                height: 20px;
+                background-color: #e5c693; /* 구분선의 색상을 지정합니다. */
+                border: none; /* 테두리를 없앱니다. */
+                margin-top: 20px;
+                margin-bottom: 10px;
+                
+            }
+            .carousel .carousel-item {
+              max-height: 400px;
+            }
+            .carousel-item img {
+              object-fit: cover;
+              max-height: 400px;
+              filter: brightness(70%);
+            }
+            #logo_img{
+              width: 100px;
+              height: 100px;
+              float: right;
+            }
+            #login{
+              color: #2FAF53;
+              font-size: large;
+              font-weight: bold;
+              margin-right: 20px;
+            }
+            .nav-link{
+              color: #2FAF53;
+              font-size: large;
+              font-weight: bold;
+            }
+            .chart{
+              margin-top: 150px;
+            }
+            #bar-chart{
+              float:left;
+              margin-left: 50px;
+              margin-right: 50px;
+            }
+            #bar-chart2{
+              float:right;
+              margin-right: 50px;
+            }
+            #footerbg{
+              float: left;
+            }
+        </style>
     </head>
         <header>
             <nav class="navbar navbar-expand-lg navbar-light" id="header-main">
@@ -20,9 +178,7 @@
                         <span class="navbar-toggler-icon"></span>
                     </button>
                     <div class="collapse navbar-collapse" id="navbarNav">
-                      <a href="main2.html">
                         <img class="navbar-brand"  src="/green.png" id="logo_img"></>
-                      </a>
                         <ul class="navbar-nav">
                             <li class="nav-item">
                                 <a class="nav-link" href="#">여행지</a>
@@ -33,7 +189,7 @@
                         </ul>
                     </div>
                     <div>
-                        <button class="btn btn-light" data-bs-toggle="modal" data-bs-target="#exampleModal" id="login">로그인</button>
+                        <button class="btn btn-light" id="login">로그인</button>
                     </div>
             </nav>
         </header>
@@ -68,7 +224,7 @@
             <span class="visually-hidden">Next</span>
           </button>
         </div>
-        
+
         <div class="chart">
           <canvas id="bar-chart" width="500"  height="450"></canvas>
           <script> new Chart(document.getElementById("bar-chart"), {
@@ -108,29 +264,6 @@
         }
     });
   </script>
-  <!-- 로그인 -->
-  <!-- Modal -->
-  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel"></h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body text-center">
-          <a><img src="kakao.png"></a>
-          <a><img src="naver.png"></a>
-          <a><img src="google.png"></a>
-        </div>
-        <div class="modal-footer">
-          <!--
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">Save changes</button>
-          -->
-        </div>
-      </div>
-    </div>
-  </div>
 </div>
         </div>    
             <br>

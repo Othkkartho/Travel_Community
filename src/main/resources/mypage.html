@@ -7,12 +7,233 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <!-- FontAwesome 아이콘 라이브러리 추가 -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"/>
-    <link rel="stylesheet" href="style.css"/>
     <!-- Chart js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <link rel="stylesheet" href="css/style.css">
     
     <title>MyTravelDiary</title>
-    
+    <style>
+        body {
+            background-color: #FAFAFA;
+            margin: 0;
+            box-sizing: border-box;
+          }
+          
+          .container {
+            text-align: center;
+            
+          }
+          img {
+            width: 400px;
+          }
+          
+          .inner {
+            position: relative;
+            width:80%;
+            height: 60px;
+            margin: 20px auto;
+            border: 1px solid #bdc1c6;
+            border-radius: 35px;
+            margin-bottom: 100px;
+            
+            
+            
+          }
+          
+          input {
+            width: 90%;
+            height: 100%;
+            border-color: #bdc1c6;
+            border: 0px;
+            font-size: 16px;
+            outline: none;
+
+          }
+          
+          .searching {
+            position: absolute;
+            right: 20px;
+            top: 30%;
+          }
+          
+          i:hover {
+            cursor: pointer;
+          }
+          
+          
+          .weegle_inner {
+            width: 160px;
+            height: 40px;
+            padding: 10px;
+            margin: 10px;
+            border-radius: 10px;
+            border: 0px;
+            vertical-align: middle;
+          }
+          
+          .weegle_inner:hover {
+            cursor: pointer;
+          }
+          header{
+            background-color: white;
+          }
+          footer {
+            margin-top: 10px;
+            font-weight: bold;
+          }
+          
+          a {
+            text-decoration: none;
+          }
+          .position-relative {
+            position: relative;
+            max-width: 400px;
+          
+          }
+          .img-fluid{
+            filter: brightness(70%);
+            height: 300px;
+            object-fit: fill;
+          }
+          .text-overlay-main{
+            position: absolute;
+            bottom: 10px;
+            left: 0;
+            color: white;
+            font-size: 22px;
+            font-weight: bold;
+            
+            padding: 10px; /* 텍스트 주변 여백 설정 */
+          }
+          .text-overlay {
+            position: relative;
+            top: 0px;
+            left: 0;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            
+          } 
+        .soft_title{
+            text-align: left;
+            padding-left: 10px;
+            padding-top: 20px;
+        }
+        .logo_title{
+          font-weight:bold ; 
+        }
+        #footerbg{
+            width: 100%;  
+            margin-top: 150px;
+            background-color: #F7FFEC;
+        }
+        hr {
+            height: 20px;
+            background-color: #e5c693; /* 구분선의 색상을 지정합니다. */
+            border: none; /* 테두리를 없앱니다. */
+            margin-top: 20px;
+            margin-bottom: 10px;
+            
+        }
+        .carousel .carousel-item {
+          max-height: 400px;
+        }
+        .carousel-item img {
+          object-fit: cover;
+          max-height: 400px;
+          filter: brightness(70%);
+        }
+        #logo_img{
+          width: 100px;
+          height: 100px;
+          float: right;
+        }
+        #login{
+            color: #2FAF53;
+            font-size: large;
+            font-weight: bold;
+            margin-right: 20px;
+        }
+        .nav-link{
+            color: #2FAF53;
+            font-size: large;
+            font-weight: bold;
+        }
+        .chart{
+            margin-top: 150px;
+        }
+        #bar-chart{
+            float:left;
+            margin-left: 50px;
+            margin-right: 50px;
+        }
+        #bar-chart2{
+            float:right;
+            margin-right: 50px;
+        }
+        #footerbg{
+            float: left;
+        }
+        #profile{
+            width: 50px;
+            height: 50px;
+            margin-right: 50px;
+        }
+        #profile-menu{
+            position: absolute;
+            right: 40px;
+            text-align: right;
+        }
+        #profile-name{
+            
+            color: black;
+        }
+        #profile-morderator{
+            display: none;
+        }
+        #mypage-cover{
+            height: 250px;
+            background-image: url(travel.jpg);
+        }
+        #mypage-icon img{
+            padding: 30px;
+            width: 150px;
+            height: 150px;
+            
+        }
+        #mypage-icon p{
+            font-size: larger;
+            font-weight: bold;
+            padding-bottom: 15px;
+        }
+        #mypage-tab{
+            height: 100px;
+            margin: 20px;
+        }
+        #mypage-info{
+            background-color: white;
+            margin-left: 35px;
+        }
+        #mypage-info li{
+            margin-top: 20px;
+            font-size: larger;
+        }
+        #mypage-main{
+            height: 600px;
+        }
+        #mypage-detail{
+            background-color: white;
+        }
+        #mypage-detail img{
+            margin-top: 20px;
+            
+        }
+        #mypage-detail li{
+            font-size: larger;
+            margin-top: 20px;
+        }
+
+    </style>
 </head>
     <header>
         <nav class="navbar navbar-expand-lg navbar-light" id="header-main">
@@ -20,9 +241,7 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNav">
-                    <a href="main2.html">
-                        <img class="navbar-brand"  src="/green.png" id="logo_img"></>
-                    </a>
+                    <img class="navbar-brand"  src="/green.png" id="logo_img"></>
                     <ul class="navbar-nav">
                         <li class="nav-item">
                             <a class="nav-link" href="#">여행지</a>
@@ -34,12 +253,11 @@
                 </div>
                 <div class="dropdown">
                     <img src="profile.png" class=dropdown-toggle" type="button" id="profile" data-bs-toggle="dropdown" aria-expanded="false">
-                    </a>
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton1" id="profile-menu">
                       <li><p class="dropdown-item disabled" href="#" tabindex="-1" aria-disabled="true" id="profile-name">김윤모</p></li>
                       <li><a class="dropdown-item" href="#" id="profile-info">프로필정보</a></li>
                       <li><a class="dropdown-item hide" href="#" id="profile-morderator">관리자페이지</a></li>
-                      <li><a class="dropdown-item" href="main2.html" id="profile-logout">로그아웃</a></li>
+                      <li><a class="dropdown-item" href="#" id="profile-logout">로그아웃</a></li>
                     </ul>
                 </div>
         </nav>
@@ -49,13 +267,18 @@
     <div id="mypage-cover">    
     </div>
     <!-- 프로필 아이콘 및 이름 좋아요-->
-    <div id="mypage-icon" class="row">
-        <img src="profile.png" class="col-1">
-        <p class="d-flex align-items-end col-1"> 김윤모 </p>
-        <p class="d-flex align-items-end col-1"> 좋아요 </p>
-        <p class="d-flex align-items-end col-1" id="icon-fav">7</p>
-        
-    </div>
+    <div class="d-flex bd-highlight mb-3" id="mypage-icon">
+        <img src="profile.png" class="p-2 bd-highlight">
+        <p class="p-2 bd-highlight align-self-center"> 김윤모 </p>
+        <p class="p-2 bd-highlight align-self-center"> 좋아요 </p>
+56        <p class="p-2 bd-highlight align-self-center" id="icon-fav">7</p>
+        <a class="btn btn-primary ms-auto p-2 bd-highlight align-self-center" id="profile_imgedit" role="button"
+         data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="openimgModal()" >프로필 이미지 수정</a>
+        <a class="btn btn-primary p-2 bd-highlight align-self-center" id="profile_edit" href="/member/edit" role="button" >회원정보 수정</a>
+      
+
+      </div>
+
     <!-- 프로필 탭 -->
     <div id="mypage-tab">
         <ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -84,7 +307,7 @@
                     나이: 24 
                 </li>
                 <li id="mypage-local">
-                    성별: 남
+                    지역: 경기
                 </li>
                 <li id="mypage-etc">
                     세부사항

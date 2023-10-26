@@ -1,0 +1,340 @@
+      body {
+            background-color: #FAFAFA;
+            margin: 0;
+            box-sizing: border-box;
+          }
+          
+          .container {
+            text-align: center;
+            
+          }
+          
+          .inner {
+            position: relative;
+            width:80%;
+            height: 60px;
+            margin: 20px auto;
+            border: 1px solid #bdc1c6;
+            border-radius: 35px;
+            margin-bottom: 100px;
+            
+            
+            
+          }
+          
+          #search {
+            width: 90%;
+            height: 100%;
+            border-color: #bdc1c6;
+            border: 0px;
+            font-size: 16px;
+            outline: none;
+
+          }
+          
+          .searching {
+            position: absolute;
+            right: 20px;
+            top: 30%;
+          }
+          
+          i:hover {
+            cursor: pointer;
+          }
+          #dropdownMenuButton img{
+              width: 50px;
+              margin-right: 10px;
+          }
+          
+          .weegle_inner {
+            width: 160px;
+            height: 40px;
+            padding: 10px;
+            margin: 10px;
+            border-radius: 10px;
+            border: 0px;
+            vertical-align: middle;
+          }
+          
+          .weegle_inner:hover {
+            cursor: pointer;
+          }
+          header{
+            background-color: white;
+          }
+          footer {
+            margin-top: 10px;
+            font-weight: bold;
+          }
+          
+          a {
+            text-decoration: none;
+          }
+          .position-relative {
+            position: relative;
+            max-width: 400px;
+          
+          }
+          .img-fluid{
+            filter: brightness(70%);
+            height: 300px;
+            object-fit: fill;
+          }
+          .text-overlay-main{
+            position: absolute;
+            bottom: 10px;
+            left: 0;
+            color: white;
+            font-size: 22px;
+            font-weight: bold;
+            
+            padding: 10px; /* 텍스트 주변 여백 설정 */
+          }
+          .text-overlay {
+            position: relative;
+            top: 0px;
+            left: 0;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            
+          } 
+        .soft_title{
+            text-align: left;
+            padding-left: 10px;
+            padding-top: 20px;
+        }
+        .logo_title{
+          font-weight:bold ; 
+        }
+        #footerbg{
+            width: 100%;  
+            margin-top: 150px;
+            background-color: #F7FFEC;
+        }
+        hr {
+            height: 20px;
+            background-color: #e5c693; /* 구분선의 색상을 지정합니다. */
+            border: none; /* 테두리를 없앱니다. */
+            margin-top: 20px;
+            margin-bottom: 10px;
+            
+        }
+        .carousel .carousel-item {
+          max-height: 400px;
+        }
+        .carousel-item img {
+          object-fit: cover;
+          max-height: 400px;
+          filter: brightness(70%);
+        }
+        #logo_img{
+          width: 100px;
+          height: 100px;
+          float: right;
+        }
+        #login{
+            color: #2FAF53;
+            font-size: large;
+            font-weight: bold;
+            margin-right: 20px;
+        }
+        .nav-link{
+            color: #2FAF53;
+            font-size: large;
+            font-weight: bold;
+        }
+        .chart{
+            margin-top: 150px;
+        }
+        #bar-chart{
+            float:left;
+            margin-left: 50px;
+            margin-right: 50px;
+        }
+        #bar-chart2{
+            float:right;
+            margin-right: 50px;
+        }
+        #footerbg{
+            float: left;
+        }
+        #profile{
+            width: 50px;
+            height: 50px;
+            margin-right: 50px;
+        }
+        #profile-menu{
+            position: absolute;
+            right: 40px;
+            text-align: right;
+        }
+        #profile-name{
+            
+            color: black;
+        }
+        #profile-morderator{
+            display: none;
+        }
+        #mypage-cover{
+            height: 250px;
+            background-image: url(../images/testImg/travel.jpg);
+        }
+        #mypage-icon img{
+            padding: 30px;
+            width: 150px;
+            height: 150px;
+            
+        }
+        #mypage-icon p{
+            font-size: larger;
+            font-weight: bold;
+            padding-bottom: 15px;
+        }
+        #mypage-tab{
+            height: 100px;
+            margin: 20px;
+        }
+        #mypage-info{
+            background-color: white;
+            margin-left: 35px;
+        }
+        #mypage-info li{
+            margin-top: 20px;
+            font-size: larger;
+        }
+        #mypage-main{
+            height: 600px;
+        }
+        #mypage-detail{
+            background-color: white;
+        }
+        #mypage-detail img{
+            margin-top: 20px;
+            
+        }
+        #mypage-detail li{
+            font-size: larger;
+            margin-top: 20px;
+        }
+        .modal-body{
+            height: 100px;
+        }
+        .modal-body img{
+            width: 120px;
+            height: 50px;
+            text-align: center;
+        }
+        .form-group label{
+          color: #2FAF53;
+        }
+        #profile_h1 {
+          color: #2FAF53;
+          font-weight: bold;
+          margin: 10px;
+        }
+        .tbl_wrp{
+          margin: 30px;
+        }
+        .tbl_wrp > form > .form-group{
+          margin-bottom: 10px;
+        }
+        #profile_acde{
+          margin-top: 10px;
+        }
+        #profile_submit{
+          margin-right: 10px;
+        }
+        #profile_edit, #profile_imgedit {
+          margin-bottom: 15px;
+          margin-right: 10px;
+        }
+        #card_region, #card_by, #card_name, #card_like{
+          display: inline;
+          margin-right: 5px;
+
+        }
+        .main_post{
+          margin-top: 50px;
+        }
+        #post_time, #post_time2{
+          display: inline;
+          margin-right: 5px;
+
+        }
+        #card_like{
+          color: red;
+        }
+        #post_1{
+          width: 75%;
+          margin-top: 20px;
+        }
+        #post_profile{
+          width: 40px;
+        }
+        
+        .post_userinfo{
+          margin-top: 60px;
+        }
+        #post_border{
+          width: 30%;
+          padding: 0 !important;
+          border: solid;
+          border-width: 3px;
+          border-radius: 10px;
+          border-color: #2FAF53;
+        }
+        .detail_post{
+          margin-top: 60px;
+        }
+        .carousel-item > img{
+          min-height: 400px;
+        }
+
+        #detail_list{
+          margin-left: 15px;
+        }
+        #detail_comment{
+          margin-left: 4px;
+        }
+        #detail_icon > .col > button{
+          border: none;
+          background: none;
+        }
+        #detail_img{
+          width: 30px;
+        }
+        #detail_icon{
+          margin-top: 10px;
+        }
+        #detail_name, #detail_title{
+          margin-right: 4px;
+        }
+        #comment{
+          margin-left: 1px;
+          margin-top: 0;
+          margin-bottom: 0;
+        }
+
+        #write_card{
+          height: 600px;
+          width: 30%;
+          padding: 0 !important;
+          border: solid;
+          border-width: 3px;
+          border-radius: 10px;
+          border-color: #2FAF53;
+        }
+        #write_upload{
+          margin-top: 50px;
+          width: 200px;
+          height: 200px;
+        }
+        #write_uploadbutton{
+          margin-bottom: 100px;
+          border: none;
+          background: none;
+          font-size: larger;
+          font-weight: bold;
+          
+        }
