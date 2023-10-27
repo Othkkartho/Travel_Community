@@ -1,6 +1,7 @@
 package com.learn.travel_community.controller;
 
 import com.learn.travel_community.config.member.oauth.dto.SessionMember;
+import com.learn.travel_community.domain.member.Member;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;

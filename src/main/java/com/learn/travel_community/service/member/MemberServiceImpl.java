@@ -80,6 +80,7 @@ public class MemberServiceImpl implements MemberService {
 
             member.updatePicture("/profile/" + imageFileName);
 
+            httpSession.setAttribute("user", new SessionMember(member));
             memberRepository.save(member);
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -103,6 +104,7 @@ public class MemberServiceImpl implements MemberService {
 
         member.updatePicture(ANONYMOUS);
 
+        httpSession.setAttribute("user", new SessionMember(member));
         memberRepository.save(member);
     }
 }
