@@ -59,7 +59,7 @@
         </tr>
         <tr th:each="comment: ${commentList}">
             <td th:text="${comment.id}"></td>
-            <td th:text="${comment.commentWriter}"></td>
+            <td th:text="${comment.member.nickname}"></td>
             <td th:text="${comment.commentContents}"></td>
             <td th:text="${comment.commentCreatedTime}"></td>
         </tr>
