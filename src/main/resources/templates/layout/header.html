@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<header th:fragment="indexHeader">
+    <nav class="navbar navbar-expand-lg navbar-light" id="header-main">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <a href="/">
+                <img class="navbar-brand" id="logo_img" src="images/main/logo/Green.png" alt="이미지가 나오지 않습니다.">
+            </a>
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="#">여행지</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">커뮤니티</a>
+                </li>
+            </ul>
+        </div>
+        <div class="dropdown" th:if="${userName}">
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                <img th:src="|images${profileImg}|">
+            </button>
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton" id="profile-menu">
+                <li><p class="dropdown-item disabled" href="#" tabindex="-1" aria-disabled="true" id="profile-name">[[${userName}]]</p></li>
+                <li><a class="dropdown-item" href="/member/profile" id="profile-info">프로필정보</a></li>
+                <li><a class="dropdown-item" href="/logout" id="profile-logout">로그아웃</a></li>
+            </ul>
+        </div>
+        <div th:unless="${userName}">
+            <button class="btn btn-light" data-bs-toggle="modal" data-bs-target="#exampleModal" id="login">로그인</button>
+        </div>
+    </nav>
+</header>
+
+<header th:fragment="memberHeader">
+    <nav class="navbar navbar-expand-lg navbar-light" id="header-main">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <a href="/">
+                <img class="navbar-brand" src="/images/main/logo/Green.png" id="logo_img">
+            </a>
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="#">여행지</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">커뮤니티</a>
+                </li>
+            </ul>
+        </div>
+        <div class="dropdown" th:object="${member}">
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                <img th:src="|/images*{picture}|">
+            </button>
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton" id="profile-menu">
+                <li><p class="dropdown-item disabled" href="#" tabindex="-1" aria-disabled="true" id="profile-name">[[*{nickname}]]</p></li>
+                <li><a class="dropdown-item" href="/member/profile" id="profile-info">프로필정보</a></li>
+                <li><a class="dropdown-item" href="/logout" id="profile-logout">로그아웃</a></li>
+            </ul>
+        </div>
+    </nav>
+</header>
+</html>
