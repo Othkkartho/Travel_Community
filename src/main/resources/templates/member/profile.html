@@ -55,8 +55,11 @@
                     <div th:if="*{gender == 0}">
                         성별: 비공개
                     </div>
-                    <div th:unless="*{gender == 0}">
-                        성별: [[*{gender}]]
+                    <div th:if="*{gender == 1}">
+                        성별: 남성
+                    </div>
+                    <div th:if="*{gender == 2}">
+                        성별: 여성
                     </div>
                 </li>
                 <li id="mypage-etc">
