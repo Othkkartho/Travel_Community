@@ -39,8 +39,15 @@
     <div class="detail_post">
       <div class="d-flex justify-content-center row" id="detail_card">
         <div class="col-sm-6" id="post_border">
-          <img src="img/profile.png" class=dropdown-toggle" type="button" id="post_profile" data-bs-toggle="dropdown" aria-expanded="false">
-          <p class="card-text" id="card_name">김윤모</p>
+          <div class="row">
+            <div class="col">
+              <img src="img/profile.png" class=dropdown-toggle" type="button" id="post_profile" data-bs-toggle="dropdown" aria-expanded="false">
+              <p class="card-text" id="card_name">김윤모</p>
+            </div>  
+            <div class="col text-lg-end" >
+              <button type="button" class="btn btn-light">수정, 삭제  </button>
+            </div>
+          </div>  
         <div class="card">
           <div id="detail_carousel" class="carousel slide" data-bs-ride="false">
             <div class="carousel-inner">
@@ -117,7 +124,7 @@
               <p class="card-text" id="comment">댓글</p>
             </div>
           </div>
-
+          
         </div>
         </div>
         </div>  

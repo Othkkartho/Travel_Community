@@ -17,7 +17,7 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNav">
-                    <img class="navbar-brand"  src="img/green.png" id="logo_img"></>
+                    <img class="navbar-brand"  src="img/green.png" id="logo_img">
                     <ul class="navbar-nav">
                         <li class="nav-item">
                             <a class="nav-link" href="#">여행지</a>
@@ -32,19 +32,49 @@
                 </div>
         </nav>
     </header>
+    <div id="mypage-detail" >
+        <!-- 탭 내용 -->
+
+                <div class="d-flex justify-content-center write_post">
+                    <div class="row d-flex justify-content-center" id="write_card">
+                        <div id="mypage-tab">
+                            <ul class="nav nav-tabs justify-content-end" id="myTab" role="tablist">
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link active" id="write-tab" data-bs-toggle="tab" data-bs-target="#write" type="button" role="tab" aria-controls="write" aria-selected="true">이전</button>
+                                </li>
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link" id="fav-tab" data-bs-toggle="tab" data-bs-target="#fav" type="button" role="tab" aria-controls="fav" aria-selected="false">게시</button>
+                                </li>
+                            </ul>
+                        </div>  
+ 
+                        <div class="tab-content" id="myTabContent">
+                            <div class="tab-pane fade show active" id="write" role="tabpanel" aria-labelledby="write-tab">
+                                <div class="contents">
+                                    <div class="upload-box">
+                                      <div id="drop-file" class="drag-file">
+                                        <img src="img/img.png" alt="파일 아이콘" class="image" >
+                                        <img src="" alt="미리보기 이미지" id="preview" />
+                                      </div>
+                                      <label class="file-label" id="image-label" for="image-upload">이미지 업로드</label>
+                                      <input type="file" id="image-upload" onchange="readURL(this);"> 
+                                    </div>
+                                  </div>
+                        </div>
+                        <div class="tab-pane fade" id="fav" role="tabpanel" aria-labelledby="fav-tab">
+                            <img src="" alt="미리보기 이미지" id="preview" />
+                        </div>
+                        </div>
 
 
+                        
+                      </div>
+                    </div>   
+                    </div>
+            </div>
+            
 
 
-    <div class="d-flex justify-content-center write_post">
-      <div class="row d-flex align-items-center justify-content-center" id="write_card">
-          <img class="col-12" src="img/img.png" id="write_upload">
-          <div class="d-flex align-items-center justify-content-center col-12">
-            <button id="write_uploadbutton">이미지 업로드</button>
-          </div>
-      </div>
-      
-    </div>
     
 
     <footer class="text-black py-4" id="footerbg">
@@ -65,18 +95,34 @@
     </footer>
 
     <script>
-    
-      $("#detail_comment2").hide();
+        function readURL(input) {
+            if (input.files && input.files[0]) {
+              var reader = new FileReader();
+              reader.onload = function(e) {
+                document.getElementById('preview').style.visibility = 'visible';
+                document.getElementById('preview').src = e.target.result;
+                document.getElementById('image-upload').style.visibility = 'hidden';
+                document.getElementById('image-label').style.visibility = 'hidden';
+                document.getElementById('write_upload').style.visibility = 'hidden';
+                document.getElementById('fileName').textContent = null;     //기존 파일 이름 지우기
+              };
+              reader.readAsDataURL(input.files[0]);
+
+            } else {
+              document.getElementById('preview').src = "";
+            }
+          }
+    $("#detail_comment2").hide();
     var myCollapsible = document.getElementById('detail_expandcotent')
     myCollapsible.addEventListener('show.bs.collapse', function () {
-      $("#detail_comment").hide();
-      $("#detail_comment2").show();
+    $("#detail_comment").hide();
+    $("#detail_comment2").show();
     })
 
     var myCollapsible2 = document.getElementById('detail_expandcotent')
     myCollapsible2.addEventListener('hide.bs.collapse', function () {
-      $("#detail_comment").show();
-      $("#detail_comment2").hide();
+    $("#detail_comment").show();
+    $("#detail_comment2").hide();
     })
 
     </script>
