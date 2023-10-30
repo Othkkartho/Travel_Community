@@ -36,8 +36,7 @@ public class BoardController {
         SessionMember member = (SessionMember) httpSession.getAttribute("user");
         model.addAttribute("userName", member.getNickname());
         model.addAttribute("profileImg", member.getPicture());
-
-        return "board/save";
+        return "/board/save";
     }
 
     @PostMapping("/save")
@@ -45,7 +44,7 @@ public class BoardController {
         Member member = memberRepository.findByEmail(((SessionMember) httpSession.getAttribute("user")).getEmail()).orElse(null);
         boardService.save(member, boardDTO);
 
-        return "redirect:/";
+        return "redirect:/board/paging";
     }
 
     @GetMapping("/{id}")
@@ -67,7 +66,7 @@ public class BoardController {
         return "board/update";
     }
 
-    @PostMapping("/update")
+    @PostMapping("update")
     public String update(@ModelAttribute BoardDTO boardDTO, Model model) {
         Member member = memberRepository.findByEmail(((SessionMember) httpSession.getAttribute("user")).getEmail()).orElse(null);
         BoardDTO board = boardService.update(member, boardDTO);
@@ -86,13 +85,14 @@ public class BoardController {
     @GetMapping("/paging")
     public String paging(@PageableDefault(page = 1) Pageable pageable, Model model) {
         Page<BoardDTO> boardList = boardService.paging(pageable);
-        int blockLimit = 7;
-        int startPage = (((int)(Math.ceil((double)pageable.getPageNumber() / blockLimit))) - 1) * blockLimit + 1;
-        int endPage = ((startPage + blockLimit - 1) < boardList.getTotalPages()) ? startPage + blockLimit - 1 : boardList.getTotalPages();
+        int blockLimit = 5;
+        int startPage = (((int)(Math.ceil((double)pageable.getPageNumber() / blockLimit))) - 1) * blockLimit + 1; // 1 4 7 10 ~~
+        int endPage = ((startPage + blockLimit - 1) < boardList.getTotalPages()) ? startPage + blockLimit - 1 : boardList.getTotalPages() == 0 ? -1 : boardList.getTotalPages();
 
         model.addAttribute("boardList", boardList);
         model.addAttribute("startPage", startPage);
         model.addAttribute("endPage", endPage);
+
         return "board/paging";
     }
 }

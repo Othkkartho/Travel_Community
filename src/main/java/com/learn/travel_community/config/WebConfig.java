@@ -7,11 +7,9 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
 public class WebConfig implements WebMvcConfigurer {
-    @Value("${file.path}")
-    private String uploadFolder;
 
-    private String resourcePath = "img/board/**"; // view 에서 접근할 경로
-    private String savePath = "file:///" + uploadFolder + "board/"; // 실제 파일 저장 경로(win)
+    private String resourcePath = "/upload/**"; // view 에서 접근할 경로
+    private String savePath = "file:///C:/springboot_img/"; // 실제 파일 저장 경로(win)
 //    private String savePath = "file:///Users/사용자이름/springboot_img/"; // 실제 파일 저장 경로(mac)
 
     @Override

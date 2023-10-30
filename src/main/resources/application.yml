@@ -10,3 +10,6 @@ spring:
       - db
   main:
     allow-bean-definition-overriding: true
+
+file:
+  path: "C:/springboot_img"

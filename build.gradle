@@ -24,7 +24,7 @@ repositories {
 dependencies {
     // spring boot
     implementation 'org.springframework.boot:spring-boot-starter-web'
-
+    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
     // JUnit5
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 
