@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thtmeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>커뮤니티</title>
+    <!-- bootstrap/css -->
+    <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.min.css}" />
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-light" id="header-main">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <img class="navbar-brand"  src="img/green.png" id="logo_img"></>
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">여행지</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">커뮤니티</a>
+                        </li>
+                    </ul>
+                </div>
+                <div>
+                    <button class="btn btn-light" id="login">로그인</button>
+                </div>
+        </nav>
+    </header>
+
+
+
+
+    <div class="detail_post">
+      <div class="d-flex justify-content-center row" id="detail_card">
+        <div class="col-sm-6" id="post_border">
+          <div class="row">
+            <div class="col">
+              <img src="img/profile.png" class=dropdown-toggle" type="button" id="post_profile" data-bs-toggle="dropdown" aria-expanded="false">
+              <p class="card-text" id="card_name">김윤모</p>
+            </div>  
+            <div class="col text-lg-end" >
+              <button type="button" class="btn btn-light">수정, 삭제  </button>
+            </div>
+          </div>  
+        <div class="card">
+          <div id="detail_carousel" class="carousel slide" data-bs-ride="false">
+            <div class="carousel-inner">
+              <div class="carousel-item active">
+                <img src="img/travel.jpg" class="d-block w-100" alt="...">
+              </div>
+              <div class="carousel-item">
+                <img src="img/travel3.jpg" class="d-block w-100" alt="...">
+              </div>
+              <div class="carousel-item">
+                <img src="img/travel2.jpg" class="d-block w-100" alt="  ..">
+              </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#detail_carousel" data-bs-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#detail_carousel" data-bs-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Next</span>
+            </button>
+          </div>
+          <div class="row" id="detail_icon">
+            <div class="col">
+              <button id="detail_imgheart">
+              <img src="img/heart.svg"   id="detail_img" alt="...">
+              </button>
+              <button id="detail_imgchat">
+              <img src="img/chat-fill.svg"   id="detail_img" alt="...">
+              </button>
+            </div>
+            <div class="col d-flex justify-content-end">
+              <button id="detail_imgbookmark">
+              <img src="img/bookmark.svg" class="float-right" id="detail_img" alt="...">
+              </button>
+            </div>
+          </div>
+          <br>
+          <div class="row g-0" id="detail_list">
+            <div class="col-auto">
+              <p class="card-text" id="detail_name">김윤모</p>
+            </div>
+            <div class="col-auto">
+              <p class="card-text" id="detail_title">가을</p>
+            </div>
+            <div class="col-auto">
+              <a id="detail_expand" data-bs-toggle="collapse" href="#detail_expandcotent" role="button" aria-expanded="false" aria-controls="collapseExample">
+                더보기
+              </a>
+            </div>
+              
+            </div>
+
+
+          </div>
+          <div class="collapse" id="detail_expandcotent">
+            <div class="card card-body">
+              햇살 내리쬐는 가을날 은행나무길 산책 
+            <div class="row" id="detail_comment2">
+              <div class="col-auto">
+                <p class="card-text" id="comment">댓글</p>
+                <p class="card-text" id="comment">댓글</p>
+                <p class="card-text" id="comment">댓글</p>
+              </div>
+            </div>
+            </div>
+            
+          </div>
+
+          <div class="row" id="detail_comment">
+            <div class="col-auto">
+              <p class="card-text" id="comment">댓글</p>
+              <p class="card-text" id="comment">댓글</p>
+              <p class="card-text" id="comment">댓글</p>
+            </div>
+          </div>
+          
+        </div>
+        </div>
+        </div>  
+      </div>
+    </div>
+
+    
+
+    <footer class="text-black py-4" id="footerbg">
+        <div class="container">
+            <div class="row text-start">
+                <div class="col-md-6">
+                    <h5>소개</h5>
+                    <p>이용 약관</p>
+                    <p>문의하기</p>
+                </div>
+
+                <div class="col-md-6">
+                    <img src="img/green.png" id="logo_img"></>
+                </div>
+            </div>
+        </div>
+
+    </footer>
+
+    <script>
+    
+      $("#detail_comment2").hide();
+    var myCollapsible = document.getElementById('detail_expandcotent')
+    myCollapsible.addEventListener('show.bs.collapse', function () {
+      $("#detail_comment").hide();
+      $("#detail_comment2").show();
+    })
+
+    var myCollapsible2 = document.getElementById('detail_expandcotent')
+    myCollapsible2.addEventListener('hide.bs.collapse', function () {
+      $("#detail_comment").show();
+      $("#detail_comment2").hide();
+    })
+
+    </script>
+</body>
+</html>
