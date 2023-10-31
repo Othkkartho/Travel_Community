@@ -1,6 +1,5 @@
 package com.learn.travel_community.config.member.oauth;
 
-import com.learn.travel_community.domain.member.Role;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -35,7 +34,6 @@ public class SpringSecurityConfig {
                                         new AntPathRequestMatcher("/profile"),
                                         new AntPathRequestMatcher("/board/**")
                                 ).permitAll()
-                                .requestMatchers(new AntPathRequestMatcher("/api/v1/**")).hasRole(Role.USER.name())
                                 .anyRequest().authenticated()
                 )
                 .logout(logoutConfig -> logoutConfig.logoutSuccessUrl("/"))
