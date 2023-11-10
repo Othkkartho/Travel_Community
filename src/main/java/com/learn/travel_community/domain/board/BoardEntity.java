@@ -41,6 +41,12 @@ public class BoardEntity extends BaseTimeEntity {
     @OneToMany(mappedBy = "boardEntity", cascade = CascadeType.REMOVE, orphanRemoval = true, fetch = FetchType.LAZY)
     private List<CommentEntity> commentEntityList = new ArrayList<>();
 
+    @OneToMany(mappedBy = "board")
+    private List<Likes> likes = new ArrayList<>();
+
+    @OneToMany(mappedBy = "board")
+    private List<Viewer> views = new ArrayList<>();
+
     public static BoardEntity toSaveEntity(Member member, BoardDTO boardDTO) {
         BoardEntity boardEntity = new BoardEntity();
         boardEntity.setMember(member);

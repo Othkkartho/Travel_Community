@@ -23,9 +23,4 @@ public class IndexController {
 
         return "index";
     }
-
-    @GetMapping("/board")
-    public String communityMain() {
-        return "/community/Community_main";
-    }
 }

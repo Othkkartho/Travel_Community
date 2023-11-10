@@ -3,6 +3,8 @@ package com.learn.travel_community.domain.member;
 import com.learn.travel_community.domain.BaseTimeEntity;
 import com.learn.travel_community.domain.board.BoardEntity;
 import com.learn.travel_community.domain.board.CommentEntity;
+import com.learn.travel_community.domain.board.Likes;
+import com.learn.travel_community.domain.board.Viewer;
 import com.learn.travel_community.dto.member.MemberDto;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -55,6 +57,12 @@ public class Member extends BaseTimeEntity {
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<CommentEntity> comments = new ArrayList<>();
+
+    @OneToMany(mappedBy = "member")
+    private List<Likes> likes = new ArrayList<>();
+
+    @OneToMany(mappedBy = "member")
+    private List<Viewer> views = new ArrayList<>();
 
     public Member update(String nickname, String accessToken) {
         this.nickname = nickname;

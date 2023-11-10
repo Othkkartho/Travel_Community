@@ -31,7 +31,6 @@ public class CommentEntity extends BaseTimeEntity {
     @JoinColumn(nullable = false)
     private Member member;
 
-
     public static CommentEntity toSaveEntity(Member member, CommentDTO commentDTO, BoardEntity boardEntity) {
         CommentEntity commentEntity = new CommentEntity();
         commentEntity.setMember(member);

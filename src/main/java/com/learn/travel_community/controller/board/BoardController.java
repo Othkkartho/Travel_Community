@@ -1,14 +1,14 @@
 package com.learn.travel_community.controller.board;
 
 import com.learn.travel_community.config.member.oauth.dto.SessionMember;
-import com.learn.travel_community.domain.board.BoardEntity;
-import com.learn.travel_community.domain.board.BoardRepository;
+import com.learn.travel_community.domain.board.*;
 import com.learn.travel_community.domain.member.Member;
 import com.learn.travel_community.domain.member.MemberRepository;
 import com.learn.travel_community.dto.board.BoardDTO;
 import com.learn.travel_community.dto.board.CommentDTO;
 import com.learn.travel_community.service.board.BoardService;
 import com.learn.travel_community.service.board.CommentService;
+import com.learn.travel_community.service.board.LikeService;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -30,13 +30,17 @@ public class BoardController {
     private final CommentService commentService;
     private final HttpSession httpSession;
     private final BoardRepository boardRepository;
+    private final LikeService likeService;
+    private final LikesRepository likesRepository;
+    private final ViewRepository viewRepository;
 
     @GetMapping("/save")
     public String saveForm(Model model) {
         SessionMember member = (SessionMember) httpSession.getAttribute("user");
         model.addAttribute("userName", member.getNickname());
         model.addAttribute("profileImg", member.getPicture());
-        return "/board/save";
+
+        return "/community/Community_write";
     }
 
     @PostMapping("/save")
@@ -48,22 +52,35 @@ public class BoardController {
     }
 
     @GetMapping("/{id}")
-    public String findById(@PathVariable Long id, Model model,
-                            @PageableDefault(page=1) Pageable pageable) {
+    public String findById(@PathVariable Long id, Model model, @PageableDefault(page=1) Pageable pageable) {
         boardService.updateHits(id);
         BoardDTO boardDTO = boardService.findById(id);
         List<CommentDTO> commentDTOList = commentService.findAll(id);
+        Member member = memberRepository.findByEmail(((SessionMember) httpSession.getAttribute("user")).getEmail()).orElse(null);
+        BoardEntity board = boardRepository.findById(id).orElseThrow();
+
+        if (viewRepository.findByMemberAndBoard(member, board) == null) {
+            Viewer viewer = Viewer.builder()
+                    .member(member)
+                    .board(board)
+                    .build();
+
+            viewRepository.save(viewer);
+        }
+
         model.addAttribute("commentList", commentDTOList);
         model.addAttribute("board", boardDTO);
         model.addAttribute("page", pageable.getPageNumber());
-        return "board/detail";
+        model.addAttribute("dolike", likesRepository.findByMemberAndBoard(member, board));
+
+        return "/community/Community_detail";
     }
 
     @GetMapping("/update/{id}")
     public String updateForm(@PathVariable Long id, Model model) {
         BoardDTO boardDTO = boardService.findById(id);
         model.addAttribute("boardUpdate", boardDTO);
-        return "board/update";
+        return "/community/update";
     }
 
     @PostMapping("update")
@@ -97,6 +114,24 @@ public class BoardController {
         model.addAttribute("startPage", startPage);
         model.addAttribute("endPage", endPage);
 
-        return "board/paging";
+        return "/community/Community_main";
+    }
+
+    @GetMapping("/like/{id}")
+    public String like(@PathVariable Long id) {
+        Member member = memberRepository.findByEmail(((SessionMember) httpSession.getAttribute("user")).getEmail()).orElse(null);
+        BoardEntity board = boardRepository.findById(id).orElseThrow();
+        likeService.likes(member, board);
+
+        return "redirect:/board/" + id;
+    }
+
+    @GetMapping("/dislike/{id}")
+    public String dislike(@PathVariable Long id) {
+        Member member = memberRepository.findByEmail(((SessionMember) httpSession.getAttribute("user")).getEmail()).orElse(null);
+        BoardEntity board = boardRepository.findById(id).orElseThrow();
+        likeService.dislikes(member, board);
+
+        return "redirect:/board/" + id;
     }
 }

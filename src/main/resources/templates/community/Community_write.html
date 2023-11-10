@@ -6,82 +6,93 @@
     <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 </head>
 <body>
-    <div th:replace="layout/header::indexHeader"></div>
+<div th:replace="layout/header::indexHeader"></div>
 
-    <div id="mypage-detail" >
-        <!-- 탭 내용 -->
-                <div class="d-flex justify-content-center write_post">
-                    <div class="row d-flex justify-content-center" id="write_card">
-                        <div id="mypage-tab">
-                            <ul class="nav nav-tabs justify-content-end" id="myTab" role="tablist">
-                                <li class="nav-item" role="presentation">
-                                    <button class="nav-link active" id="write-tab" data-bs-toggle="tab" data-bs-target="#write" type="button" role="tab" aria-controls="write" aria-selected="true">이전</button>
-                                </li>
-                                <li class="nav-item" role="presentation">
-                                    <button class="nav-link" id="fav-tab" data-bs-toggle="tab" data-bs-target="#fav" type="button" role="tab" aria-controls="fav" aria-selected="false">게시</button>
-                                </li>
-                            </ul>
-                        </div>  
- 
-                        <div class="tab-content" id="myTabContent">
-                            <div class="tab-pane fade show active" id="write" role="tabpanel" aria-labelledby="write-tab">
-                                <div class="contents">
-                                    <div class="upload-box">
-                                      <div id="drop-file" class="drag-file">
-                                        <img src="img/img.png" alt="파일 아이콘" class="image" >
-                                        <img src="" alt="미리보기 이미지" id="preview" />
-                                      </div>
-                                      <label class="file-label" id="image-label" for="image-upload">이미지 업로드</label>
-                                      <input type="file" id="image-upload" onchange="readURL(this);"> 
-                                    </div>
-                                  </div>
-                        </div>
-                        <div class="tab-pane fade" id="fav" role="tabpanel" aria-labelledby="fav-tab">
-                            <img src="" alt="미리보기 이미지" id="preview" />
-                        </div>
-                        </div>
-
-
-                        
-                      </div>
-                    </div>   
-                    </div>
+<div id="mypage-detail" >
+    <!-- 탭 내용 -->
+    <div class="d-flex justify-content-center write_post">
+        <div class="row d-flex justify-content-center" id="write_card">
+            <div id="mypage-tab">
+                <ul class="nav nav-tabs justify-content-end" id="myTab" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link active" id="write-tab" data-bs-toggle="tab" data-bs-target="#write" type="button" role="tab" aria-controls="write" aria-selected="true">이전</button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="fav-tab" data-bs-toggle="tab" data-bs-target="#fav" type="button" role="tab" aria-controls="fav" aria-selected="false">게시</button>
+                    </li>
+                </ul>
             </div>
-            
 
-    <div th:replace="layout/footer::footer"></div>
+            <div class="tab-content" id="myTabContent">
+                <div class="tab-pane fade show active" id="write" role="tabpanel" aria-labelledby="write-tab">
+                    <div class="contents">
+                        <div class="upload-box">
+                            <div id="drop-file" class="drag-file">
+                                <img src="img/img.png" alt="파일 아이콘" class="image" >
+                                <img src="" alt="미리보기 이미지" id="preview" />
+                            </div>
+                            <label class="file-label" id="image-label" for="image-upload">이미지 업로드</label>
+                            <input type="file" id="image-upload" onchange="readURL(this);">
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="fav" role="tabpanel" aria-labelledby="fav-tab">
+                    <div class="row">
+                        <div class="imgd col-8">
+                            <img src="" alt="미리보기 이미지" id="preview2" />
+                        </div>
+                        <div class="named col-4">
+                            <div class="profile">
+                                <img src="img/profile.png" class="dropdown-toggle" type="button" id="post_profile" data-bs-toggle="dropdown" aria-expanded="false">
+                                <p class="card-text" id="card_name">[[${userName}]]</p>
+                            </div>
+                            <form th:action="save" method="post" enctype="multipart/form-data">
+<!--                                <input type="text" class="form-control" placeholder="태그 추가" aria-label="태그 추가">-->
+<!--                                <input type="text" class="form-control" placeholder="위치 추가" aria-label="위치 추가">-->
+                                <input type="text" class="form-control" name="boardTitle" placeholder="제목" aria-label="제목">
+                                <label for="iTextarea"></label><textarea class="form-control" name="boardContents" placeholder="내용" id="iTextarea"></textarea>
+                                <input type="file" name="boardFile" multiple> <br>
+                                <input type="submit" value="글쓰기">
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
-    <script>
-        function readURL(input) {
-            if (input.files && input.files[0]) {
-              var reader = new FileReader();
-              reader.onload = function(e) {
+<div th:replace="layout/footer::footer"></div>
+
+<script>
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function(e) {
                 document.getElementById('preview').style.visibility = 'visible';
                 document.getElementById('preview').src = e.target.result;
                 document.getElementById('image-upload').style.visibility = 'hidden';
                 document.getElementById('image-label').style.visibility = 'hidden';
-                document.getElementById('write_upload').style.visibility = 'hidden';
                 document.getElementById('fileName').textContent = null;     //기존 파일 이름 지우기
-              };
-              reader.readAsDataURL(input.files[0]);
+            };
+            reader.readAsDataURL(input.files[0]);
 
-            } else {
-              document.getElementById('preview').src = "";
-            }
-          }
-    $("#detail_comment2").hide();
-    var myCollapsible = document.getElementById('detail_expandcotent')
-    myCollapsible.addEventListener('show.bs.collapse', function () {
-    $("#detail_comment").hide();
-    $("#detail_comment2").show();
+        } else {
+            document.getElementById('preview').src = "";
+        }
+    }
+
+    var tabEl = document.querySelector('button[data-bs-toggle="tab"]')
+    tabEl.addEventListener('hidden.bs.tab', function (event) {
+        console.log('ae');
+        document.getElementById('write_card').style.width = "70%";
+        var tmp = document.getElementById('preview').src;
+        console.log(tmp);
+        document.getElementById("preview2").src = tmp;
+        event.target // newly activated tab
+        event.relatedTarget // previous active tab
     })
 
-    var myCollapsible2 = document.getElementById('detail_expandcotent')
-    myCollapsible2.addEventListener('hide.bs.collapse', function () {
-    $("#detail_comment").show();
-    $("#detail_comment2").hide();
-    })
-
-    </script>
+</script>
 </body>
 </html>
