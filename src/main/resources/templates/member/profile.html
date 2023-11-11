@@ -237,7 +237,7 @@
         <img th:src="|/images*{picture}|" class="p-2 bd-highlight" alt="프로필 이미지">
         <p class="p-2 bd-highlight align-self-center"> [[*{nickname}]] </p>
         <p class="p-2 bd-highlight align-self-center"> 좋아요 </p>
-        <p class="p-2 bd-highlight align-self-center" id="icon-fav">7</p>
+        <p class="p-2 bd-highlight align-self-center" id="icon-fav">[[${likeCount}]]</p>
         <a class="btn btn-primary ms-auto p-2 bd-highlight align-self-center" id="profile_imgedit" role="button" href="/member/profileImg/modify">프로필 이미지 수정</a>
         <a class="btn btn-primary p-2 bd-highlight align-self-center" id="profile_edit" href="/member/edit" role="button" >회원정보 수정</a>
     </div>
@@ -296,28 +296,18 @@
         <!-- 탭 내용 -->
         <div class="tab-content" id="myTabContent">
             <div class="tab-pane fade show active" id="write" role="tabpanel" aria-labelledby="write-tab">
-                <ul id="write-tab">
-                    <li>가을 단풍이 예쁜 경북궁 향원정입니다:)</li>
-                    <li>가을이오면 붉게 물드는 용산공원:)</li>
-                    <li>대한민국역사박물관 옥상정원에 가면</li>
-                    <li>노란 빛으로 가득헀던 단풍 카페 몽브루</li>
-                    <li>창문사이로 은행나무가 보이는 미쉬매쉬</li>
+                <ul id="write-tab" th:each="board : ${boardList}">
+                    <a th:href="|/board/${board.id}|"><li>[[${board.boardTitle}]]</li></a>
                 </ul>
             </div>
             <div class="tab-pane fade" id="fav" role="tabpanel" aria-labelledby="fav-tab">
-                <ul>
-                    <li>가을 단풍이 예쁜 경북궁 향원정입니다:)</li>
-                    <li>가을이오면 붉게 물드는 용산공원:)</li>
-                    <li>대한민국역사박물관 옥상정원에 가면</li>
-                    <li>노란 빛으로 가득헀던 단풍 카페 몽브루</li>
-                    <li>창문사이로 은행나무가 보이는 미쉬매쉬</li>
+                <ul th:each="like : ${likesList}">
+                    <a th:href="|/board/${like.board.id}|"><li>[[${like.board.boardTitle}]]</li></a>
                 </ul>
             </div>
             <div class="tab-pane fade" id="comment" role="tabpanel" aria-labelledby="comment-tab">
-                <ul>
-                    <li>이번주에 가시는걸 추천해요:)</li>
-                    <li>올림픽 공원입니다:)</li>
-                    <li>지금 20일까지 서울억새축제중이에요~</li>
+                <ul th:each="comment : ${commentList}">
+                    <a th:href="|/board/${comment.boardEntity.id}|"><li>[[${comment.commentContents}]]</li></a>
                 </ul>
             </div>
             <div class="tab-pane fade" id="scrab" role="tabpanel" aria-labelledby="scrab-tab">

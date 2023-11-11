@@ -6,6 +6,7 @@ import com.learn.travel_community.domain.member.Member;
 import com.learn.travel_community.domain.member.MemberRepository;
 import com.learn.travel_community.dto.board.BoardDTO;
 import com.learn.travel_community.dto.board.CommentDTO;
+import com.learn.travel_community.dto.board.LikeDto;
 import com.learn.travel_community.service.board.BoardService;
 import com.learn.travel_community.service.board.CommentService;
 import com.learn.travel_community.service.board.LikeService;
@@ -19,7 +20,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequiredArgsConstructor
@@ -102,6 +105,13 @@ public class BoardController {
     @GetMapping("/paging")
     public String paging(@PageableDefault(page = 1) Pageable pageable, Model model) {
         Page<BoardDTO> boardList = boardService.paging(pageable);
+        List<LikeDto> likesList = likesRepository.getBoardsLikesCount();
+        Map<Long, Long> likeMap = new HashMap<>();
+
+        for (LikeDto l: likesList) {
+            likeMap.put(l.getBid(), l.getLikeCount());
+        }
+
         int blockLimit = 5;
         int startPage = (((int)(Math.ceil((double)pageable.getPageNumber() / blockLimit))) - 1) * blockLimit + 1; // 1 4 7 10 ~~
         int endPage = 0;
@@ -113,6 +123,7 @@ public class BoardController {
         model.addAttribute("boardList", boardList);
         model.addAttribute("startPage", startPage);
         model.addAttribute("endPage", endPage);
+        model.addAttribute("likeCount", likeMap);
 
         return "/community/Community_main";
     }

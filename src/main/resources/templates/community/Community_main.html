@@ -28,14 +28,14 @@
   <div class="d-flex justify-content-center" id="post">
     <div class="card mb-3" id="post_1">
       <div class="row" th:each="board: ${boardList}">
-        <div class="col-md-2">
+        <div class="col-md-2" th:with="bid=${board.id}">
           <div class="card-body">
             <p class="card-text" id="post_region">경기</p>
             <p class="card-text" id="post_time">1</p>
             <p class="card-text" id="post_time2">시간 전</p>
             <br><br>
             <p class="card-text" id="card_by">좋아요</p>
-            <p class="card-text" id="card_like">7</p>
+            <p class="card-text" id="card_like">[[${likeCount.get(bid)}]]</p>
           </div>
         </div>
         <div class="col-md-7">
