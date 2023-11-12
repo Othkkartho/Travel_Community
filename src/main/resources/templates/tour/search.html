@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Tour List Search</title>
+    <meta charset="UTF-8">
+</head>
+<body>
+<h1>Tour List Search</h1>
+
+<form action="/search" method="get">
+    <select name="countryId">
+        <option value="">Country</option>
+        <option value="1">한국</option>
+        <option value="2">일본</option>
+    </select>
+    <input type="submit" value="Search">
+</form>
+
+<table class="table">
+    <thead>
+    <tr>
+        <th>Country ID</th>
+        <th>Tourlist ID</th>
+        <th>Tour Name</th>
+        <th>Tour Exp</th>
+        <th>Tour Image</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="tourListDto : ${tourListDtos}">
+        <td th:text="${tourListDto.countryId}"></td>
+        <td th:text="${tourListDto.tourlistId}"></td>
+        <td><a th:href="@{/tour/detail/{tourlistId}}" th:text="${tourListDto.tourName}"></a></td>
+        <td th:text="${tourListDto.tourExp}"></td>
+        <td><img th:src="@{/images/#{tourListDto.tourImage}}" alt="#{tourListDto.tourName}" style="width: 100px;"></td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

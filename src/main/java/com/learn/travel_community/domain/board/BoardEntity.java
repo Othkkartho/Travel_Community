@@ -2,6 +2,7 @@ package com.learn.travel_community.domain.board;
 
 import com.learn.travel_community.domain.BaseTimeEntity;
 import com.learn.travel_community.domain.member.Member;
+import com.learn.travel_community.domain.tour.TagEntity;
 import com.learn.travel_community.dto.board.BoardDTO;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -40,6 +41,9 @@ public class BoardEntity extends BaseTimeEntity {
 
     @OneToMany(mappedBy = "boardEntity", cascade = CascadeType.REMOVE, orphanRemoval = true, fetch = FetchType.LAZY)
     private List<CommentEntity> commentEntityList = new ArrayList<>();
+
+    @OneToMany(mappedBy = "boardEntity", cascade = CascadeType.REMOVE, orphanRemoval = true, fetch = FetchType.LAZY)
+    private List<TagEntity> tag = new ArrayList<>();
 
     public static BoardEntity toSaveEntity(Member member, BoardDTO boardDTO) {
         BoardEntity boardEntity = new BoardEntity();

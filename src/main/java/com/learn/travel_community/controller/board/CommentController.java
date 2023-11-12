@@ -1,6 +1,5 @@
 package com.learn.travel_community.controller.board;
 
-
 import com.learn.travel_community.config.member.oauth.dto.SessionMember;
 import com.learn.travel_community.domain.member.Member;
 import com.learn.travel_community.domain.member.MemberRepository;
