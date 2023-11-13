@@ -32,7 +32,7 @@ public class TourListEntity {
     @OneToMany(mappedBy = "tourListEntity", fetch = FetchType.EAGER)
     private List<TagEntity> tag;
 
-    @OneToMany(mappedBy = "tourListEntity", cascade = CascadeType.ALL, orphanRemoval = false, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "tourListEntity", fetch = FetchType.EAGER)
     private List<TourdetailEntity> tourdetailEntityList;
 
     @ManyToOne

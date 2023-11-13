@@ -25,11 +25,7 @@ public class TourdetailEntity {
         @Column
         private String detailImg;
 
-        @Column
-        private String DetailImgUrl;
-
         @ManyToOne
-        @JoinColumn(name = "tourlistId")
+        @JoinColumn(name = "tourlistId", nullable = false)
         private TourListEntity tourListEntity;
-
 }

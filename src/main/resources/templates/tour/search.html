@@ -27,14 +27,66 @@
     </tr>
     </thead>
     <tbody>
-    <tr th:each="tourListDto : ${tourListDtos}">
+    <tr th:each="tourListDto : ${ tourListDtos }" data-tourlistId="${tourListDto.tourlistId}">
         <td th:text="${tourListDto.countryId}"></td>
         <td th:text="${tourListDto.tourlistId}"></td>
-        <td><a th:href="@{/tour/detail/{tourlistId}}" th:text="${tourListDto.tourName}"></a></td>
+        <td onclick="showPopup(this)" th:text="${tourListDto.tourName}"></td>
         <td th:text="${tourListDto.tourExp}"></td>
-        <td><img th:src="@{/images/#{tourListDto.tourImage}}" alt="#{tourListDto.tourName}" style="width: 100px;"></td>
+        <td th:text="${tourListDto.tourImage}"></td>
+        <td>
+            <a href="#" onclick="showPopup(this)">
+                <img th:src="@{/images/#{tourListDto.tourImage}}" alt="#{tourListDto.tourName}" style="width: 50px;" />
+            </a>
+        </td>
     </tr>
     </tbody>
 </table>
+
+<script>
+    function showPopup(element) {
+        var tourlistId = element.getAttribute("data-tourlistId");
+        var tourListDtos = $("#tourListDtos").data("tourListDtos");
+
+        var popup = document.createElement("div");
+        popup.style.position = "absolute";
+        popup.style.top = "0";
+        popup.style.left = "0";
+        popup.style.width = "300px";
+        popup.style.height = "300px";
+        popup.style.zIndex = 1000;
+
+        for (var i = 0; i < tourListDtos.length; i++) {
+            if (tourListDtos[i].tourlistId == tourlistId) {
+                var tr = document.createElement("tr");
+
+                var tdId = document.createElement("td");
+                tdId.textContent = tourListDtos[i].detailId;
+                tr.appendChild(tdId);
+
+                var tdName = document.createElement("td");
+                tdName.textContent = tourListDtos[i].detailName;
+                tdName.onclick = function() {
+                    location.href = "/detail/" + tourListDtos[i].detailId;
+                };
+                tr.appendChild(tdName);
+
+                var tdExp = document.createElement("td");
+                tdExp.textContent = tourListDtos[i].detailExp;
+                tr.appendChild(tdExp);
+
+                popup.appendChild(tr);
+            }
+        }
+
+        document.body.appendChild(popup);
+    }
+
+    $(document).ready(function() {
+        $("#tourListDtos").on("click", "tr", function() {
+            var tourlistId = $(this).data("tourlistId");
+            showPopup(this);
+        });
+    });
+</script>
 </body>
 </html>

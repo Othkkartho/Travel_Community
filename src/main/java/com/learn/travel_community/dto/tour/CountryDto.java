@@ -2,15 +2,13 @@ package com.learn.travel_community.dto.tour;
 
 import com.learn.travel_community.domain.tour.CountryEntity;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 @Getter
 @Setter
 @ToString
 @NoArgsConstructor // 기본생성자
+@Data
 public class CountryDto {
     private Long countryId;
     private String countryName;

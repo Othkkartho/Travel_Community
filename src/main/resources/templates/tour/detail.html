@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
   <title>Tour Detail</title>
   <meta charset="UTF-8">
@@ -7,17 +7,20 @@
 <body>
 <h1>Tour Detail</h1>
 
-<div class="container">
-  <div class="row">
-    <div class="col-md-6">
-      <img src="/images/{{ tourListDto.detailImgUrl }}" alt="{{ tourListDto.tourName }}" width="100%">
-    </div>
-    <div class="col-md-6">
-      <h2>{{ tourListDto.tourName }}</h2>
-      <p>{{ tourListDto.tourExp }}</p>
-      <a href="/tour/search" class="btn btn-primary">목록으로 돌아가기</a>
-    </div>
-  </div>
+<div>
+  <h2>Detail ID</h2>
+  <p th:text="${tourDetailDto.detailId}"></p>
+</div>
+<div>
+  <h2>Detail Name</h2>
+  <p th:text="${tourDetailDto.detailName}"></p>
+</div>
+<div>
+  <h2>Detail Exp</h2>
+  <p th:text="${tourDetailDto.detailExp}"></p>
+</div>
+<div>
+  <h2>Detail Image</h2>
+  <img th:src="@{/images/#{tourDetailDto.detailImg}}" alt="#{tourDetailDto.detailName}" style="width: 100px;"></td>
 </div>
 </body>
-</html>

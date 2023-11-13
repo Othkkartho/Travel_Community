@@ -2,11 +2,15 @@ package com.learn.travel_community.dto.tour;
 
 import com.learn.travel_community.domain.tour.TourListEntity;
 import com.learn.travel_community.domain.tour.TourdetailEntity;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import jakarta.persistence.Tuple;
+import jakarta.persistence.TupleElement;
+import lombok.*;
+import org.hibernate.annotations.Immutable;
 
+import java.util.ArrayList;
+import java.util.List;
+
+@Data
 @Getter
 @Setter
 @ToString
@@ -16,17 +20,15 @@ public class TourDetailDto {
     private String detailName;
     private String detailExp;
     private String detailImg;
-    private String detailImgUrl;
 
-    private TourListEntity tourListEntity;
+    private Long tourlistId;
 
-    public TourDetailDto(Long detailId, String detailName, String detailExp, String detailImg, String detailImgUrl, TourListEntity tourListEntity) {
+    public TourDetailDto(Long detailId, String detailName, String detailExp, String detailImg, Long tourlistId) {
         this.detailId = detailId;
         this.detailName = detailName;
         this.detailExp = detailExp;
         this.detailImg = detailImg;
-        this.detailImgUrl = detailImgUrl;
-        this.tourListEntity = tourListEntity;
+        this.tourlistId = tourlistId;
     }
 
     public static TourDetailDto toTourdetailDto(TourdetailEntity tourdetailEntity) {
@@ -35,14 +37,18 @@ public class TourDetailDto {
         tourdetailDto.setDetailName(tourdetailEntity.getDetailName());
         tourdetailDto.setDetailExp(tourdetailEntity.getDetailExp());
         tourdetailDto.setDetailImg(tourdetailEntity.getDetailImg());
-        tourdetailDto.setDetailImgUrl(tourdetailEntity.getDetailImgUrl());
-        tourdetailDto.setTourListEntity(tourdetailEntity.getTourListEntity());
+        tourdetailDto.setTourlistId(tourdetailDto.getTourlistId());
 
         return tourdetailDto;
     }
 
-    public String getDetailImgUrl() {
-        return String.format("http://localhost:8080/resources/static/tour/%s", this.detailImg);
+    public static TourDetailDto toTuple(TourdetailEntity tourdetailEntity) {
+        return new TourDetailDto(
+                tourdetailEntity.getDetailId(),
+                tourdetailEntity.getDetailName(),
+                tourdetailEntity.getDetailExp(),
+                tourdetailEntity.getDetailImg(),
+                tourdetailEntity.getTourListEntity().getTourlistId()
+        );
     }
-
 }

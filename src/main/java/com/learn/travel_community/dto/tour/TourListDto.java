@@ -1,13 +1,9 @@
 package com.learn.travel_community.dto.tour;
 
-import com.learn.travel_community.domain.tour.CountryEntity;
+
 import com.learn.travel_community.domain.tour.TourListEntity;
 import com.learn.travel_community.domain.tour.TourdetailEntity;
-import jakarta.persistence.Column;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 @Getter
 @Setter
@@ -26,13 +22,18 @@ public class TourListDto {
 
     private String countryName;
 
-    public TourListDto(Long tno, String tourName, String tourExp, String tourImage, Long countryId, String countryName) {
+    private TourdetailEntity tourdetailEntity;
+
+
+
+    public TourListDto(Long tno, String tourName, String tourExp, String tourImage, Long countryId, String countryName, TourdetailEntity tourdetailEntity) {
         this.tourlistId = tno;
         this.tourName = tourName;
         this.tourExp = tourExp;
         this.tourImage = tourImage;
         this.countryId = countryId;
         this.countryName = countryName;
+        this.tourdetailEntity = tourdetailEntity;
     }
 
     public static TourListDto toTourListDto(TourListEntity tourListEntity) {
@@ -43,6 +44,7 @@ public class TourListDto {
         tourlistDto.setTourImage(tourListEntity.getTourImage());
         tourlistDto.setCountryId(tourListEntity.getCountryId());
         tourlistDto.setCountryName(tourlistDto.getCountryName());
+        tourlistDto.setTourdetailEntity(tourlistDto.getTourdetailEntity());
 
         return tourlistDto;
     }
