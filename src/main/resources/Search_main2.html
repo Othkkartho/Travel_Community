@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thtmeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>커뮤니티</title>
+    <!-- bootstrap/css -->
+    <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.min.css}" />
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-light" id="header-main">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <img class="navbar-brand" src="img/green.png" id="logo_img">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">여행지</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">커뮤니티</a>
+                    </li>
+                </ul>
+            </div>
+            <div>
+                <button class="btn btn-light" id="login">로그인</button>
+            </div>
+        </nav>
+    </header>
+
+    <div class="main">
+        <div class="imgmap">
+            <img src="img/map.png" usemap="#image-map">
+            <map name="image-map">
+                <area target="_self" alt="서울" title="서울" href="#exampleModal" coords="366,217,367,242,374,249,389,244,403,249,415,251,424,240,429,232,438,225,443,219,440,211,433,212,426,215,426,208,427,200,419,193,403,186,395,193,385,197,377,212" shape="poly">
+                <area target="_self" alt="인천" title="인천" href="#exampleModal" coords="352,268,356,256,366,245,365,213,346,202,334,198,328,198,315,209,309,231,314,245" shape="poly">
+                <area target="_self" alt="경기도" title="경기도" href="#exampleModal" coords="325,193,314,149,328,147,340,141,366,125,381,110,416,86,434,74,473,101,498,120,509,138,515,169,530,204,550,226,551,248,536,275,535,304,530,323,486,341,459,365,452,366,427,358,407,357,372,362,363,350,354,335,345,326,350,311,367,304,360,300,341,304,332,299,327,287,350,272,366,254,385,251,400,250,416,252,431,240,443,225,447,206,431,203,419,184,403,182,386,186,376,197,367,210,351,198" shape="poly">
+                <area target="_self" alt="강원도" title="강원도" href="#exampleModal" coords="437,67,495,114,515,140,524,179,557,228,552,261,545,273,541,301,541,313,578,304,590,303,624,313,668,329,698,343,752,345,773,345,804,341,818,335,802,266,784,233,759,198,746,174,724,137,706,90,706,65,684,29,680,15,654,41,640,58,614,61,510,56,471,50" shape="poly">
+                <area target="_self" alt="충청남도" title="충청남도" href="#exampleModal" coords="459,370,436,361,418,357,382,357,369,363,308,340,283,334,272,348,279,358,265,347,255,358,254,384,257,407,276,420,294,483,298,529,323,553,341,550,359,532,386,529,399,529,410,547,443,540,466,554,486,556,505,554,485,518,481,508,458,515,438,511,431,489,413,474,404,453,400,432,401,412,403,395,418,391,434,392,444,401,455,404,466,394,465,385" shape="poly">
+                <area target="_self" alt="충청북도" title="충청북도" href="#exampleModal" coords="463,369,469,391,470,417,462,424,469,441,490,457,501,474,504,493,496,489,496,499,498,514,508,536,515,547,537,547,551,535,558,528,575,516,570,501,561,476,566,456,569,434,570,422,601,408,634,397,649,391,665,382,680,364,689,350,669,333,641,325,613,318,590,317,563,312,535,322,512,336,493,344,481,349,471,361" shape="poly">
+                <area target="_self" alt="경상북도" title="경상북도" href="#exampleModal" coords="814,341,752,350,713,352,706,352,689,369,662,395,644,409,613,416,589,425,581,427,578,444,582,476,594,500,605,511,596,533,579,543,562,547,561,567,581,580,609,588,615,611,614,632,626,619,626,594,621,574,641,558,675,547,699,545,710,559,713,576,711,601,698,623,685,632,713,637,735,636,750,613,777,619,807,621,823,618,844,595,849,553,822,557,820,517,829,473,836,413,823,361,822,350" shape="poly">
+                <area target="_self" alt="세종" title="세종" href="#exampleModal" coords="450,411,435,407,423,403,416,412,414,422,419,429,418,437,416,444,422,462,432,464,442,460,454,451,458,439,449,427,452,418" shape="poly">
+                <area target="_self" alt="대전" title="대전" href="#exampleModal" coords="461,449,452,460,446,468,440,475,440,482,442,494,456,498,466,502,477,502,481,496,488,481,494,476,490,466,483,456,472,453" shape="poly">
+                <area target="_self" alt="대구" title="대구" href="#exampleModal" coords="631,633,634,599,649,595,626,586,630,575,646,570,671,565,688,559,698,563,702,577,700,590,691,603,689,614,684,623,672,622,666,620,661,634,646,642" shape="poly">
+                <area target="_self" alt="울산" title="울산" href="#exampleModal" coords="794,699,774,684,764,670,746,663,741,660,738,646,745,637,756,630,769,623,783,629,789,634,817,630,827,640,827,656,816,671,807,687" shape="poly">
+                <area target="_self" alt="부산" title="부산" href="#exampleModal" coords="771,686,789,698,795,705,787,720,773,735,757,755,743,763,725,765,714,763,710,751,703,730,731,717,751,705" shape="poly">
+                <area target="_self" alt="경상남도" title="경상남도" href="#exampleModal" coords="545,580,534,591,506,607,495,621,495,650,492,675,483,698,482,719,499,742,509,765,510,778,521,785,523,797,541,809,560,806,569,801,571,791,591,790,606,779,610,792,611,803,619,816,628,806,629,788,637,774,669,767,703,767,703,751,695,736,706,721,732,707,754,696,762,682,751,673,731,662,714,651,700,650,679,655,655,658,635,654,617,647,599,632,596,611,573,598,552,595" shape="poly">
+                <area target="_self" alt="전라북도" title="전라북도" href="#exampleModal" coords="311,565,333,556,345,554,356,545,368,539,387,538,398,542,405,549,419,552,438,550,453,557,473,567,494,568,522,567,538,559,534,574,529,584,516,596,500,599,492,614,490,633,486,650,485,673,481,687,466,693,441,698,420,696,402,690,392,680,385,674,380,682,371,671,360,665,345,678,327,688,316,692,295,679,285,667,285,653,302,651,315,639,291,634,283,620,311,608,326,591,319,579" shape="poly">
+                <area target="_self" alt="전라남도" title="전라남도" href="#exampleModal" coords="278,679,271,712,255,728,271,742,269,753,243,743,230,749,246,768,259,764,249,783,241,786,246,803,249,822,228,800,228,818,239,837,201,877,235,894,264,892,281,891,311,897,361,891,441,867,496,847,508,829,498,787,494,772,494,747,480,730,469,701,429,708,404,710,398,733,380,759,343,764,309,755,301,732,320,706,362,701,392,721,396,703,387,691,357,679,314,697,292,691" shape="poly">
+                <area target="_self" alt="광주" title="광주" href="#exampleModal" coords="330,712,320,721,320,729,330,745,341,750,373,746,385,735,379,721,361,718,351,714,344,709" shape="poly">
+                <area target="_self" alt="제주" title="제주" href="#exampleModal" coords="278,976,255,982,198,996,169,1011,159,1042,164,1068,191,1067,220,1064,276,1056,308,1042,330,1016,331,997,317,980,301,980" shape="poly">
+            </map>
+                <div class="first">1</div>
+                <div class="second">2</div>
+                <div class="third">3</div>
+        </div>
+
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">지역</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="container-fluid">
+                            <div class="row">
+                                <img src="img/seoul.jpg" class="search_img">
+                                <div class="col-md-4">
+                                    <h5 class="search_modal_title">제목</h5>
+                                    <p class="search_modal_detail">내용</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="text-black py-4" id="footerbg">
+        <div class="container">
+            <div class="row text-start">
+                <div class="col-md-6">
+                    <h5>소개</h5>
+                    <p>이용 약관</p>
+                    <p>문의하기</p>
+                </div>
+                <div class="col-md-6">
+                    <img src="img/green.png" id="logo_img">
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        $(document).ready(function () {
+            // 모든 area 태그에 대한 클릭 이벤트 처리
+            $('map[name="image-map"] area').click(function () {
+                // 클릭된 area 태그의 alt 속성 값 가져오기
+                var altValue = $(this).attr('alt');
+
+                // 해당 alt 값으로 모달 열기
+                if (altValue) {
+                    // 모달 제목과 내용 변경
+                    $('.modal-title').text(altValue );
+                    $('.search_modal_title').text(altValue + ' 지역 여행지');
+                    $('.search_modal_detail').text(altValue + '에 대한 내용');
+                    // 모달 열기
+                    $('#exampleModal').modal('show');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
