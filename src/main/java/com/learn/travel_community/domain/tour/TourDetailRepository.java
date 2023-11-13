@@ -1,9 +1,11 @@
-package com.learn.travel_community.repository.board;
+package com.learn.travel_community.domain.tour;
 
-import com.learn.travel_community.domain.tour.TourListEntity;
-import com.learn.travel_community.domain.tour.TourdetailEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
+
+import java.util.List;
 
 public interface TourDetailRepository extends JpaRepository<TourdetailEntity, Long> {
     TourdetailEntity findByDetailId(Long detailId);
+    List<TourdetailEntity> findAllByTourlistIdIn(List<Long> tourlistIds);
+
 }

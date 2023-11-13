@@ -5,6 +5,8 @@ import com.learn.travel_community.domain.tour.TourListEntity;
 import com.learn.travel_community.domain.tour.TourdetailEntity;
 import lombok.*;
 
+import java.util.List;
+
 @Getter
 @Setter
 @ToString
@@ -22,18 +24,18 @@ public class TourListDto {
 
     private String countryName;
 
-    private TourdetailEntity tourdetailEntity;
+    private List<TourdetailEntity> tourdetailEntities;
 
 
 
-    public TourListDto(Long tno, String tourName, String tourExp, String tourImage, Long countryId, String countryName, TourdetailEntity tourdetailEntity) {
+    public TourListDto(Long tno, String tourName, String tourExp, String tourImage, Long countryId, String countryName, List<TourdetailEntity> tourdetailEntities) {
         this.tourlistId = tno;
         this.tourName = tourName;
         this.tourExp = tourExp;
         this.tourImage = tourImage;
         this.countryId = countryId;
         this.countryName = countryName;
-        this.tourdetailEntity = tourdetailEntity;
+        this.tourdetailEntities = tourdetailEntities;
     }
 
     public static TourListDto toTourListDto(TourListEntity tourListEntity) {
@@ -44,7 +46,7 @@ public class TourListDto {
         tourlistDto.setTourImage(tourListEntity.getTourImage());
         tourlistDto.setCountryId(tourListEntity.getCountryId());
         tourlistDto.setCountryName(tourlistDto.getCountryName());
-        tourlistDto.setTourdetailEntity(tourlistDto.getTourdetailEntity());
+        tourlistDto.setTourdetailEntities(tourlistDto.getTourdetailEntities());
 
         return tourlistDto;
     }

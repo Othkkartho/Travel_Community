@@ -25,6 +25,9 @@ public class TourdetailEntity {
         @Column
         private String detailImg;
 
+        @Column(insertable=false, updatable=false)
+        private Long tourlistId;
+
         @ManyToOne
         @JoinColumn(name = "tourlistId", nullable = false)
         private TourListEntity tourListEntity;

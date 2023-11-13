@@ -7,86 +7,35 @@
 <body>
 <h1>Tour List Search</h1>
 
-<form action="/search" method="get">
-    <select name="countryId">
-        <option value="">Country</option>
-        <option value="1">한국</option>
-        <option value="2">일본</option>
-    </select>
-    <input type="submit" value="Search">
-</form>
-
 <table class="table">
     <thead>
     <tr>
-        <th>Country ID</th>
-        <th>Tourlist ID</th>
-        <th>Tour Name</th>
-        <th>Tour Exp</th>
-        <th>Tour Image</th>
+        <th>국가 ID</th>
+        <th>투어 목록 ID</th>
+        <th>투어 이름</th>
+        <th>투어 체험</th>
+        <th>투어 이미지</th>
     </tr>
     </thead>
     <tbody>
-    <tr th:each="tourListDto : ${ tourListDtos }" data-tourlistId="${tourListDto.tourlistId}">
+    <tr th:each="tourListDto : ${tourListDtos}" data-tourlistId="${tourListDto.tourlistId}">
         <td th:text="${tourListDto.countryId}"></td>
         <td th:text="${tourListDto.tourlistId}"></td>
-        <td onclick="showPopup(this)" th:text="${tourListDto.tourName}"></td>
+        <td th:text="${tourListDto.tourName}"></td>
         <td th:text="${tourListDto.tourExp}"></td>
         <td th:text="${tourListDto.tourImage}"></td>
+
         <td>
-            <a href="#" onclick="showPopup(this)">
-                <img th:src="@{/images/#{tourListDto.tourImage}}" alt="#{tourListDto.tourName}" style="width: 50px;" />
-            </a>
+            <ul>
+                <li th:each="tourDetailDto : ${tourListDto.tourdetailEntities}">
+                    <span th:text="${tourDetailDto.detailName}"></span>
+                    <br />
+                    <span th:text="${tourDetailDto.detailExp}"></span>
+                </li>
+            </ul>
         </td>
     </tr>
     </tbody>
 </table>
-
-<script>
-    function showPopup(element) {
-        var tourlistId = element.getAttribute("data-tourlistId");
-        var tourListDtos = $("#tourListDtos").data("tourListDtos");
-
-        var popup = document.createElement("div");
-        popup.style.position = "absolute";
-        popup.style.top = "0";
-        popup.style.left = "0";
-        popup.style.width = "300px";
-        popup.style.height = "300px";
-        popup.style.zIndex = 1000;
-
-        for (var i = 0; i < tourListDtos.length; i++) {
-            if (tourListDtos[i].tourlistId == tourlistId) {
-                var tr = document.createElement("tr");
-
-                var tdId = document.createElement("td");
-                tdId.textContent = tourListDtos[i].detailId;
-                tr.appendChild(tdId);
-
-                var tdName = document.createElement("td");
-                tdName.textContent = tourListDtos[i].detailName;
-                tdName.onclick = function() {
-                    location.href = "/detail/" + tourListDtos[i].detailId;
-                };
-                tr.appendChild(tdName);
-
-                var tdExp = document.createElement("td");
-                tdExp.textContent = tourListDtos[i].detailExp;
-                tr.appendChild(tdExp);
-
-                popup.appendChild(tr);
-            }
-        }
-
-        document.body.appendChild(popup);
-    }
-
-    $(document).ready(function() {
-        $("#tourListDtos").on("click", "tr", function() {
-            var tourlistId = $(this).data("tourlistId");
-            showPopup(this);
-        });
-    });
-</script>
 </body>
 </html>
