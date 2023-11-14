@@ -47,20 +47,9 @@ public class TourListService {
 
         return tourListDtos;
     }
-    @Transactional
-    public List<TourListDto> findAllByCountryId(Long countryId) {
-        List<TourListEntity> tourListEntities = tourListRepository.findAllByCountryId(countryId);
-        List<TourListDto> tourListDtos = new ArrayList<>();
-        for (TourListEntity tourListEntity : tourListEntities) {
-            TourListDto tourListDto = TourListDto.toTourListDto(tourListEntity);
-            tourListDtos.add(tourListDto);
-        }
 
-        return tourListDtos;
-    }
-
-    public TourDetailDto findByDetailId(Long detailId) {
-        TourdetailEntity tourdetailEntity = tourDetailRepository.findByDetailId(detailId);
+    public TourDetailDto findAllByDetailId(Long detailId) {
+        TourdetailEntity tourdetailEntity = tourDetailRepository.findAllByDetailId(detailId);
         TourDetailDto tourDetailDto = TourDetailDto.toTourdetailDto(tourdetailEntity);
 
         return tourDetailDto;

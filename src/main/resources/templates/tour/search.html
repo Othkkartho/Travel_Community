@@ -28,7 +28,7 @@
         <td>
             <ul>
                 <li th:each="tourDetailDto : ${tourListDto.tourdetailEntities}">
-                    <span th:text="${tourDetailDto.detailName}"></span>
+                    <a th:href="${'/tour/detail/'} + ${tourDetailDto.detailId}"><span th:text="${tourDetailDto.detailName}"></span></a>
                     <br />
                     <span th:text="${tourDetailDto.detailExp}"></span>
                 </li>
