@@ -7,20 +7,38 @@
 <body>
 <h1>Tour Detail</h1>
 
-<div>
-  <h2>Detail ID</h2>
-  <p th:text="${tourDetailDto.detailId}"></p>
-</div>
-<div>
-  <h2>Detail Name</h2>
-  <p th:text="${tourDetailDto.detailName}"></p>
-</div>
-<div>
-  <h2>Detail Exp</h2>
-  <p th:text="${tourDetailDto.detailExp}"></p>
-</div>
-<div>
-  <h2>Detail Image</h2>
-  <img th:src="@{/images/#{tourDetailDto.detailImg}}" alt="#{tourDetailDto.detailName}" style="width: 100px;"></td>
-</div>
+<table class="table">
+  <thead>
+  <tr>
+    <td th:text="${tourName}"></td>
+  </tr>
+  <tr>
+    <th>투어 상세 정보 ID</th>
+    <th>투어 목록 ID</th>
+    <th>투어 상세 이름</th>
+    <th>투어 상세 내용</th>
+    <th>Word Cloud</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr>
+    <td th:text="${tourDetailDto.detailId}"></td>
+    <td th:text="${tourDetailDto.tourlistId}"></td>
+    <td th:text="${tourDetailDto.detailName}"></td>
+    <td th:text="${tourDetailDto.detailExp}"></td>
+    <td th:text="${tourDetailDto.detailImg}"></td>
+  </tr>
+  </tbody>
+</table>
+<table>
+  <tr>
+    <td>
+      <img th:src="${naverImage}" alt="Word Cloud">
+    </td>
+    <td>
+      <img th:src="${tripadvisorImage}" alt="Word Cloud">
+    </td>
+  </tr>
+</table>
 </body>
+</html>

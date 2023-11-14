@@ -10,4 +10,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 public interface TourListRepository extends JpaRepository<TourListEntity, Long> {
-   List<TourListEntity> findAllByCountryId(Long countryId);}
+   List<TourListEntity> findAllByCountryId(Long countryId);
+
+   TourListEntity findTourNameByTourlistId(Long tourlistId);
+}

@@ -20,15 +20,15 @@ public class TourDetailDto {
     private String detailName;
     private String detailExp;
     private String detailImg;
-
     private Long tourlistId;
+    private TourListEntity tourListEntity;
 
-    public TourDetailDto(Long detailId, String detailName, String detailExp, String detailImg, Long tourlistId) {
+    public TourDetailDto(Long detailId, String detailName, String detailExp, String detailImg, TourListEntity tourListEntity) {
         this.detailId = detailId;
         this.detailName = detailName;
         this.detailExp = detailExp;
         this.detailImg = detailImg;
-        this.tourlistId = tourlistId;
+        this.tourListEntity = tourListEntity;
     }
 
     public static TourDetailDto toTourdetailDto(TourdetailEntity tourdetailEntity) {
@@ -37,18 +37,9 @@ public class TourDetailDto {
         tourdetailDto.setDetailName(tourdetailEntity.getDetailName());
         tourdetailDto.setDetailExp(tourdetailEntity.getDetailExp());
         tourdetailDto.setDetailImg(tourdetailEntity.getDetailImg());
-        tourdetailDto.setTourlistId(tourdetailDto.getTourlistId());
+        tourdetailDto.setTourListEntity(tourdetailEntity.getTourListEntity());
+        tourdetailDto.setTourlistId(tourdetailEntity.getTourlistId());
 
         return tourdetailDto;
-    }
-
-    public static TourDetailDto toTuple(TourdetailEntity tourdetailEntity) {
-        return new TourDetailDto(
-                tourdetailEntity.getDetailId(),
-                tourdetailEntity.getDetailName(),
-                tourdetailEntity.getDetailExp(),
-                tourdetailEntity.getDetailImg(),
-                tourdetailEntity.getTourListEntity().getTourlistId()
-        );
     }
 }
