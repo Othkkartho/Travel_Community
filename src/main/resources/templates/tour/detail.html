@@ -7,6 +7,12 @@
 <body>
 <h1>Tour Detail</h1>
 
+<form action="/user/scrap/" method="post">
+  <input type="hidden" name="detailId" th:value="${detailId}">
+  <input type="submit" value="스크랩">
+</form>
+<hr>
+
 <table class="table">
   <thead>
   <tr>
@@ -22,7 +28,8 @@
   </thead>
   <tbody>
   <tr>
-    <td th:text="${tourDetailDto.detailId}"></td>
+    <td th:text="${tourDetailDto.detailId}">
+    </td>
     <td th:text="${tourDetailDto.tourlistId}"></td>
     <td th:text="${tourDetailDto.detailName}"></td>
     <td th:text="${tourDetailDto.detailExp}"></td>
