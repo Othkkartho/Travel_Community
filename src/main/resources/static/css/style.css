@@ -1,12 +1,20 @@
-      body {
+          body {
             background-color: #FAFAFA;
             margin: 0;
             box-sizing: border-box;
           }
-          
-          .container {
-            text-align: center;
-            
+          #index_main_container{
+              width: 80%;
+          }
+          .index_main_wordcloud img {
+              width: 100%;
+              height: 100%;
+              object-fit: cover;
+              margin-top: 30px;
+              margin-bottom: 20px;
+          }
+          .index_main_wordcloud h5,.index_main_wordcloud p {
+              text-align: center;
           }
           
           .inner {
@@ -17,9 +25,6 @@
             border: 1px solid #bdc1c6;
             border-radius: 35px;
             margin-bottom: 100px;
-            
-            
-            
           }
           
           #search {
@@ -66,7 +71,10 @@
             margin-top: 10px;
             font-weight: bold;
           }
-          
+          .footer_logo, .footer_text{
+            margin: 20px;
+              color: #2FAF53;
+          }
           a {
             text-decoration: none;
           }
@@ -181,6 +189,8 @@
         #profile-morderator{
             display: none;
         }
+        /* mypage */
+
         #mypage-cover{
             height: 250px;
             background-image: url(../images/testImg/travel.jpg);
@@ -250,8 +260,9 @@
         #profile_submit{
           margin-right: 10px;
         }
-        #profile_edit {
-            background-color: #2FAF53;
+        #profile_edit, #profile_imgedit {
+            margin-bottom: 15px;
+            margin-right: 10px;
         }
         #profile_imgpage{
             margin: 20px;
@@ -261,6 +272,290 @@
             font-weight: bold;
             margin-bottom: 20px;
         }
-        #profileImg{
+        #profileImg {
             margin-bottom: 20px;
         }
+        #card_region, #card_by, #card_name, #card_like{
+             display: inline;
+             margin-right: 5px;
+        }
+        .main_post{
+            margin-top: 50px;
+        }
+        #main_card{
+            margin-top: 50px;
+        }
+        .main_write{
+            margin-top: 30px;
+        }
+        .position-relative img{
+            width: 400px;
+        }
+        .profile_container {
+            width: 95%;
+        }
+
+          #post_time, #post_time2{
+              display: inline;
+              margin-right: 5px;
+
+          }
+          #card_like{
+              color: red;
+          }
+          #post_1{
+              width: 75%;
+              margin-top: 20px;
+          }
+          #post_profile{
+              width: 40px;
+          }
+
+          .post_userinfo{
+              margin-top: 60px;
+          }
+          #post_border{
+              width: 30%;
+              padding: 0 !important;
+              border: solid;
+              border-width: 3px;
+              border-radius: 10px;
+              border-color: #2FAF53;
+          }
+          .detail_post{
+              margin-top: 60px;
+          }
+          .carousel-item > img{
+              min-height: 400px;
+          }
+
+          #detail_list{
+              margin-left: 15px;
+          }
+          #detail_comment{
+              margin-left: 4px;
+          }
+          #detail_icon > .col > button{
+              border: none;
+              background: none;
+          }
+          #detail_img, #detail_img_like{
+              width: 30px;
+          }
+          #detail_icon{
+              margin-top: 10px;
+          }
+          #detail_name, #detail_title{
+              margin-right: 4px;
+          }
+          #comment{
+              margin-left: 1px;
+              margin-top: 0;
+              margin-bottom: 0;
+          }
+
+          #write_card{
+              display: flex;
+              justify-content: center;
+              height: 600px;
+              width: 30%;
+              padding: 0 !important;
+              border: solid;
+              border-width: 3px;
+              border-radius: 10px;
+              border-color: #2FAF53;
+          }
+          #write_upload{
+              margin-top: 50px;
+              width: 200px;
+              height: 200px;
+          }
+          #write_uploadbutton{
+              margin-bottom: 100px;
+              border: none;
+              background: none;
+              font-size: larger;
+              font-weight: bold;
+
+          }
+          .file-label {
+              margin-top: 30px;
+              background-color: #5b975b;
+              color: #fff;
+              text-align: center;
+              padding: 10px 0;
+              width: 65%;
+              border-radius: 6px;
+              cursor: pointer;
+          }
+          #image-upload {
+              display: none;
+          }
+          #preview{
+              position: absolute;
+              width: 100%;
+              height: 100%;
+              visibility: hidden;
+          }
+          .imgd{
+              height: 300px;
+          }
+          #preview2{
+              display:block;
+              width: 100%;
+              height: 100%;
+          }
+          .textarea input{
+              margin-top: 10px;
+          }
+          .textarea textarea {
+              height: 100px;
+              margin-top: 10px;
+              resize: none;
+          }
+          #addCommentButton{
+
+          }
+
+
+
+
+          #root {
+              width: 100%;
+              margin: 0 auto;
+              max-width: 800px;
+          }
+
+          .title {
+              text-align: center;
+          }
+
+          .contents .upload-box {
+              width: 100%;
+              margin-right: 30px;
+              display: flex;
+              flex-direction: column;
+              justify-content: center;
+              align-items: center;
+          }
+
+          .contents .upload-box .drag-file {
+              position: relative;
+              width: 100%;
+              height: 300px;
+              display: flex;
+              flex-direction: column;
+              justify-content: center;
+              align-items: center;
+          }
+          .contents .upload-box .drag-file.highlight {
+              border: 3px dashed red;
+          }
+          .contents .upload-box .drag-file .image {
+              width: 120px;
+          }
+          .contents .upload-box .drag-file .message {
+              margin-bottom: 0;
+          }
+          .contents .upload-box .drag-file .preview {
+
+              position: absolute;
+              left: 0;
+              height: 0;
+              width: 100%;
+              height: 100%;
+          }
+          .contents .upload-box .file-label {
+              margin-top: 30px;
+              background-color: #5b975b;
+              color: #fff;
+              text-align: center;
+              padding: 10px 0;
+              width: 65%;
+              border-radius: 6px;
+              cursor: pointer;
+          }
+          .contents .upload-box .file {
+              display: none;
+          }
+
+          @media (max-width: 700px) {
+              .contents {
+                  display: flex;
+                  flex-direction: column;
+                  margin-top: 30px;
+              }
+              .contents .upload-box {
+                  width: 100%;
+                  box-sizing: border-box;
+                  margin-right: 0;
+              }
+              .contents .upload-box .drag-file {
+                  height: 150px;
+              }
+              .contents .files {
+                  width: 100%;
+                  box-sizing: border-box;
+                  margin-right: 0;
+                  overflow: initial;
+              }
+          }
+          .imgmap{
+              position: relative;
+              text-align:center
+          }
+          .imgmap > div{
+              color: red;
+              padding: 5px;
+              font-size: 26px;
+              font-weight: bold;
+              border-radius: 5px;
+              position: absolute;
+              pointer-events: none;
+          }
+
+          .first {
+              left: 800px;
+              top: 200px;
+          }
+          .second {
+              left: 880px;
+              top: 200px;
+          }
+          .third {
+              left: 1150px;
+              top: 700px;
+          }
+          .search_img {
+              width: 400px;
+              height: 250px;
+          }
+
+          .둘러보기 {
+              max-height: 800px;
+          }
+          .둘러보기 h3, p {
+              text-align: start;
+          }
+          .img_list img{
+              width: 100%;
+              height: 100%;
+              object-fit: cover;
+          }
+          .img_list div{
+              padding-right: 0 !important;
+              padding-left: 0 !important;
+          }
+          .img_list .row{
+              height: 250px;
+          }
+          .region_new {
+              margin-top: 100px;
+              margin-left: 30px;
+          }
+          #detail_img_like {
+              cursor: pointer; /* 마우스 커서를 포인터로 변경하여 클릭 가능하도록 설정 */
+          }
+          .red {
+              fill: red; /* 클래스 .red의 fill 속성을 빨간색으로 변경 */
+          }

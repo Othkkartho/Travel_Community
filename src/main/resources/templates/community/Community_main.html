@@ -6,10 +6,15 @@
 <body>
 <div th:replace="layout/header::indexHeader"></div>
 
+<div class="row justify-content-end">
+  <div class="col-2">
+    <a class="btn btn-primary main_write" role="button" href="/board/save">글쓰기</a>
+  </div>
+</div>
 <div class="d-flex justify-content-center row" id="main_card">
   <div class="col-sm-3">
     <div class="card" >
-      <img src="img/travel.jpg" class="card-img-top" alt="...">
+      <img src="/images/testImg/travel.jpg" class="card-img-top" alt="...">
       <div class="card-body">
         <p class="card-text" id="card_region">제주</p>
         <p class="card-text" id="card_by">좋아요</p>
@@ -46,7 +51,7 @@
                 [[${board.boardContents}]]
               </p>
               <div class="post_userinfo">
-                <img src="img/profile.png" class="dropdown-toggle" type="button" id="post_profile" data-bs-toggle="dropdown" aria-expanded="false">
+                <img src="/images/profile/profile.png" class="dropdown-toggle" type="button" id="post_profile" data-bs-toggle="dropdown" aria-expanded="false">
                 <p class="card-text" id="card_by">By</p>
                 <p class="card-text" id="card_name">[[${board.member.nickname}]]</p>
               </div>
@@ -55,13 +60,12 @@
           </div>
         </div>
         <div class="col-md-3">
-          <img src="img/travel2.jpg" class="img-fluid rounded-start"  id="post_img" alt="...">
+          <img src="/images/testImg/travel2.jpg" class="img-fluid rounded-start"  id="post_img" alt="...">
         </div>
       </div>
     </div>
   </div>
 </div>
-<a href="/board/save">글쓰기</a>
 <div th:replace="layout/footer::footer"></div>
 </body>
 </html>

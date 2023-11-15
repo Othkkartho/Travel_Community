@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="layout/headSetting::minSetting">
-    <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
     <title>커뮤니티</title>
 </head>
 <body>
@@ -12,7 +11,7 @@
     <div class="col-sm-6" id="post_border">
       <div class="row">
         <div class="col">
-          <img src="img/profile.png" class="dropdown-toggle" type="button" id="post_profile" data-bs-toggle="dropdown" aria-expanded="false">
+          <img src="/images/profile/profile.png" class="dropdown-toggle" type="button" id="post_profile" data-bs-toggle="dropdown" aria-expanded="false">
           <p class="card-text" id="card_name">김윤모</p>
         </div>
         <div class="col text-lg-end">
@@ -23,13 +22,13 @@
         <div id="detail_carousel" class="carousel slide" data-bs-ride="false">
           <div class="carousel-inner">
             <div class="carousel-item active">
-              <img src="img/travel.jpg" class="d-block w-100" alt="...">
+              <img src="/images/testImg/travel.jpg" class="d-block w-100" alt="...">
             </div>
             <div class="carousel-item">
-              <img src="img/travel3.jpg" class="d-block w-100" alt="...">
+              <img src="/images/testImg/travel3.jpg" class="d-block w-100" alt="...">
             </div>
             <div class="carousel-item">
-              <img src="img/travel2.jpg" class="d-block w-100" alt="..">
+              <img src="/images/testImg/travel2.jpg" class="d-block w-100" alt="..">
             </div>
           </div>
           <button class="carousel-control-prev" type="button" data-bs-target="#detail_carousel" data-bs-slide="prev">
@@ -44,13 +43,13 @@
         <div class="row" id="detail_icon">
           <div class="col">
             <button id="detail_imgheart" th:unless="${dolike}">
-              <a th:href="|/board/like/${board.id}|"><img th:src="|/images/board/heart.svg|" id="detail_img" alt="좋아요"></a>
+              <a th:href="|/board/like/${board.id}|"><img th:src="|/images/board/heart.svg|" id="detail_img_like" alt="좋아요"></a>
             </button>
             <button id="detail_imgheart" th:if="${dolike}">
-              <a th:href="|/board/dislike/${board.id}|"><img th:src="|/images/board/heart.svg|" id="detail_img" alt="좋아요"></a>
+              <a th:href="|/board/dislike/${board.id}|"><img th:src="|/images/board/heart.svg|" id="detail_img_like" alt="좋아요"></a>
             </button>
             <button id="detail_imgchat">
-              <img src="img/chat-fill.svg"   id="detail_img" alt="...">
+              <img src="/images/main/logo/chat-fill.svg"   id="detail_img" alt="...">
             </button>
           </div>
         </div>
@@ -74,9 +73,18 @@
           [[${board.boardContents}]]
           <div class="row" id="detail_comment2">
             <div class="col-auto">
-              <p class="card-text" id="comment">댓글</p>
-              <p class="card-text" id="comment">댓글</p>
-              <p class="card-text" id="comment">댓글</p>
+              <form>
+                <div id="commentSection">
+                  <p class="card-text comments">댓글</p>
+                  <p class="card-text comments">댓글2</p>
+                  <p class="card-text comments">댓글3</p>
+                </div>
+                <div class="input-group mb-3">
+                  <input type="text" class="form-control" placeholder="댓글작성.." aria-label="detail_comment" aria-describedby="button-addon2" id="newComment">
+                  <button type="submit" class="btn btn-primary" id="addCommentButton">댓글 작성</button>
+                </div>
+              </form>
+
             </div>
           </div>
         </div>
@@ -100,6 +108,14 @@
     $("#detail_comment").show();
     $("#detail_comment2").hide();
   })
+
+  const heartIcon = document.getElementById('detail_img_like');
+
+  heartIcon.addEventListener('click', function() {
+    heartIcon.classList.toggle('red'); // 클릭할 때마다 'red' 클래스를 토글하여 색상을 변경합니다.
+  });
+
+
 </script>
 </body>
 </html>

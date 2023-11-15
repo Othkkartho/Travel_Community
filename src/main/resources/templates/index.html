@@ -5,10 +5,11 @@
 </head>
 <body>
     <div th:replace="layout/header::indexHeader"></div>
+    <div class="container" id="index_main_container"> <!-- 컨테이너 -->
     <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
         <div class="carousel-inner">
             <div class="carousel-item active">
-                <img src="images/testImg/cafe.jpg" class="d-block w-100" alt="..." id="slide">
+                <img src="/images/main/img/main_img1.jpg" class="d-block w-100" alt="..." id="slide">
 
                 <div class="text-overlay-main">고생 끝에 커피 와요, 언덕 위 해방촌 카페 3
                     <br>
@@ -19,10 +20,10 @@
 
             </div>
             <div class="carousel-item">
-                <img src="images/main/logo/logo2.png" class="d-block w-100" alt="...">
+                <img src="/images/main/img/main_img2.png" class="d-block w-100" alt="...">
             </div>
             <div class="carousel-item">
-                <img src="images/testImg/pngwing.com.png" class="d-block w-100" alt="...">
+                <img src="/images/main/img/main_img3.png" class="d-block w-100" alt="...">
             </div>
         </div>
         <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
@@ -34,7 +35,21 @@
             <span class="visually-hidden">Next</span>
         </button>
     </div>
+    <div class="container index_main_wordcloud">
+        <div class="row">
+            <div class="col">
+                <img src="/images/main/img/word_trip.png" alt="트립어드바이저">
+                <h5>트립어드바이저</h5>
+                <p>2023-09-01 ~ 2023-10-31</p>
+            </div>
+            <div class="col">
+                <img src="/images/main/img/word_naver.png" alt="네이버">
+                <h5>네이버</h5>
+                <p>2023-09-01 ~ 2023-10-31</p>
+            </div>
+        </div>
 
+    </div>
     <div class="chart">
         <canvas id="bar-chart" width="500"  height="450"></canvas>
         <script> new Chart(document.getElementById("bar-chart"), {
@@ -71,7 +86,7 @@
         });
         </script>
     </div>
-
+    </div> <!-- 컨테이너 -->
     <!-- 로그인 -->
     <!-- Modal -->
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
