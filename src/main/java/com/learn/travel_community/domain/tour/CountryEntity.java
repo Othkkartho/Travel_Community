@@ -1,12 +1,9 @@
 package com.learn.travel_community.domain.tour;
 
-import com.learn.travel_community.domain.member.Member;
-import com.learn.travel_community.dto.tour.CountryDto;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Entity

@@ -18,7 +18,7 @@ import java.io.Serializable;
 @Table(name = "scrap")
 public class ScrapEntity implements Serializable  {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY) // auto_increment
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long sid;
 
     @Column(insertable=false, updatable=false)
@@ -32,6 +32,6 @@ public class ScrapEntity implements Serializable  {
     private Member member;
 
     @ManyToOne
-    @JoinColumn(name = "detail_id")
+    @JoinColumn(name = "detailId")
     private TourdetailEntity detailEntity;
 }

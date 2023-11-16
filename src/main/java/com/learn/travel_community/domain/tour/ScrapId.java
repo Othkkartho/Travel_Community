@@ -7,18 +7,5 @@ import java.io.Serializable;
 
 @Embeddable
 public class ScrapId implements Serializable {
-    @Column(name = "uid")
-    private Long uid;
 
-    @Column(name = "detail_id")
-    private Long detailId;
-
-    public ScrapId() {
-
-    }
-
-    public ScrapId(Long uid, Long detailId) {
-        this.uid = uid;
-        this.detailId = detailId;
-    }
 }

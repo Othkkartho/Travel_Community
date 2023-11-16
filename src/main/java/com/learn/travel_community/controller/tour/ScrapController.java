@@ -1,23 +1,17 @@
 package com.learn.travel_community.controller.tour;
 
 import com.learn.travel_community.config.member.oauth.dto.SessionMember;
-import com.learn.travel_community.domain.board.BoardEntity;
 import com.learn.travel_community.domain.member.Member;
 import com.learn.travel_community.domain.member.MemberRepository;
 import com.learn.travel_community.domain.tour.*;
 import com.learn.travel_community.dto.BasicResponse;
-import com.learn.travel_community.repository.board.BoardRepository;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Example;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.nio.file.FileStore;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -43,8 +37,9 @@ public class ScrapController {
 
         final BasicResponse result = new BasicResponse();
         final List<TourdetailEntity> tourDetailEntityList = new ArrayList<>();
-        for (int i = 0; i < scrapList.size(); i++)
-            tourDetailEntityList.add(scrapList.get(i).getDetailEntity());
+        for (ScrapEntity scrapEntity : scrapList) {
+            tourDetailEntityList.add(scrapEntity.getDetailEntity());
+        }
 
         result.status = true;
         result.data = "success";
@@ -62,7 +57,7 @@ public class ScrapController {
         scrapEntity.setMember(member);
         scrapEntity.setDetailEntity(tourdetailEntity);
         scrapEntity.setUid(member.getUid());
-        scrapEntity.setDetail_id(tourdetailEntity.getDetailId());
+        scrapEntity.setDetailId(tourdetailEntity.getDetailId());
         scrapRepository.save(scrapEntity);
 
         result.status = true;
