@@ -1,6 +1,7 @@
 package com.learn.travel_community.dto.tour;
 
 
+import com.learn.travel_community.domain.tour.TopDataEntity;
 import com.learn.travel_community.domain.tour.TourListEntity;
 import com.learn.travel_community.domain.tour.TourdetailEntity;
 import lombok.*;
@@ -26,9 +27,12 @@ public class TourListDto {
 
     private List<TourdetailEntity> tourdetailEntities;
 
+    private List<TopDataEntity> topDataEntities;
 
 
-    public TourListDto(Long tno, String tourName, String tourExp, String tourImage, Long countryId, String countryName, List<TourdetailEntity> tourdetailEntities) {
+
+    public TourListDto(Long tno, String tourName, String tourExp, String tourImage, Long countryId,
+                       String countryName, List<TourdetailEntity> tourdetailEntities, List<TopDataEntity> topDataEntities) {
         this.tourlistId = tno;
         this.tourName = tourName;
         this.tourExp = tourExp;
@@ -36,6 +40,7 @@ public class TourListDto {
         this.countryId = countryId;
         this.countryName = countryName;
         this.tourdetailEntities = tourdetailEntities;
+        this.topDataEntities = topDataEntities;
     }
 
     public static TourListDto toTourListDto(TourListEntity tourListEntity) {
@@ -47,6 +52,7 @@ public class TourListDto {
         tourlistDto.setCountryId(tourListEntity.getCountryId());
         tourlistDto.setCountryName(tourlistDto.getCountryName());
         tourlistDto.setTourdetailEntities(tourlistDto.getTourdetailEntities());
+        tourlistDto.setTopDataEntities(tourlistDto.getTopDataEntities());
 
         return tourlistDto;
     }

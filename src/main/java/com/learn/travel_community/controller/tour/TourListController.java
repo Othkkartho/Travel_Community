@@ -1,6 +1,5 @@
 package com.learn.travel_community.controller.tour;
 
-import com.learn.travel_community.domain.tour.TourDetailRepository;
 import com.learn.travel_community.domain.tour.TourListEntity;
 import com.learn.travel_community.domain.tour.TourListRepository;
 import com.learn.travel_community.dto.tour.TourDetailDto;
@@ -8,12 +7,12 @@ import com.learn.travel_community.dto.tour.TourListDto;
 import com.learn.travel_community.service.tour.TourListService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
+import java.util.Date;
 import java.util.List;
 
 
@@ -21,16 +20,13 @@ import java.util.List;
 @RequiredArgsConstructor
 @RequestMapping("/tour")
 public class TourListController {
-    @Autowired
-    private ResourceLoader resourceLoader;
     private final TourListService tourListService;
     @Autowired
     private final TourListRepository tourListRepository;
-    @Autowired
-    private final TourDetailRepository tourDetailRepository;
     @GetMapping("/search")
-    public String search(@RequestParam(required = false, defaultValue = "1") Long countryId, Model model) {
-        List<TourListDto> tourListDtos = tourListService.search(countryId);
+    public String search(@RequestParam(required = false, defaultValue = "1") Long countryId, Date date, Model model) {
+        List<TourListDto> tourListDtos = tourListService.search(countryId, date);
+
 
         model.addAttribute("tourListDtos", tourListDtos);
 
@@ -55,6 +51,4 @@ public class TourListController {
 
             return "tour/detail";
         }
-
-
 }

@@ -28,9 +28,9 @@ public class TotalEntity {
         private float interest_level;
 
         @Column(insertable=false, updatable=false)
-        private Long tourlistTno;
+        private Long tourlistId;
 
         @ManyToOne
-        @JoinColumn(name = "tourlist_tno")
+        @JoinColumn(name = "tourlistId")
         private TourListEntity tourListEntity;
 }

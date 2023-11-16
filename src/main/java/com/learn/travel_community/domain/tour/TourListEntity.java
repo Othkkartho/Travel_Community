@@ -2,6 +2,7 @@ package com.learn.travel_community.domain.tour;
 
 import com.learn.travel_community.domain.tour.TourdetailEntity;
 import com.learn.travel_community.dto.tour.*;
+import com.sun.jdi.PrimitiveValue;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -34,6 +35,9 @@ public class TourListEntity {
 
     @OneToMany(mappedBy = "tourListEntity", fetch = FetchType.EAGER)
     private List<TourdetailEntity> tourdetailEntityList;
+
+    @OneToMany(mappedBy = "tourListEntity", fetch = FetchType.EAGER)
+    private List<TopDataEntity> topDataEntitiyList;
 
     @ManyToOne
     @JoinColumn(name = "countryId", nullable = false)

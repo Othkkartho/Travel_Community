@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.sql.Date;
+import java.util.Date;
 
 @Entity
 @Getter
@@ -15,11 +15,16 @@ public class TopDataEntity {
     private Long rank;
 
     @Column
-    private String region;
-
-    @Column
     private Long traffic;
 
     @Column
-    private Date Date;
+    private Date date;
+
+    @Column(insertable=false, updatable=false)
+    private Long tourlistId;
+
+    @ManyToOne
+    @JoinColumn(name = "tourlistId")
+    private TourListEntity tourListEntity;
+
 }
