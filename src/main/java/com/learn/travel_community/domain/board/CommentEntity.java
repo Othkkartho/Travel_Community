@@ -24,19 +24,20 @@ public class CommentEntity extends BaseTimeEntity {
 
     /* Board:Comment = 1:N */
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "board_id")
+    @JoinColumn(name = "boardId")
     private BoardEntity boardEntity;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(nullable = false)
     private Member member;
 
-    public static CommentEntity toSaveEntity(Member member, CommentDTO commentDTO, BoardEntity boardEntity) {
+    public static CommentEntity toSaveEntity(CommentDTO commentDTO) {
         CommentEntity commentEntity = new CommentEntity();
-        commentEntity.setMember(member);
+        commentEntity.setId(commentDTO.getId());
         commentEntity.setCommentWriter(commentDTO.getCommentWriter());
         commentEntity.setCommentContents(commentDTO.getCommentContents());
-        commentEntity.setBoardEntity(boardEntity);
+        commentEntity.setMember(commentDTO.getMember());
+        commentEntity.setBoardEntity(commentDTO.getBoardEntity());
         return commentEntity;
     }
 }

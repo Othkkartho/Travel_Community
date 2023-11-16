@@ -14,4 +14,6 @@ public interface BoardRepository extends JpaRepository<BoardEntity, Long> {
     void updateHits(@Param("id") Long id);
 
     List<BoardEntity> findTop10ByMemberOrderByCreatedTimeDesc(Member member);
+
+    BoardEntity findAllById(Long boardId);
 }

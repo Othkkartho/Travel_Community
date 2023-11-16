@@ -58,7 +58,7 @@ public class BoardController {
     public String findById(@PathVariable Long id, Model model, @PageableDefault(page=1) Pageable pageable) {
         boardService.updateHits(id);
         BoardDTO boardDTO = boardService.findById(id);
-        List<CommentDTO> commentDTOList = commentService.findAll(id);
+        List<CommentDTO> commentDTOList = commentService.findAll(boardRepository.findAllById(id));
         Member member = memberRepository.findByEmail(((SessionMember) httpSession.getAttribute("user")).getEmail()).orElse(null);
         BoardEntity board = boardRepository.findById(id).orElseThrow();
 

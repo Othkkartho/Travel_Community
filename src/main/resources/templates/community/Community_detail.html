@@ -73,27 +73,16 @@
           [[${board.boardContents}]]
           <div class="row" id="detail_comment2">
             <div class="col-auto">
-                <div id="comment-list">
-                  <table>
-                    <tr>
-                      <th>댓글번호</th>
-                      <th>작성자</th>
-                      <th>내용</th>
-                      <th>작성시간</th>
-                    </tr>
-                    <tr th:each="comment, commentStat: ${commentList}">
-                      <td th:text="${comment.id}"></td>
-                      <td th:text="${comment.member.nickname}"></td>
-                      <td th:text="${comment.commentContents}"></td>
-                      <td th:text="${comment.commentCreatedTime}"></td>
-                    </tr>
-                  </table>
-                </div>
+                <div id="comment-list"></div>
                 <div class="input-group mb-3" id="comment-write">
-                  <input type="text" class="form-control" placeholder="내용" aria-label="detail_comment" aria-describedby="button-addon2" id="commentContents">
-                  <button class="btn btn-primary" id="comment-write-btn" onclick="commentWrite()">댓글 작성</button>
+                  <form action="/comment/save" method="post">
+                    <label for="commentContents">내용: </label>
+                    <textarea class="form-control" id="commentContents" name="commentContents" rows="5" required></textarea>
+                    <br>
+                    <input type="hidden" class="form-control" aria-label="detail_comment" aria-describedby="button-addon2" name="boardId" th:value="${board.id}"/>
+                    <button class="btn btn-primary" id="comment-write-btn" type="submit">댓글 작성</button>
+                  </form>
                 </div>
-
             </div>
           </div>
         </div>
@@ -104,7 +93,7 @@
 
 <div th:replace="layout/footer::footer"></div>
 
-<script th:inline="javascript">
+<script src='//cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js' th:inline="javascript">
   $("#detail_comment2").hide();
   var myCollapsible = document.getElementById('detail_expandcotent')
   myCollapsible.addEventListener('show.bs.collapse', function () {
@@ -120,51 +109,11 @@
 
   const heartIcon = document.getElementById('detail_img_like');
 
+
   heartIcon.addEventListener('click', function() {
     heartIcon.classList.toggle('red'); // 클릭할 때마다 'red' 클래스를 토글하여 색상을 변경합니다.
   });
 
-  const commentWrite = () => {
-        const writer = document.getElementById("nickname").value;
-        const contents = document.getElementById("commentContents").value;
-        console.log("작성자: ", writer);
-        console.log("내용: ", contents);
-        const id = [[${board.id}]];
-        $.ajax({
-           // 요청방식: post, 요청주소: /comment/save, 요청데이터: 작성자, 작성내용, 게시글번호
-           type: "post",
-           url: "/comment/save",
-           data: {
-               "commentWriter": writer,
-               "commentContents": contents,
-               "boardId": id
-           },
-           success: function (res) {
-               console.log("요청성공", res);
-               let output = "<table>";
-               // output += "<tr><th>댓글번호</th>";
-               output += "<th>작성자</th>";
-               output += "<th>내용</th>";
-               output += "<th>작성시간</th></tr>";
-               for (let i in res) {
-                   output += "<tr>";
-                   // output += "<td>" + res[i].id + "</td>";
-                   output += "<td>" + res[i].nickname + "</td>";
-                   output += "<td>" + res[i].commentContents + "</td>";
-                   output += "<td>" + res[i].commentCreatedTime + "</td>";
-                   output += "</tr>";
-               }
-               output += "</table>";
-               document.getElementById('comment-list').innerHTML = output;
-               document.getElementById('nickname').value = '';
-               document.getElementById('commentContents').value = '';
-           },
-           error: function (err) {
-               console.log("요청실패", err);
-           }
-        });
-
-    }
 </script>
 </body>
 </html>
