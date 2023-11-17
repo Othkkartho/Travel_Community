@@ -20,7 +20,7 @@
         </div>
         <div class="dropdown" th:if="${userName}">
             <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-                <img th:src="|images${profileImg}|">
+                <img th:src="|/images${profileImg}|">
             </button>
             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton" id="profile-menu">
                 <li><p class="dropdown-item disabled" href="#" tabindex="-1" aria-disabled="true" id="profile-name">[[${userName}]]</p></li>
