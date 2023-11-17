@@ -31,9 +31,9 @@ public class CommentDTO {
     public static CommentDTO toCommentDTO(CommentEntity commentEntity) {
         CommentDTO commentDTO = new CommentDTO();
         commentDTO.setId(commentEntity.getId());
-        commentDTO.setCommentWriter(commentEntity.getCommentWriter());
+        commentDTO.setCommentWriter(commentEntity.getMember().getNickname());
         commentDTO.setCommentContents(commentEntity.getCommentContents());
-        commentDTO.setCommentCreatedTime(commentEntity.getCreatedTime());
+        commentDTO.setCommentCreatedTime(commentEntity.getCommentCreatedTime());
         commentDTO.setBoardEntity(commentEntity.getBoardEntity());
         commentDTO.setMember(commentEntity.getMember());
         return commentDTO;

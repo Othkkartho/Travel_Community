@@ -7,6 +7,8 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
+
 @Entity
 @Getter
 @Setter
@@ -22,13 +24,16 @@ public class CommentEntity extends BaseTimeEntity {
     @Column
     private String commentContents;
 
+    @Column
+    private LocalDateTime commentCreatedTime;
+
     /* Board:Comment = 1:N */
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "boardId")
     private BoardEntity boardEntity;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(nullable = false)
+    @JoinColumn(name = "uid")
     private Member member;
 
     public static CommentEntity toSaveEntity(CommentDTO commentDTO) {

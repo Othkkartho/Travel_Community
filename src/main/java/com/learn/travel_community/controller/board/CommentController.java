@@ -20,23 +20,14 @@ public class CommentController {
     private final CommentService commentService;
 
     @PostMapping("/save")
-    public String save(@ModelAttribute CommentDTO commentDTO, String boardId) throws IOException {
-        commentDTO.setCommentContents(commentDTO.getCommentContents());
+    public String save(@ModelAttribute CommentEntity commentEntity, String boardId) throws IOException {
+        CommentDTO commentDTO = new CommentDTO();
+        commentDTO.setCommentContents(commentEntity.getCommentContents());
         commentDTO.setBoardEntity(boardRepository.findAllById(Long.valueOf(boardId)));
         commentService.save(commentDTO);
-        List<CommentDTO> commentDTOList = commentService.findAll(commentDTO.getBoardEntity());
+        List<CommentEntity> commentEntityList = commentService.findAll(commentEntity.getBoardEntity());
 
         return "redirect:/board/paging";
-    }
-
-    @GetMapping("/list")
-    public List<CommentDTO> list(BoardEntity boardEntity) {
-        List<CommentEntity> commentEntityList = commentRepository.findAllByBoardEntity(boardEntity);
-        List<CommentDTO> commentDTOList = new ArrayList<>();
-        for (CommentEntity commentEntity : commentEntityList) {
-            commentDTOList.add(CommentDTO.toCommentDTO(commentEntity));
-        }
-        return commentDTOList;
     }
 
     @DeleteMapping("/delete")

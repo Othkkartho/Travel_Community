@@ -21,8 +21,6 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class CommentService {
     private final CommentRepository commentRepository;
-    private final BoardRepository boardRepository;
-
     private final MemberRepository memberRepository;
     private final HttpSession httpSession;
 
@@ -35,13 +33,10 @@ public class CommentService {
         commentRepository.save(commentEntity);
     }
 
-    public List<CommentDTO> findAll(BoardEntity boardEntity) {
-        List<CommentEntity> commentEntityList = commentRepository.findAllByBoardEntity(boardEntity);
-        List<CommentDTO> commentDTOList = new ArrayList<>();
-        for (CommentEntity commentEntity : commentEntityList) {
-            commentDTOList.add(CommentDTO.toCommentDTO(commentEntity));
-        }
-        return commentDTOList;
+    public List<CommentEntity> findAll(BoardEntity boardEntity) {
+        List<CommentEntity> commentEntities = commentRepository.findAllByBoardEntity(boardEntity);
+
+        return commentEntities;
     }
 
     public void delete(Long commentId) {

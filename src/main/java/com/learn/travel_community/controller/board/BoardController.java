@@ -56,10 +56,10 @@ public class BoardController {
 
     @GetMapping("/{id}")
     public String findById(@PathVariable Long id, Model model, @PageableDefault(page=1) Pageable pageable) {
+        Member member = memberRepository.findByEmail(((SessionMember) httpSession.getAttribute("user")).getEmail()).orElse(null);
         boardService.updateHits(id);
         BoardDTO boardDTO = boardService.findById(id);
-        List<CommentDTO> commentDTOList = commentService.findAll(boardRepository.findAllById(id));
-        Member member = memberRepository.findByEmail(((SessionMember) httpSession.getAttribute("user")).getEmail()).orElse(null);
+        List<CommentEntity> commentEntityList = commentService.findAll(boardRepository.findAllById(id));
         BoardEntity board = boardRepository.findById(id).orElseThrow();
 
         if (viewRepository.findByMemberAndBoard(member, board) == null) {
@@ -71,7 +71,7 @@ public class BoardController {
             viewRepository.save(viewer);
         }
 
-        model.addAttribute("commentList", commentDTOList);
+        model.addAttribute("commentList", commentEntityList);
         model.addAttribute("board", boardDTO);
         model.addAttribute("page", pageable.getPageNumber());
         model.addAttribute("dolike", likesRepository.findByMemberAndBoard(member, board));
