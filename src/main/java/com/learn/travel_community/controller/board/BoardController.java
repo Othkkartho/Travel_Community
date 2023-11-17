@@ -71,6 +71,11 @@ public class BoardController {
             viewRepository.save(viewer);
         }
 
+
+        if (member != null) {
+            model.addAttribute("userName", member.getNickname());
+            model.addAttribute("profileImg", member.getPicture());
+        }
         model.addAttribute("commentList", commentEntityList);
         model.addAttribute("board", boardDTO);
         model.addAttribute("page", pageable.getPageNumber());
@@ -107,6 +112,12 @@ public class BoardController {
         Page<BoardDTO> boardList = boardService.paging(pageable);
         List<LikeDto> likesList = likesRepository.getBoardsLikesCount();
         Map<Long, Long> likeMap = new HashMap<>();
+
+        SessionMember member = (SessionMember) httpSession.getAttribute("user");
+        if (member != null) {
+            model.addAttribute("userName", member.getNickname());
+            model.addAttribute("profileImg", member.getPicture());
+        }
 
         for (LikeDto l: likesList) {
             likeMap.put(l.getBid(), l.getLikeCount());
