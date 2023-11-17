@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -25,10 +26,7 @@ public class TourListService {
     @Autowired
     private TopdataRepository topDataRepository;
 
-    @Autowired
-    private TourListService tourListService;
-
-    public List<TourListDto> search(Long countryId, Date date) {
+    public List<TourListDto> search(Long countryId, LocalDate date) {
         // 월별 상위 10개 투어 목록 ID를 조회합니다.
         List<Long> toptourlistIds = topDataRepository.findAllByDate(date).stream()
                 .map(TopDataEntity::getTourlistId)
@@ -65,13 +63,13 @@ public class TourListService {
         return tourListDtos;
     }
     public TourDetailDto findAllByDetailId(Long detailId) {
-        TourdetailEntity tourdetailEntity = tourDetailRepository.findAllByDetailId(detailId);
+        TourdetailEntity tourdetailEntity = tourDetailRepository.findAllByDetailIdOrderByRankNoAsc(detailId);
         TourDetailDto tourDetailDto = TourDetailDto.toTourdetailDto(tourdetailEntity);
 
         return tourDetailDto;
     }
 
-    public List<Long> getTopTourlistIdsByDate(Date date) {
+    public List<Long> getTopTourlistIdsByDate(LocalDate date) {
         List<TopDataEntity> topDataEntities = topDataRepository.findAllByDate(date);
         List<Long> tourlistIds = new ArrayList<>();
         for (TopDataEntity topDataEntity : topDataEntities) {

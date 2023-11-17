@@ -30,7 +30,6 @@ public class TourListDto {
     private List<TopDataEntity> topDataEntities;
 
 
-
     public TourListDto(Long tno, String tourName, String tourExp, String tourImage, Long countryId,
                        String countryName, List<TourdetailEntity> tourdetailEntities, List<TopDataEntity> topDataEntities) {
         this.tourlistId = tno;

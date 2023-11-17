@@ -3,29 +3,31 @@ package com.learn.travel_community.domain.tour;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 import java.sql.Date;
 
 @Entity
 @Getter
 @Setter
-@Table(name = "topdata")
+@Table(name = "total")
+@ToString
 public class TotalEntity {
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
         private Long id;
 
         @Column
-        private Long gender;
+        private String gender;
 
         @Column
-        private Long ages;
+        private String ageGroup;
 
         @Column
         private Date investigationDate;
 
         @Column
-        private float interest_level;
+        private Float region_interest_level;
 
         @Column(insertable=false, updatable=false)
         private Long tourlistId;

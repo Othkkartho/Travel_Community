@@ -7,6 +7,7 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.criteria.CriteriaBuilder;
 import lombok.*;
 
 import java.util.Date;
@@ -17,17 +18,18 @@ import java.util.Date;
 @ToString
 @NoArgsConstructor // 기본생성자
 public class TopDataDto {
+    private Long id;
+    private Integer rankNo;
 
-    private Long rank;
-
-    private Long traffic;
+    private Integer traffic;
 
     private Date date;
 
-    private  Long tourlistId;
+    private Long tourlistId;
 
-    public TopDataDto(Long rank, Long traffic, Date date, Long tourlistId) {
-        this.rank = rank;
+    public TopDataDto(Long id, Integer rankNo, Integer traffic, Date date, Long tourlistId) {
+        this.id = id;
+        this.rankNo = rankNo;
         this.traffic = traffic;
         this.date = date;
         this.tourlistId = tourlistId;
@@ -35,7 +37,8 @@ public class TopDataDto {
 
     public static TopDataDto toTopdataDto(TopDataEntity topDataEntity) {
         TopDataDto topDataDto = new TopDataDto();
-        topDataDto.setRank(topDataEntity.getRank());
+        topDataDto.setId(topDataEntity.getId());
+        topDataDto.setRankNo(topDataEntity.getRankNo());
         topDataDto.setTraffic(topDataEntity.getTraffic());
         topDataDto.setDate(topDataEntity.getDate());
         topDataDto.setTourlistId(topDataEntity.getTourlistId());

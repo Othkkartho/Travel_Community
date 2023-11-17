@@ -12,8 +12,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 
 @Controller
@@ -24,9 +27,16 @@ public class TourListController {
     @Autowired
     private final TourListRepository tourListRepository;
     @GetMapping("/search")
-    public String search(@RequestParam(required = false, defaultValue = "1") Long countryId, Date date, Model model) {
-        List<TourListDto> tourListDtos = tourListService.search(countryId, date);
+    public String search(@RequestParam(required = false, defaultValue = "1") Long countryId, LocalDate date, Model model) {
+        if (date == null) {
+            // 날짜 매개변수가 null이면 현재 날짜로 설정합니다.
+            date = LocalDate.now();
+        }
+        // 날짜에서 연도와 월을 추출합니다.
+        LocalDate localDate = date;
 
+        // 국가 ID와 날짜를 기반으로 여행 목록을 검색합니다.
+        List<TourListDto> tourListDtos = tourListService.search(countryId, localDate);
 
         model.addAttribute("tourListDtos", tourListDtos);
 

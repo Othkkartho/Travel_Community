@@ -25,6 +25,9 @@ public class TourdetailEntity {
         @Column
         private String detailImg;
 
+        @Column
+        private Integer rankNo;
+
         @Column(insertable=false, updatable=false)
         private Long tourlistId;
 

@@ -20,14 +20,16 @@ public class TourDetailDto {
     private String detailName;
     private String detailExp;
     private String detailImg;
+    private Integer rankNo;
     private Long tourlistId;
     private TourListEntity tourListEntity;
 
-    public TourDetailDto(Long detailId, String detailName, String detailExp, String detailImg, TourListEntity tourListEntity) {
+    public TourDetailDto(Long detailId, String detailName, String detailExp, String detailImg, Integer rankNo, TourListEntity tourListEntity) {
         this.detailId = detailId;
         this.detailName = detailName;
         this.detailExp = detailExp;
         this.detailImg = detailImg;
+        this.rankNo = rankNo;
         this.tourListEntity = tourListEntity;
     }
 
@@ -37,6 +39,7 @@ public class TourDetailDto {
         tourdetailDto.setDetailName(tourdetailEntity.getDetailName());
         tourdetailDto.setDetailExp(tourdetailEntity.getDetailExp());
         tourdetailDto.setDetailImg(tourdetailEntity.getDetailImg());
+        tourdetailDto.setRankNo(tourdetailEntity.getRankNo());
         tourdetailDto.setTourListEntity(tourdetailEntity.getTourListEntity());
         tourdetailDto.setTourlistId(tourdetailEntity.getTourlistId());
 
