@@ -1,100 +1,62 @@
 <!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.thtmeleaf.org">
-<head>
-    <meta charset="UTF-8">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout/headSetting::minSetting">
     <title>커뮤니티</title>
-    <!-- bootstrap/css -->
-    <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-    <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.min.css}" />
-    <link rel="stylesheet" href="css/style.css">
 </head>
+<script src="/js/jquery-3.7.1.min.js" > </script>
 <body>
-    <header>
-        <nav class="navbar navbar-expand-lg navbar-light" id="header-main">
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <img class="navbar-brand" src="img/green.png" id="logo_img">
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">여행지</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">커뮤니티</a>
-                    </li>
-                </ul>
-            </div>
-            <div>
-                <button class="btn btn-light" id="login">로그인</button>
-            </div>
-        </nav>
-    </header>
-
-    <div class="d-flex justify-content-center 메인">
-      <div class="container 둘러보기">
+<div th:replace="layout/header::indexHeader"></div>
+<div class="d-flex justify-content-center 메인">
+    <div class="container 둘러보기">
         <h3>[[${tourDetailDto.detailName}]]</h3>
         <div class="img_list row">
-          <div class="col-sm-6 ">
-            <img src="images/testImg/cafe.jpg">
-          </div>
-          <div class="col-sm-6">
-            <div class="row">
-              <img src="images/testImg/cafe.jpg">
+            <div class="col-sm-6 ">
+                <img src="/images/testImg/cafe.jpg">
             </div>
-            <div class="row">
-              <img src="images/testImg/cafe.jpg">
+            <div class="col-sm-6">
+                <div class="row">
+                    <img src="/images/testImg/cafe.jpg">
+                </div>
+                <div class="row">
+                    <img src="/images/testImg/cafe.jpg">
+                </div>
             </div>
-          </div>
         </div>
         <h3>[[${tourDetailDto.detailName}]] 상세 설명</h3>
         <p>[[${tourDetailDto.detailExp}]]</p>
     </div>
+</div>
 
-    <div class="d-flex justify-content-center 워드클라우드">
-        <div class="container 둘러보기">
-          <h3>사이트별 워드 클라우드</h3>
-          <div class="img_list row">
+<div class="d-flex justify-content-center 워드클라우드">
+    <div class="container 둘러보기">
+        <h3>사이트별 워드 클라우드</h3>
+        <div class="img_list row">
             <div class="col-sm-6 ">
                 <img th:src="${naverImage}" alt="Word Cloud">
                 <h5>네이버</h5>
-              <h5>2023.09.01~2023.10.31</h5>
+                <h5>2023.09.01~2023.10.31</h5>
             </div>
             <div class="col-sm-6">
                 <img th:src="${tripadvisorImage}" alt="Word Cloud">
-              <h5>트립어드바이저</h5>
-              <h5>2023.09.01~2023.10.31</h5>
+                <h5>트립어드바이저</h5>
+                <h5>2023.09.01~2023.10.31</h5>
             </div>
-          </div>
         </div>
-      </div>
-
-    <div class="지역 커뮤니티 최신글 region_new">
-      <h3>지역 커뮤니티 최신글</h3>
-        <a herf="">야외 자리도  즐기기 좋은 카페 26곳</a><br>
-        <a herf="">강남 팝업스토어</a><br>
-        <a herf="">성수동 카페거리</a><br>  
-        <a herf="">성수 아더 스페이스 2.0 플래그십 스토어</a><br> 
     </div>
+</div>
 
-    <footer class="text-black py-4" id="footerbg">
-        <div class="container">
-            <div class="row text-start">
-                <div class="col-md-6">
-                    <h5>소개</h5>
-                    <p>이용 약관</p>
-                    <p>문의하기</p>
-                </div>
-                <div class="col-md-6">
-                    <img src="images/main/logo/green.png" id="logo_img">
-                </div>
-            </div>
-        </div>
-    </footer>
+<div class="container 지역 커뮤니티 최신글 둘러보기 region_new">
+    <h3>지역 커뮤니티 최신글</h3>
+    <a herf="">야외 자리도  즐기기 좋은 카페 26곳</a><br>
+    <a herf="">강남 팝업스토어</a><br>
+    <a herf="">성수동 카페거리</a><br>
+    <a herf="">성수 아더 스페이스 2.0 플래그십 스토어</a><br>
+</div>
 
-    <script>
-    </script>
+<div th:replace="layout/footer::footer"></div>
+
+
+<script>
+</script>
 </body>
 </html>

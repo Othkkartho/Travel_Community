@@ -232,16 +232,16 @@
             font-size: larger;
             margin-top: 20px;
         }
-        /* 미사용
-        .modal-body{
+        /* 로그인 버튼 팝업 */
+        .login_ui{
             height: 100px;
         }
-        .modal-body img{
+        .login_ui img{
             width: 120px;
             height: 50px;
             text-align: center;
         }
-        */
+
         .form-group label{
           color: #2FAF53;
         }
