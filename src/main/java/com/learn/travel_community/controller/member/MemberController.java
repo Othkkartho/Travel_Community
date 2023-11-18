@@ -63,6 +63,7 @@ public class MemberController {
         List<Likes> likesList = likesRepository.findAllByMemberOrderByCreatedTimeDesc(member);
         List<BoardEntity> boardEntityList = boardRepository.findTop10ByMemberOrderByCreatedTimeDesc(member);
         List<CommentEntity> commentEntityList = commentRepository.findTop10ByMemberOrderByCreatedTimeDesc(member);
+        List<ScrapEntity> scrapEntityList = scrapRepository.findAllByMember(member);
 
         if (ownMember != null) {
             model.addAttribute("userName", ownMember.getNickname());
@@ -73,6 +74,7 @@ public class MemberController {
         model.addAttribute("likesList", likesList);
         model.addAttribute("boardList", boardEntityList);
         model.addAttribute("commentList", commentEntityList);
+        model.addAttribute("scrapList", scrapEntityList);
         model.addAttribute("likeCount", likesCount);
 
         return "member/profile";

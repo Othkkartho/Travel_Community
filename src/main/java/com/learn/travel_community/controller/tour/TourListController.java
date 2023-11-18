@@ -1,5 +1,8 @@
 package com.learn.travel_community.controller.tour;
 
+import com.learn.travel_community.config.member.oauth.dto.SessionMember;
+import com.learn.travel_community.domain.member.Member;
+import com.learn.travel_community.domain.member.MemberRepository;
 import com.learn.travel_community.domain.tour.TotalEntity;
 import com.learn.travel_community.domain.tour.TotalRepository;
 import com.learn.travel_community.domain.tour.TourListEntity;
@@ -7,6 +10,7 @@ import com.learn.travel_community.domain.tour.TourListRepository;
 import com.learn.travel_community.dto.tour.TourDetailDto;
 import com.learn.travel_community.dto.tour.TourListDto;
 import com.learn.travel_community.service.tour.TourListService;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -22,15 +26,22 @@ import java.util.List;
 @RequiredArgsConstructor
 @RequestMapping("/tour")
 public class TourListController {
+    private final MemberRepository memberRepository;
     private final TourListService tourListService;
     @Autowired
     private final TourListRepository tourListRepository;
-
+    private final HttpSession httpSession;
     @Autowired
     private final TotalRepository totalRepository;
 
     @GetMapping("/search")
     public String search(@RequestParam(required = false, defaultValue = "1") Long countryId, LocalDate date, Model model) {
+        Member member = memberRepository.findByEmail(((SessionMember) httpSession.getAttribute("user")).getEmail()).orElse(null);
+        if (member != null) {
+            model.addAttribute("userName", member.getNickname());
+            model.addAttribute("profileImg", member.getPicture());
+        }
+
         if (date == null) {
             // 날짜 매개변수가 null이면 현재 날짜로 설정합니다.
             date = LocalDate.now();
@@ -48,6 +59,12 @@ public class TourListController {
 
     @GetMapping("/detail/{detailId}")
     public String detail(@PathVariable Long detailId, Model model) throws IOException {
+        Member member = memberRepository.findByEmail(((SessionMember) httpSession.getAttribute("user")).getEmail()).orElse(null);
+        if (member != null) {
+            model.addAttribute("userName", member.getNickname());
+            model.addAttribute("profileImg", member.getPicture());
+        }
+
         TourDetailDto tourDetailDto = tourListService.findAllByDetailId(detailId);
         TourListEntity tourListEntity = tourListRepository.findTourNameByTourlistId(tourDetailDto.getTourlistId());
         String tourName = tourListEntity.getTourName();
@@ -60,7 +77,6 @@ public class TourListController {
         model.addAttribute("tripadvisorImage", tripadvisorImageResource);
         model.addAttribute("tourDetailDto", tourDetailDto);
         model.addAttribute("tourName", tourName);
-
 
         return "tour/Search_regiondetail";
     }
