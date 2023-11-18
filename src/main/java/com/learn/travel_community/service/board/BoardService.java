@@ -19,6 +19,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -43,10 +46,10 @@ public class BoardService {
             Long savedId = boardRepository.save(boardEntity).getId();
             BoardEntity board = boardRepository.findById(savedId).get();
             // 첨부 파일 있음.
-            for (MultipartFile boardFile : boardDTO.getBoardFile()) { // 1.
-                String originalFilename = boardFile.getOriginalFilename(); // 2.
-                String storedFileName = System.currentTimeMillis() + "_" + originalFilename; // 3.
-                String savePath = uploadFolder + storedFileName; // 4. 저장 위치에 파일 이름 붙이기
+            for (MultipartFile boardFile : boardDTO.getBoardFile()) {
+                String originalFilename = boardFile.getOriginalFilename();
+                String storedFileName = System.currentTimeMillis() + "_" + originalFilename;
+                String savePath = System.getProperty("user.dir") + uploadFolder + storedFileName; // 4. 저장 위치에 파일 이름 붙이기
                 boardFile.transferTo(new File(savePath));
 
                 BoardFileEntity boardFileEntity = BoardFileEntity.toBoardFileEntity(board, originalFilename, storedFileName);
@@ -88,8 +91,20 @@ public class BoardService {
     }
 
     @Transactional
-    public void delete(Long uid, Long id) {
+    public void delete(Long uid, Long id) throws Exception {
         Member member = memberRepository.findById(uid).orElseThrow();
+
+        // 게시글에 포함된 이미지 삭제
+        List<BoardFileEntity> boardFileEntities = boardFileRepository.findAllByBoardId(id);
+        for (BoardFileEntity boardFileEntity : boardFileEntities) {
+            String storedFileName = boardFileEntity.getStoredFileName();
+            if (storedFileName != null) {
+                Path imagePath = Paths.get(storedFileName);
+                if (Files.exists(imagePath)) {
+                    Files.delete(imagePath);
+                }
+            }
+        }
 
         member.getBoards().removeIf(board -> board.getId().equals(id));
         boardRepository.deleteById(id);

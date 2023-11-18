@@ -20,8 +20,11 @@ public class BoardFileEntity extends BaseTimeEntity {
     @Column
     private String storedFileName;
 
+    @Column(insertable = false, updatable = false)
+    private Long boardId;
+
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "board_id")
+    @JoinColumn(name = "boardId")
     private BoardEntity boardEntity;
 
     public static BoardFileEntity toBoardFileEntity(BoardEntity boardEntity, String originalFileName, String storedFileName) {

@@ -12,6 +12,7 @@ import com.learn.travel_community.service.board.CommentService;
 import com.learn.travel_community.service.board.LikeService;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -19,7 +20,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.awt.*;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -33,9 +38,13 @@ public class BoardController {
     private final CommentService commentService;
     private final HttpSession httpSession;
     private final BoardRepository boardRepository;
+    private final BoardFileRepository boardFileRepository;
     private final LikeService likeService;
     private final LikesRepository likesRepository;
     private final ViewRepository viewRepository;
+
+    @Value("${file.path}")
+    private String uploadFolder;
 
     @GetMapping("/save")
     public String saveForm(Model model) {
@@ -105,8 +114,19 @@ public class BoardController {
     }
 
     @GetMapping("/delete/{id}")
-    public String delete(@PathVariable Long id) {
+    public String delete(@PathVariable Long id) throws Exception {
         BoardEntity boardEntity = boardRepository.findById(id).orElseThrow();
+
+        // 게시글에 포함된 이미지 삭제
+        List<BoardFileEntity> boardFileEntities = boardFileRepository.findAllByBoardId(boardEntity.getId());
+        for (BoardFileEntity boardFileEntity : boardFileEntities) {
+            String storedFileName = boardFileEntity.getStoredFileName();
+            if (storedFileName != null) {
+                Path imagePath = Paths.get(System.getProperty("user.dir") + uploadFolder + storedFileName);
+                    Files.delete(imagePath);
+            }
+        }
+
         boardService.delete(boardEntity.getMember().getUid(), id);
         return "redirect:/board/paging";
     }
