@@ -4,6 +4,8 @@ import com.learn.travel_community.config.member.oauth.dto.SessionMember;
 import com.learn.travel_community.domain.board.*;
 import com.learn.travel_community.domain.member.Member;
 import com.learn.travel_community.domain.member.MemberRepository;
+import com.learn.travel_community.domain.tour.ScrapEntity;
+import com.learn.travel_community.domain.tour.ScrapRepository;
 import com.learn.travel_community.dto.member.MemberDto;
 import com.learn.travel_community.dto.member.ProfileImgDto;
 import com.learn.travel_community.service.member.MemberService;
@@ -27,6 +29,7 @@ public class MemberController {
     private final LikesRepository likesRepository;
     private final BoardRepository boardRepository;
     private final CommentRepository commentRepository;
+    private final ScrapRepository scrapRepository;
 
     private static final String ATTRIBUTENAME = "member";
     private static final String REDIRECTHOME = "redirect:/";
@@ -38,6 +41,7 @@ public class MemberController {
         List<Likes> likesList = likesRepository.findAllByMemberOrderByCreatedTimeDesc(member);
         List<BoardEntity> boardEntityList = boardRepository.findTop10ByMemberOrderByCreatedTimeDesc(member);
         List<CommentEntity> commentEntityList = commentRepository.findTop10ByMemberOrderByCreatedTimeDesc(member);
+        List<ScrapEntity> scrapEntityList = scrapRepository.findAllByMember(member);
 
         Long likesCount = likesRepository.getMemberLikesCount(member.getUid());
 
@@ -45,6 +49,7 @@ public class MemberController {
         model.addAttribute("likesList", likesList);
         model.addAttribute("boardList", boardEntityList);
         model.addAttribute("commentList", commentEntityList);
+        model.addAttribute("scrapList", scrapEntityList);
         model.addAttribute("likeCount", likesCount);
 
         return "member/profile";
