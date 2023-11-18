@@ -16,7 +16,7 @@
           .index_main_wordcloud h5,.index_main_wordcloud p {
               text-align: center;
           }
-          
+
           .inner {
             position: relative;
             width:80%;
@@ -26,7 +26,7 @@
             border-radius: 35px;
             margin-bottom: 100px;
           }
-          
+
           #search {
             width: 90%;
             height: 100%;
@@ -36,13 +36,13 @@
             outline: none;
 
           }
-          
+
           .searching {
             position: absolute;
             right: 20px;
             top: 30%;
           }
-          
+
           i:hover {
             cursor: pointer;
           }
@@ -50,7 +50,7 @@
               width: 50px;
               margin-right: 10px;
           }
-          
+
           .weegle_inner {
             width: 160px;
             height: 40px;
@@ -60,7 +60,7 @@
             border: 0px;
             vertical-align: middle;
           }
-          
+
           .weegle_inner:hover {
             cursor: pointer;
           }
@@ -81,7 +81,7 @@
           .position-relative {
             position: relative;
             max-width: 400px;
-          
+
           }
           .img-fluid{
             filter: brightness(70%);
@@ -95,7 +95,7 @@
             color: white;
             font-size: 22px;
             font-weight: bold;
-            
+
             padding: 10px; /* 텍스트 주변 여백 설정 */
           }
           .text-overlay {
@@ -105,18 +105,18 @@
             color: white;
             font-size: 16px;
             font-weight: bold;
-            
-          } 
+
+          }
         .soft_title{
             text-align: left;
             padding-left: 10px;
             padding-top: 20px;
         }
         .logo_title{
-          font-weight:bold ; 
+          font-weight:bold ;
         }
         #footerbg{
-            width: 100%;  
+            width: 100%;
             margin-top: 150px;
             background-color: #F7FFEC;
         }
@@ -126,7 +126,7 @@
             border: none; /* 테두리를 없앱니다. */
             margin-top: 20px;
             margin-bottom: 10px;
-            
+
         }
         .carousel .carousel-item {
           max-height: 400px;
@@ -183,7 +183,7 @@
             text-align: right;
         }
         #profile-name{
-            
+
             color: black;
         }
         #profile-morderator{
@@ -199,7 +199,7 @@
             padding: 30px;
             width: 150px;
             height: 150px;
-            
+
         }
         #mypage-icon p{
             font-size: larger;
@@ -226,12 +226,13 @@
         }
         #mypage-detail img{
             margin-top: 20px;
-            
+
         }
         #mypage-detail li{
             font-size: larger;
             margin-top: 20px;
         }
+        /* 미사용
         .modal-body{
             height: 100px;
         }
@@ -240,6 +241,7 @@
             height: 50px;
             text-align: center;
         }
+        */
         .form-group label{
           color: #2FAF53;
         }
@@ -501,8 +503,9 @@
               }
           }
           .imgmap{
+              display: flex;
+              justify-content: center;
               position: relative;
-              text-align:center
           }
           .imgmap > div{
               color: red;
@@ -517,15 +520,18 @@
           .first {
               left: 800px;
               top: 200px;
+
           }
           .second {
               left: 880px;
               top: 200px;
+
           }
           .third {
               left: 1150px;
               top: 700px;
           }
+
           .search_img {
               width: 400px;
               height: 250px;
@@ -547,15 +553,20 @@
               padding-left: 0 !important;
           }
           .img_list .row{
-              height: 250px;
+              height: 265px;
           }
           .region_new {
               margin-top: 100px;
-              margin-left: 30px;
           }
           #detail_img_like {
               cursor: pointer; /* 마우스 커서를 포인터로 변경하여 클릭 가능하도록 설정 */
           }
           .red {
               fill: red; /* 클래스 .red의 fill 속성을 빨간색으로 변경 */
+          }
+          .post_dt{
+              box-sizing: border-box;
+              border: solid 1px;
+              border-width: px;
+              margin-bottom: 20px;
           }
