@@ -50,29 +50,6 @@
         </div>
 
     </div>
-        <div>
-        <table class="table">
-            <thead>
-            <tr>
-                <th>순위</th>
-                <th>국가 ID</th>
-                <th>투어 목록 ID</th>
-                <th>투어 이름</th>
-                <th>투어 체험</th>
-                <th>투어 이미지</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each="totalEntity : ${totalEntityList}" data-tourlistId="${totalEntityList.tourlistId}">
-                <td th:text="${totalEntity.id}"></td>
-                <td th:text="${totalEntity.tourlistId}"></td>
-                <td th:text="${totalEntity.ageGroup}"></td>
-                <td th:text="${totalEntity.regionInterestLevel}"></td>
-                <td th:text="${totalEntity.gender}"></td>
-            </tr>
-            </tbody>
-        </table>
-        </div>
 
     <div class="chart">
         <canvas id="bar-chart" width="500"  height="450"></canvas>
@@ -113,29 +90,7 @@
     </div> <!-- 컨테이너 -->
     <!-- 로그인 -->
     <!-- Modal -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel"></h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body text-center login_ui">
-                    <a th:href="@{/oauth2/authorization/kakao}" role="button"><img src="images/member/oauthLogo/kakao.png" alt="Kakao Login"></a>
-                    <a th:href="@{/oauth2/authorization/naver}" role="button"><img src="images/member/oauthLogo/naver.png" alt="Naver Login"></a>
-                    <a th:href="@{/oauth2/authorization/google}" role="button"><img src="images/member/oauthLogo/google.png" alt="Google Login"></a>
-                </div>
-                <div class="modal-footer">
-                    <!--
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
-                    -->
-                </div>
-            </div>
-        </div>
-    </div>
-    <br>
-    <br>
+    <div th:replace="layout/login::login"></div>
 
     <div th:replace="layout/footer::footer"></div>
 </body>

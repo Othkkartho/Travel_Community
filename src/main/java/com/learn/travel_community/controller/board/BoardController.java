@@ -56,30 +56,34 @@ public class BoardController {
 
     @GetMapping("/{id}")
     public String findById(@PathVariable Long id, Model model, @PageableDefault(page=1) Pageable pageable) {
-        Member member = memberRepository.findByEmail(((SessionMember) httpSession.getAttribute("user")).getEmail()).orElse(null);
+        if (httpSession.getAttribute("user") != null) {
+            Member member = memberRepository.findByEmail(((SessionMember) httpSession.getAttribute("user")).getEmail()).orElse(null);
+
+            BoardEntity board = boardRepository.findById(id).orElseThrow();
+            if (viewRepository.findByMemberAndBoard(member, board) == null) {
+                Viewer viewer = Viewer.builder()
+                        .member(member)
+                        .board(board)
+                        .build();
+
+                viewRepository.save(viewer);
+            }
+
+            if (member != null) {
+                model.addAttribute("userName", member.getNickname());
+                model.addAttribute("profileImg", member.getPicture());
+            }
+
+            model.addAttribute("dolike", likesRepository.findByMemberAndBoard(member, board));
+        }
+
         boardService.updateHits(id);
         BoardDTO boardDTO = boardService.findById(id);
         List<CommentEntity> commentEntityList = commentService.findAll(boardRepository.findAllById(id));
-        BoardEntity board = boardRepository.findById(id).orElseThrow();
 
-        if (viewRepository.findByMemberAndBoard(member, board) == null) {
-            Viewer viewer = Viewer.builder()
-                    .member(member)
-                    .board(board)
-                    .build();
-
-            viewRepository.save(viewer);
-        }
-
-
-        if (member != null) {
-            model.addAttribute("userName", member.getNickname());
-            model.addAttribute("profileImg", member.getPicture());
-        }
         model.addAttribute("commentList", commentEntityList);
         model.addAttribute("board", boardDTO);
         model.addAttribute("page", pageable.getPageNumber());
-        model.addAttribute("dolike", likesRepository.findByMemberAndBoard(member, board));
 
         return "/community/Community_detail";
     }

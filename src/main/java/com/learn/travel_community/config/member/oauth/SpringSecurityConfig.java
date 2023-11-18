@@ -32,7 +32,9 @@ public class SpringSecurityConfig {
                                         new AntPathRequestMatcher("/images/**"),
                                         new AntPathRequestMatcher("/js/**"),
                                         new AntPathRequestMatcher("/profile"),
-                                        new AntPathRequestMatcher("/board/**")
+                                        new AntPathRequestMatcher("/board/**"),
+                                        new AntPathRequestMatcher("/tour/**"),
+                                        new AntPathRequestMatcher("/error**")
                                 ).permitAll()
                                 .anyRequest().authenticated()
                 )

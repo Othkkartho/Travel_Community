@@ -5,7 +5,12 @@
     <title>MyTravelDiary</title>
 </head>
 <body>
-    <div th:replace="layout/header::memberHeader"></div>
+    <div th:unless="${userName}">
+        <div th:replace="layout/header::memberHeader"></div>
+    </div>
+    <div th:if="${userName}">
+        <div th:replace="layout/header::indexHeader"></div>
+    </div>
     <div class="container"> <!-- 컨테이너 -->
     <!-- 프로필 커버-->
     <div id="mypage-cover">    
@@ -106,7 +111,8 @@
 
     <br>
     <br>
-    <div th:replace="layout/footer::footer"></div>
+        <div th:replace="layout/login::login"></div>
+        <div th:replace="layout/footer::footer"></div>
 
     <script>
         var mNum = 0;

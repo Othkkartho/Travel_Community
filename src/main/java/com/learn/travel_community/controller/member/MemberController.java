@@ -57,13 +57,17 @@ public class MemberController {
 
     @GetMapping(value="/profile/{uid}")
     public String getOthersProfile(@PathVariable String uid, Model model) {
+        Member ownMember = memberRepository.findByEmail(((SessionMember) httpSession.getAttribute("user")).getEmail()).orElse(null);
         Member member = memberRepository.findById(Long.parseLong(uid)).orElse(null);
-        likesRepository.getMemberLikesCount(Long.parseLong(uid));
+        Long likesCount = likesRepository.getMemberLikesCount(member.getUid());
         List<Likes> likesList = likesRepository.findAllByMemberOrderByCreatedTimeDesc(member);
         List<BoardEntity> boardEntityList = boardRepository.findTop10ByMemberOrderByCreatedTimeDesc(member);
         List<CommentEntity> commentEntityList = commentRepository.findTop10ByMemberOrderByCreatedTimeDesc(member);
 
-        Long likesCount = likesRepository.getMemberLikesCount(member.getUid());
+        if (ownMember != null) {
+            model.addAttribute("userName", ownMember.getNickname());
+            model.addAttribute("profileImg", ownMember.getPicture());
+        }
 
         model.addAttribute(ATTRIBUTENAME, member);
         model.addAttribute("likesList", likesList);
