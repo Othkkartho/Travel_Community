@@ -33,7 +33,7 @@ public class CommentEntity extends BaseTimeEntity {
     private BoardEntity boardEntity;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "uid")
+    @JoinColumn(name = "memberUid")
     private Member member;
 
     public static CommentEntity toSaveEntity(CommentDTO commentDTO) {
