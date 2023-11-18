@@ -16,3 +16,7 @@ spring:
       - db
   main:
     allow-bean-definition-overriding: true
+
+# 게시판 이미지 파일 저장 경로 설정
+file:
+  path: "/src/main/resources/static/images/board/"
