@@ -15,7 +15,8 @@
           <p class="card-text" id="card_name">김윤모</p>
         </div>
         <div class="col text-lg-end">
-          <button type="button" class="btn btn-light">수정, 삭제</button>
+          <button type="button" class="btn btn-light">수정</button>
+          <a th:href="|/board/delete/${board.id}|"><button type="button" class="btn btn-light">삭제</button></a>
         </div>
       </div>
       <div class="card">
