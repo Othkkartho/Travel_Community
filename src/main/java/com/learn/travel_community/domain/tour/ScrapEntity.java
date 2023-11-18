@@ -1,6 +1,5 @@
 package com.learn.travel_community.domain.tour;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.learn.travel_community.domain.member.Member;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

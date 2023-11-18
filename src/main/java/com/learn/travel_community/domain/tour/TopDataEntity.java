@@ -1,7 +1,6 @@
 package com.learn.travel_community.domain.tour;
 
 import jakarta.persistence.*;
-import jakarta.persistence.criteria.CriteriaBuilder;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;

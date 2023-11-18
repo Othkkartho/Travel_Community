@@ -21,13 +21,13 @@ public class TotalEntity {
         private String gender;
 
         @Column
-        private String ageGroup;
+        private Integer ageGroup;
 
         @Column
         private Date investigationDate;
 
         @Column
-        private Float region_interest_level;
+        private Float region_interest_score;
 
         @Column(insertable=false, updatable=false)
         private Long tourlistId;

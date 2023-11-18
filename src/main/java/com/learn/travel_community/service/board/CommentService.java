@@ -4,7 +4,6 @@ package com.learn.travel_community.service.board;
 import com.learn.travel_community.config.member.oauth.dto.SessionMember;
 import com.learn.travel_community.domain.member.Member;
 import com.learn.travel_community.domain.board.BoardEntity;
-import com.learn.travel_community.domain.board.BoardRepository;
 import com.learn.travel_community.domain.board.CommentEntity;
 import com.learn.travel_community.domain.board.CommentRepository;
 import com.learn.travel_community.domain.member.MemberRepository;
@@ -13,9 +12,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import jakarta.servlet.http.HttpSession;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
