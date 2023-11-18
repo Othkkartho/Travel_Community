@@ -88,7 +88,7 @@ public class BoardController {
     public String updateForm(@PathVariable Long id, Model model) {
         BoardDTO boardDTO = boardService.findById(id);
         model.addAttribute("boardUpdate", boardDTO);
-        return "/community/update";
+        return "/community/Community_update";
     }
 
     @PostMapping("update")
