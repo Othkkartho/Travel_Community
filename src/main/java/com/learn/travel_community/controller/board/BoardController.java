@@ -122,7 +122,7 @@ public class BoardController {
         for (BoardFileEntity boardFileEntity : boardFileEntities) {
             String storedFileName = boardFileEntity.getStoredFileName();
             if (storedFileName != null) {
-                Path imagePath = Paths.get(System.getProperty("user.dir") + uploadFolder + storedFileName);
+                Path imagePath = Paths.get(System.getProperty("user.dir") + uploadFolder + "board/" + storedFileName);
                     Files.delete(imagePath);
             }
         }

@@ -19,4 +19,4 @@ spring:
 
 # 게시판 이미지 파일 저장 경로 설정
 file:
-  path: "/src/main/resources/static/images/board/"
+  path: "/src/main/resources/static/images/"

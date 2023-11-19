@@ -49,7 +49,7 @@ public class BoardService {
             for (MultipartFile boardFile : boardDTO.getBoardFile()) {
                 String originalFilename = boardFile.getOriginalFilename();
                 String storedFileName = System.currentTimeMillis() + "_" + originalFilename;
-                String savePath = System.getProperty("user.dir") + uploadFolder + storedFileName; // 4. 저장 위치에 파일 이름 붙이기
+                String savePath = System.getProperty("user.dir") + uploadFolder + "board/" + storedFileName; // 4. 저장 위치에 파일 이름 붙이기
                 boardFile.transferTo(new File(savePath));
 
                 BoardFileEntity boardFileEntity = BoardFileEntity.toBoardFileEntity(board, originalFilename, storedFileName);

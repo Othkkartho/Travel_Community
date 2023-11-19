@@ -14,7 +14,7 @@ public class WebConfig implements WebMvcConfigurer {
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         // view 에서 접근할 경로
         String resourcePath = "/upload/**";
-        String savePath = "file:///" + uploadFolder;    // 실제 파일 저장 경로(win)
+        String savePath = "file:///" + uploadFolder + "board/";    // 실제 파일 저장 경로(win)
 
         registry.addResourceHandler(resourcePath)
                 .addResourceLocations(savePath);

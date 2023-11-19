@@ -25,13 +25,10 @@
         <div id="detail_carousel" class="carousel slide" data-bs-ride="false">
           <div class="carousel-inner">
             <div class="carousel-item active">
-              <img src="/images/testImg/travel.jpg" class="d-block w-100" alt="...">
+              <img th:src="|/images/board/${board.storedFileName[0]}|" class="d-block w-100" alt="...">
             </div>
-            <div class="carousel-item">
-              <img src="/images/testImg/travel3.jpg" class="d-block w-100" alt="...">
-            </div>
-            <div class="carousel-item">
-              <img src="/images/testImg/travel2.jpg" class="d-block w-100" alt="..">
+            <div class="carousel-item" th:each="num : ${#numbers.sequence(1, (#lists.size(board.storedFileName)-1))}">
+              <img th:src="|/images/board/${board.storedFileName[num]}|" class="d-block w-100" alt="...">
             </div>
           </div>
           <button class="carousel-control-prev" type="button" data-bs-target="#detail_carousel" data-bs-slide="prev">
