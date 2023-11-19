@@ -63,7 +63,7 @@ public class MemberServiceImpl implements MemberService {
         Member member = memberRepository.findByEmail(email).orElseThrow(() -> new UsernameNotFoundException("이메일이 존재하지 않습니다."));
         if (!member.getPicture().equals(ANONYMOUS)) {
             try {
-                Files.delete(Path.of(uploadFolder + member.getPicture()));
+                Files.delete(Path.of( System.getProperty("user.dir") + uploadFolder + member.getPicture()));
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
@@ -73,7 +73,7 @@ public class MemberServiceImpl implements MemberService {
         UUID uuid = UUID.randomUUID();
         String imageFileName = uuid + "_" + file.getOriginalFilename();
 
-        File destinationFile = new File(uploadFolder + "profile/" + imageFileName);
+        File destinationFile = new File( System.getProperty("user.dir") + uploadFolder + "profile/" + imageFileName);
 
         try {
             file.transferTo(destinationFile);
@@ -97,7 +97,7 @@ public class MemberServiceImpl implements MemberService {
         }
 
         try {
-            Files.delete(Path.of(uploadFolder + member.getPicture()));
+            Files.delete(Path.of(System.getProperty("user.dir") + uploadFolder + member.getPicture()));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

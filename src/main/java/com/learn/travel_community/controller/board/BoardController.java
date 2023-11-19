@@ -29,7 +29,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@Controller
+@RestController
 @RequiredArgsConstructor
 @RequestMapping("/board")
 public class BoardController {
@@ -52,7 +52,7 @@ public class BoardController {
         model.addAttribute("userName", member.getNickname());
         model.addAttribute("profileImg", member.getPicture());
 
-        return "/community/Community_write";
+        return "community/Community_write";
     }
 
     @PostMapping("/save")
@@ -94,14 +94,14 @@ public class BoardController {
         model.addAttribute("board", boardDTO);
         model.addAttribute("page", pageable.getPageNumber());
 
-        return "/community/Community_detail";
+        return "community/Community_detail";
     }
 
     @GetMapping("/update/{id}")
     public String updateForm(@PathVariable Long id, Model model) {
         BoardDTO boardDTO = boardService.findById(id);
         model.addAttribute("boardUpdate", boardDTO);
-        return "/community/Community_update";
+        return "community/Community_update";
     }
 
     @PostMapping("update")
@@ -160,7 +160,7 @@ public class BoardController {
         model.addAttribute("endPage", endPage);
         model.addAttribute("likeCount", likeMap);
 
-        return "/community/Community_main";
+        return "community/Community_main";
     }
 
     @GetMapping("/like/{id}")
