@@ -109,16 +109,16 @@ public class BoardService {
         member.getBoards().removeIf(board -> board.getId().equals(id));
         boardRepository.deleteById(id);
     }
-
+    @Transactional
     public Page<BoardDTO> paging(Pageable pageable) {
         int page = pageable.getPageNumber() - 1;
-        int pageLimit = 10; // 한 페이지에 보여줄 글 갯수
+        int pageLimit = 5; // 한 페이지에 보여줄 글 갯수
         // 한페이지당 10개씩 글을 보여주고 정렬 기준은 id 기준으로 내림차순 정렬
         // page 위치에 있는 값은 0부터 시작
         Page<BoardEntity> boardEntities =
                 boardRepository.findAll(PageRequest.of(page, pageLimit, Sort.by(Sort.Direction.DESC, "id")));
 
         // 목록: id, member, title, hits, createdTime
-        return boardEntities.map(board -> new BoardDTO(board.getId(), board.getMember(), board.getBoardTitle(), board.getBoardHits(), board.getCreatedTime()));
+        return boardEntities.map(BoardDTO::toBoardDTO);
     }
 }
