@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Board Recommend Detail</title>
+</head>
+<body>
+<h1>Board Recommend Detail</h1>
+<div class="recommend-info">
+    <h2><%= boardRecommendEntity.theme %></h2>
+    <p><%= boardRecommendEntity.age %>, <%= boardRecommendEntity.gender %></p>
+    <p><%= boardRecommendEntity.boardHits %>회 조회</p>
+</div>
+<ul>
+    <% for (RecommendContentEntity recommendContentEntity : recommendContentEntities) { %>
+    <li>
+        <img src="<%= recommendContentEntity.image %>" alt="<%= recommendContentEntity.title %>">
+        <h2><%= recommendContentEntity.title %></h2>
+        <p><%= recommendContentEntity.recommendContents %></p>
+    </li>
+    <% } %>
+</ul>
+</body>
+</html>
