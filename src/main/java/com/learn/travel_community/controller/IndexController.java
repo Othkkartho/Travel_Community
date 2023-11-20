@@ -31,6 +31,7 @@ public class IndexController {
             age = memberRepository.findByEmail(member.getEmail()).get().getAge();
             gender = memberRepository.findByEmail(member.getEmail()).get().getGender();
             if(gender == 0) { gender = 1; }
+            if(age == 0) { age = 20; }
             model.addAttribute("userName", member.getNickname());
             model.addAttribute("profileImg", member.getPicture());
         }
