@@ -27,8 +27,10 @@
             <div class="carousel-item active">
               <img th:src="@{'/images/board/' + ${board.storedFileName[0]}}"  class="d-block w-100" alt="...">
             </div>
-            <div class="carousel-item" th:each="num : ${#numbers.sequence(1, (#lists.size(board.storedFileName)-1))}">
-              <img th:src="@{'/images/board/' + ${board.storedFileName[num]}}" class="d-block w-100" alt="...">
+            <div th:if="${#lists.size(board.storedFileName) > 1}">
+              <div class="carousel-item" th:each="num : ${#numbers.sequence(1, (#lists.size(board.storedFileName)-1))}">
+                <img th:src="@{'/images/board/' + ${board.storedFileName[num]}}" class="d-block w-100" alt="...">
+              </div>
             </div>
           </div>
           <button class="carousel-control-prev" type="button" data-bs-target="#detail_carousel" data-bs-slide="prev">

@@ -36,10 +36,12 @@ public class TourListController {
 
     @GetMapping("/search")
     public String search(@RequestParam(required = false, defaultValue = "1") Long countryId, LocalDate date, Model model) {
-        Member member = memberRepository.findByEmail(((SessionMember) httpSession.getAttribute("user")).getEmail()).orElse(null);
-        if (member != null) {
-            model.addAttribute("userName", member.getNickname());
-            model.addAttribute("profileImg", member.getPicture());
+        if (httpSession.getAttribute("user") != null) {
+            Member member = memberRepository.findByEmail(((SessionMember) httpSession.getAttribute("user")).getEmail()).orElse(null);
+            if (member != null) {
+                model.addAttribute("userName", member.getNickname());
+                model.addAttribute("profileImg", member.getPicture());
+            }
         }
 
         if (date == null) {
@@ -59,10 +61,12 @@ public class TourListController {
 
     @GetMapping("/detail/{detailId}")
     public String detail(@PathVariable Long detailId, Model model) throws IOException {
-        Member member = memberRepository.findByEmail(((SessionMember) httpSession.getAttribute("user")).getEmail()).orElse(null);
-        if (member != null) {
-            model.addAttribute("userName", member.getNickname());
-            model.addAttribute("profileImg", member.getPicture());
+        if (httpSession.getAttribute("user") != null) {
+            Member member = memberRepository.findByEmail(((SessionMember) httpSession.getAttribute("user")).getEmail()).orElse(null);
+            if (member != null) {
+                model.addAttribute("userName", member.getNickname());
+                model.addAttribute("profileImg", member.getPicture());
+            }
         }
 
         TourDetailDto tourDetailDto = tourListService.findAllByDetailId(detailId);
