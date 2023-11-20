@@ -8,10 +8,21 @@
 <body>
 <div th:replace="layout/header::indexHeader"></div>
 <div class="update_main">
-  <form action="/board/update" method="post" name="updateForm">  <input type="hidden" name="id" th:value="${boardUpdate.id}">
+  <form action="/board/update" method="post" name="updateForm" enctype="multipart/form-data">  <input type="hidden" name="id" th:value="${boardUpdate.id}">
     writer: <input type="text" name="boardWriter" th:value="${boardUpdate.member.nickname}" readonly> <br>
     title: <input type="text" name="boardTitle" th:value="${boardUpdate.boardTitle}"> <br>
     contents: <textarea name="boardContents" cols="30" rows="10" th:text="${boardUpdate.boardContents}"></textarea> <br>
+      <div class="tab-pane fade show active" id="write" role="tabpanel" aria-labelledby="write-tab">
+        <div class="contents">
+          <div class="upload-box">
+            <div id="drop-file" class="drag-file">
+              <img src="" alt="파일 아이콘" class="image" >
+              <img src="" alt="미리보기 이미지" id="preview" />
+            </div>
+            <label class="file-label" id="image-label" for="image-upload">이미지 업로드</label>
+            <input type="file" id="image-upload" name="boardFile" multiple onchange="readURL(this);"></div>
+        </div>
+      </div>
     <input type="hidden" name="boardHits" th:value="${boardUpdate.boardHits}">
     <input type="button" value="글수정" onclick="boardUpdate()">
   </form>
@@ -21,5 +32,21 @@
   const boardUpdate = () => {
     document.updateForm.submit();
   }
+  function readURL(input) {
+        if (input.files && input.files[0]) {
+            let reader = new FileReader();
+            reader.onload = function(e) {
+                document.getElementById('preview').style.visibility = 'visible';
+                document.getElementById('preview').src = e.target.result;
+                document.getElementById('image-upload').style.visibility = 'hidden';
+                document.getElementById('image-label').style.visibility = 'hidden';
+                document.getElementById('fileName').textContent = null;     //기존 파일 이름 지우기
+            };
+            reader.readAsDataURL(input.files[0]);
+
+        } else {
+            document.getElementById('preview').src = "";
+        }
+    }
 </script>
 </body>

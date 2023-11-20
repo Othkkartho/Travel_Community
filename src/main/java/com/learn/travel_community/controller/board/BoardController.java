@@ -97,33 +97,26 @@ public class BoardController {
 
     @GetMapping("/update/{id}")
     public String updateForm(@PathVariable Long id, Model model) {
+        SessionMember member = (SessionMember) httpSession.getAttribute("user");
+        model.addAttribute("userName", member.getNickname());
+        model.addAttribute("profileImg", member.getPicture());
+
         BoardDTO boardDTO = boardService.findById(id);
         model.addAttribute("boardUpdate", boardDTO);
         return "community/Community_update";
     }
 
     @PostMapping("update")
-    public String update(@ModelAttribute BoardDTO boardDTO, Model model) {
+    public String update(@ModelAttribute BoardDTO boardDTO, Model model) throws IOException {
         Member member = memberRepository.findByEmail(((SessionMember) httpSession.getAttribute("user")).getEmail()).orElse(null);
-        BoardDTO board = boardService.update(member, boardDTO);
-        model.addAttribute("board", board);
-        Long id = boardDTO.getId();
-        return "redirect:/board/" + id;
+        boardService.update(member, boardDTO);
+
+        return "redirect:/board/" + boardDTO.getId();
     }
 
     @GetMapping("/delete/{id}")
     public String delete(@PathVariable Long id) throws Exception {
         BoardEntity boardEntity = boardRepository.findById(id).orElseThrow();
-
-        // 게시글에 포함된 이미지 삭제
-        List<BoardFileEntity> boardFileEntities = boardFileRepository.findAllByBoardId(boardEntity.getId());
-        for (BoardFileEntity boardFileEntity : boardFileEntities) {
-            String storedFileName = boardFileEntity.getStoredFileName();
-            if (storedFileName != null) {
-                Path imagePath = Paths.get(System.getProperty("user.dir") + uploadFolder + "board/" + storedFileName);
-                    Files.delete(imagePath);
-            }
-        }
 
         boardService.delete(boardEntity.getMember().getUid(), id);
         return "redirect:/board/paging";
@@ -177,5 +170,20 @@ public class BoardController {
         likeService.dislikes(member, board);
 
         return "redirect:/board/" + id;
+    }
+
+    public void deleteExistingImages(BoardEntity boardEntity) {
+        List<BoardFileEntity> boardFileEntities = boardFileRepository.findAllByBoardId(boardEntity.getId());
+        for (BoardFileEntity boardFileEntity : boardFileEntities) {
+            String storedFileName = boardFileEntity.getStoredFileName();
+            if (storedFileName != null) {
+                Path imagePath = Paths.get(System.getProperty("user.dir") + uploadFolder + "board/" + storedFileName);
+                try {
+                    Files.delete(imagePath);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 }

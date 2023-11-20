@@ -23,7 +23,10 @@ public class BoardEntity extends BaseTimeEntity {
     private String boardTitle;
 
     @Column(length = 500)
-    private  String boardContents;
+    private String boardContents;
+
+    @Column(columnDefinition = "integer default 0")
+    private Integer ageGroup;
 
     @Column
     private int boardHits;
@@ -64,6 +67,7 @@ public class BoardEntity extends BaseTimeEntity {
         boardEntity.setBoardTitle(boardDTO.getBoardTitle());
         boardEntity.setBoardContents(boardDTO.getBoardContents());
         boardEntity.setBoardHits(boardDTO.getBoardHits());
+        boardEntity.setFileAttached(0);
         return boardEntity;
     }
 
@@ -74,6 +78,17 @@ public class BoardEntity extends BaseTimeEntity {
         boardEntity.setBoardContents(boardDTO.getBoardContents());
         boardEntity.setBoardHits(0);
         boardEntity.setFileAttached(1); // 파일 있음.
+        return boardEntity;
+    }
+
+    public static BoardEntity toUpdateFileEntity(Member member, BoardDTO boardDTO) {
+        BoardEntity boardEntity = new BoardEntity();
+        boardEntity.setId(boardDTO.getId());
+        boardEntity.setMember(member);
+        boardEntity.setBoardTitle(boardDTO.getBoardTitle());
+        boardEntity.setBoardContents(boardDTO.getBoardContents());
+        boardEntity.setBoardHits(boardDTO.getBoardHits());
+        boardEntity.setFileAttached(1);
         return boardEntity;
     }
 }

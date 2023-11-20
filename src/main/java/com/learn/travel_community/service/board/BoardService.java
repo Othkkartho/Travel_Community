@@ -1,5 +1,6 @@
 package com.learn.travel_community.service.board;
 
+import com.learn.travel_community.config.member.oauth.dto.SessionMember;
 import com.learn.travel_community.domain.board.BoardEntity;
 import com.learn.travel_community.domain.board.BoardFileEntity;
 import com.learn.travel_community.domain.board.BoardFileRepository;
@@ -7,7 +8,10 @@ import com.learn.travel_community.domain.board.BoardRepository;
 import com.learn.travel_community.domain.member.Member;
 import com.learn.travel_community.domain.member.MemberRepository;
 import com.learn.travel_community.dto.board.BoardDTO;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -15,6 +19,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
@@ -26,12 +32,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import static com.learn.travel_community.dto.board.BoardDTO.toBoardDTO;
+
 @Service
 @RequiredArgsConstructor
 public class BoardService {
     private final BoardRepository boardRepository;
     private final BoardFileRepository boardFileRepository;
     private final MemberRepository memberRepository;
+    private final HttpSession httpSession;
     @Value("${file.path}")
     private String uploadFolder;
 
@@ -63,7 +72,7 @@ public class BoardService {
         List<BoardEntity> boardEntityList = boardRepository.findAll();
         List<BoardDTO> boardDTOList = new ArrayList<>();
         for (BoardEntity boardEntity : boardEntityList) {
-            boardDTOList.add(BoardDTO.toBoardDTO(boardEntity));
+            boardDTOList.add(toBoardDTO(boardEntity));
         }
         return boardDTOList;
     }
@@ -78,36 +87,61 @@ public class BoardService {
         Optional<BoardEntity> optionalBoardEntity = boardRepository.findById(id);
         if (optionalBoardEntity.isPresent()) {
             BoardEntity boardEntity = optionalBoardEntity.get();
-            return BoardDTO.toBoardDTO(boardEntity);
+            return toBoardDTO(boardEntity);
         } else {
             return null;
         }
     }
 
-    public BoardDTO update(Member member, BoardDTO boardDTO) {
-        BoardEntity boardEntity = BoardEntity.toUpdateEntity(member, boardDTO);
+    public void update(Member member, BoardDTO boardDTO) throws IOException {
+        Member currentMember = memberRepository.findByEmail(((SessionMember) httpSession.getAttribute("user")).getEmail()).orElse(null);
+
+        if (boardDTO.getBoardFile().isEmpty()) {
+            BoardEntity boardEntity = BoardEntity.toSaveEntity(member, boardDTO);
+            boardRepository.save(boardEntity);
+        } else {
+            BoardEntity boardEntity = BoardEntity.toUpdateFileEntity(member, boardDTO);
+            Long savedId = boardRepository.save(boardEntity).getId();
+            BoardEntity board = boardRepository.findById(savedId).get();
+
+            // 기존 이미지 삭제
+            if (boardDTO.getBoardFile().size() > 0) {
+                deleteExistingImages(board);
+            }
+
+            for (MultipartFile boardFile : boardDTO.getBoardFile()) {
+                String originalFilename = boardFile.getOriginalFilename();
+                String storedFileName = System.currentTimeMillis() + "-" + originalFilename;
+                String savePath = System.getProperty("user.dir") + uploadFolder + "board/" + storedFileName; // 4. 저장 위치에 파일 이름 붙이기
+                boardFile.transferTo(new File(savePath));
+
+                BoardFileEntity boardFileEntity = BoardFileEntity.toBoardFileEntity(board, originalFilename, storedFileName);
+                boardFileRepository.save(boardFileEntity);
+            }
+            if (boardDTO.getBoardFile().size() > 0) {
+                boardEntity.setFileAttached(1);
+            }
+        }
+        BoardEntity boardEntity = boardRepository.findById(boardDTO.getId()).get();
+        boardEntity.setMember(currentMember);
+        boardEntity.setBoardTitle(boardDTO.getBoardTitle());
+        boardEntity.setBoardContents(boardDTO.getBoardContents());
+        boardEntity.setBoardHits(boardDTO.getBoardHits());
+
         boardRepository.save(boardEntity);
-        return findById(boardDTO.getId());
     }
 
     @Transactional
     public void delete(Long uid, Long id) throws Exception {
         Member member = memberRepository.findById(uid).orElseThrow();
 
-        // 게시글에 포함된 이미지 삭제
-        List<BoardFileEntity> boardFileEntities = boardFileRepository.findAllByBoardId(id);
-        for (BoardFileEntity boardFileEntity : boardFileEntities) {
-            String storedFileName = boardFileEntity.getStoredFileName();
-            if (storedFileName != null) {
-                Path imagePath = Paths.get(storedFileName);
-                if (Files.exists(imagePath)) {
-                    Files.delete(imagePath);
-                }
-            }
-        }
+        boardRepository.findById(id).ifPresent(boardEntity -> {
+            // 게시글에 포함된 이미지 삭제
+            deleteExistingImages(boardEntity);
 
-        member.getBoards().removeIf(board -> board.getId().equals(id));
-        boardRepository.deleteById(id);
+            member.getBoards().removeIf(board -> board.getId().equals(id));
+            boardRepository.deleteById(id);
+        });
     }
     @Transactional
     public Page<BoardDTO> paging(Pageable pageable) {
@@ -120,5 +154,20 @@ public class BoardService {
 
         // 목록: id, member, title, hits, createdTime
         return boardEntities.map(BoardDTO::toBoardDTO);
+    }
+
+    public void deleteExistingImages(BoardEntity boardEntity) {
+        List<BoardFileEntity> boardFileEntities = boardFileRepository.findAllByBoardId(boardEntity.getId());
+        for (BoardFileEntity boardFileEntity : boardFileEntities) {
+            String storedFileName = boardFileEntity.getStoredFileName();
+            if (storedFileName != null) {
+                Path imagePath = Paths.get(System.getProperty("user.dir") + uploadFolder + "board/" + storedFileName);
+                try {
+                    Files.delete(imagePath);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 }
