@@ -9,13 +9,15 @@
         <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
             <div class="carousel-inner" th:each="boardRecommendDTO : ${boardRecommendDTOs}">
                 <div class="carousel-item active" th:each="recommendContents : ${boardRecommendDTO.recommendContents}">
-                    <img th:src="@{'/images/board/recommend/' + ${recommendContents.image}}" class="d-block w-100" alt="..." id="slide">
+                    <a th:href="@{'/recommend/' + ${recommendContents.id}}">
+                        <img th:src="@{'/images/board/recommend/' + ${recommendContents.image}}" class="d-block w-100" alt="..." id="slide">
 
-                    <div class="text-overlay-main" th:text="${recommendContents.title}">
-                        <br>
-                        <div class="text-overlay" th:text="${recommendContents.introduce}">
+                        <div class="text-overlay-main" th:text="${recommendContents.title}">
+                            <br>
+                            <div class="text-overlay" th:text="${recommendContents.introduce}">
+                            </div>
                         </div>
-                    </div>
+                    </a>
                 </div>
             </div>
             <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">

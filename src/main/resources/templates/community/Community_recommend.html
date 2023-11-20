@@ -1,24 +1,31 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Board Recommend Detail</title>
+    <title>Community_recommend 페이지</title>
+    <!-- 필요한 스타일시트, 스크립트 및 기타 리소스를 여기에 추가하세요 -->
 </head>
 <body>
-<h1>Board Recommend Detail</h1>
-<div class="recommend-info">
-    <h2><%= boardRecommendEntity.theme %></h2>
-    <p><%= boardRecommendEntity.age %>, <%= boardRecommendEntity.gender %></p>
-    <p><%= boardRecommendEntity.boardHits %>회 조회</p>
+<div class="container">
+    <h1>Community_recommend 페이지</h1>
+    <!-- 여기에 페이지 내용을 추가하세요 -->
+
+    <!-- BoardRecommendDTO에서 데이터를 받아와서 페이지에 표시할 수 있습니다 -->
+    <div th:each="boardRecommendDTO : ${boardRecommendDTO}">
+        <div th:each="recommendContents : ${boardRecommendDTO.recommendContents}">
+            <img th:src="@{'/images/board/recommend/' + ${recommendContents.image}}">
+            <div th:text="${recommendContents.title}">
+                <br>
+                <div th:text="${recommendContents.introduce}">
+                </div>
+            </div>
+        </div>
+        <!-- 다른 BoardRecommendDTO의 속성들을 필요에 따라 추가하세요 -->
+    </div>
+
+    <!-- 페이지의 다른 내용을 계속해서 추가하세요 -->
 </div>
-<ul>
-    <% for (RecommendContentEntity recommendContentEntity : recommendContentEntities) { %>
-    <li>
-        <img src="<%= recommendContentEntity.image %>" alt="<%= recommendContentEntity.title %>">
-        <h2><%= recommendContentEntity.title %></h2>
-        <p><%= recommendContentEntity.recommendContents %></p>
-    </li>
-    <% } %>
-</ul>
+
+<!-- 필요한 스크립트 또는 기타 리소스를 여기에 추가하세요 -->
 </body>
 </html>

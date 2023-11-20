@@ -23,12 +23,12 @@
       </div>
       <div class="card">
         <div id="detail_carousel" class="carousel slide" data-bs-ride="false">
-          <div class="carousel-inner">
+          <div class="carousel-inner" th:if="${board.storedFileName}">
             <div class="carousel-item active">
-              <img th:src="|/images/board/${board.storedFileName[0]}|" class="d-block w-100" alt="...">
+              <img th:src="@{'/images/board/' + ${board.storedFileName[0]}}"  class="d-block w-100" alt="...">
             </div>
             <div class="carousel-item" th:each="num : ${#numbers.sequence(1, (#lists.size(board.storedFileName)-1))}">
-              <img th:src="|/images/board/${board.storedFileName[num]}|" class="d-block w-100" alt="...">
+              <img th:src="@{'/images/board/' + ${board.storedFileName[num]}}" class="d-block w-100" alt="...">
             </div>
           </div>
           <button class="carousel-control-prev" type="button" data-bs-target="#detail_carousel" data-bs-slide="prev">
@@ -84,7 +84,7 @@
                   </thead>
                   <tbody>
                   <tr th:each="comment, commentStat: ${commentList}">
-                    <a th:href="|/member/profile/${comment.member.uid}|"><td th:text="${comment.member.nickname}"></td></a>
+                    <a th:href="@{'/member/profile/' + ${comment.member.uid}}"><td th:text="${comment.member.nickname}"></td></a>
                     <td th:text="${comment.commentContents}"></td>
                     <td th:text="${comment.createdTime}"></td>
                   </tr>
