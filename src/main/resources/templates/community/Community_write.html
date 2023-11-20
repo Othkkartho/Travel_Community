@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="layout/headSetting::minSetting">
+<head th:replace="~{layout/headSetting::minSetting}">
     <title>커뮤니티</title>
     <!-- bootstrap/css -->
     <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 </head>
 <body>
-<div th:replace="layout/header::indexHeader"></div>
+<div th:replace="~{layout/header::indexHeader}"></div>
 
 <div id="mypage-detail" >
     <!-- 탭 내용 -->
@@ -47,8 +47,6 @@
                                 <img th:src="|/images${profileImg}|" class="dropdown-toggle" type="button" id="post_profile" data-bs-toggle="dropdown" aria-expanded="false">
                                 <p class="card-text" id="card_name">[[${userName}]]</p>
                             </div>
-<!--                                <input type="text" class="form-control" placeholder="태그 추가" aria-label="태그 추가">-->
-<!--                                <input type="text" class="form-control" placeholder="위치 추가" aria-label="위치 추가">-->
                                 <input type="text" class="form-control" name="boardTitle" placeholder="제목" aria-label="제목">
                                 <div class="dropdown">
                                     <select class="form-select region_select" aria-label="select">
@@ -76,7 +74,7 @@
     </div>
 </div>
 
-<div th:replace="layout/footer::footer"></div>
+<div th:replace="~{layout/footer::footer}"></div>
 
 <script>
     function readURL(input) {

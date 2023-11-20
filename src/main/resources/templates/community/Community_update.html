@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="layout/headSetting::minSetting">
+<head th:replace="~{layout/headSetting::minSetting}">
   <title>커뮤니티</title>
   <!-- bootstrap/css -->
   <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 </head>
 <body>
-<div th:replace="layout/header::indexHeader"></div>
+<div th:replace="~{layout/header::indexHeader}"></div>
 <div class="update_main">
   <form action="/board/update" method="post" name="updateForm" enctype="multipart/form-data">  <input type="hidden" name="id" th:value="${boardUpdate.id}">
     writer: <input type="text" name="boardWriter" th:value="${boardUpdate.member.nickname}" readonly> <br>
@@ -27,7 +27,7 @@
     <input type="button" value="글수정" onclick="boardUpdate()">
   </form>
 </div> <!-- end mupdate_main -->
-<div th:replace="layout/footer::footer"></div>
+<div th:replace="~{layout/footer::footer}"></div>
 <script th:inline="javascript">
   const boardUpdate = () => {
     document.updateForm.submit();
