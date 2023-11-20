@@ -75,7 +75,7 @@
                     <div class="modal-body">
                         <div class="container-fluid">
                             <div class="row">
-                                <img src="/images/travel/seoul.jpg" class="search_img">
+                                <img src="/images/travel/서울.jpg" class="search_img">
                                 <div class="col-md-4">
                                     <h5 class="search_modal_title">제목</h5>
                                     <p class="search_modal_detail">내용</p>
@@ -102,6 +102,8 @@
                 // 해당 alt 값으로 모달 열기
                 if (altValue) {
                     // 모달 제목과 내용 변경
+                    $('.search_img').attr({src:"/images/travel/" + altValue + ".jpg"});
+                    /* console.log({src:"/images/travel" + altValue + ".jpg"}); */
                     $('.modal-title').text(altValue );
                     $('.search_modal_title').text(altValue + ' 지역 여행지');
                     $('.search_modal_detail').text(altValue + '에 대한 내용');

@@ -24,15 +24,16 @@
             </div>
 
             <div class="tab-content" id="myTabContent">
+                <form th:action="save" method="post" enctype="multipart/form-data">
                 <div class="tab-pane fade show active" id="write" role="tabpanel" aria-labelledby="write-tab">
                     <div class="contents">
                         <div class="upload-box">
                             <div id="drop-file" class="drag-file">
-                                <img src="img/img.png" alt="파일 아이콘" class="image" >
+                                <img src="" alt="파일 아이콘" class="image" >
                                 <img src="" alt="미리보기 이미지" id="preview" />
                             </div>
                             <label class="file-label" id="image-label" for="image-upload">이미지 업로드</label>
-                            <input type="file" id="image-upload" onchange="readURL(this);">
+                            <input type="file" id="image-upload" name="boardFile" multiple onchange="readURL(this);">
                         </div>
                     </div>
                 </div>
@@ -43,20 +44,33 @@
                         </div>
                         <div class="named col-4">
                             <div class="profile">
-                                <img src="img/profile.png" class="dropdown-toggle" type="button" id="post_profile" data-bs-toggle="dropdown" aria-expanded="false">
+                                <img th:src="|/images${profileImg}|" class="dropdown-toggle" type="button" id="post_profile" data-bs-toggle="dropdown" aria-expanded="false">
                                 <p class="card-text" id="card_name">[[${userName}]]</p>
                             </div>
-                            <form th:action="save" method="post" enctype="multipart/form-data">
 <!--                                <input type="text" class="form-control" placeholder="태그 추가" aria-label="태그 추가">-->
 <!--                                <input type="text" class="form-control" placeholder="위치 추가" aria-label="위치 추가">-->
                                 <input type="text" class="form-control" name="boardTitle" placeholder="제목" aria-label="제목">
+                                <div class="dropdown">
+                                    <select class="form-select region_select" aria-label="select">
+                                        <option selected value="1">서울</option>
+                                        <option value="2">경기</option>
+                                        <option value="3">부산</option>
+                                        <option value="4">충남</option>
+                                        <option value="5">충북</option>
+                                        <option value="6">경남</option>
+                                        <option value="7">경북</option>
+                                        <option value="8">전남</option>
+                                        <option value="9">전북</option>
+                                        <option value="10">강원</option>
+                                        <option value="11">제주도</option>
+                                    </select>
+                                </div>
                                 <label for="iTextarea"></label><textarea class="form-control" name="boardContents" placeholder="내용" id="iTextarea"></textarea>
-                                <input type="file" name="boardFile" multiple> <br>
                                 <input type="submit" value="글쓰기">
-                            </form>
                         </div>
                     </div>
                 </div>
+                </form>
             </div>
         </div>
     </div>
@@ -67,7 +81,7 @@
 <script>
     function readURL(input) {
         if (input.files && input.files[0]) {
-            var reader = new FileReader();
+            let reader = new FileReader();
             reader.onload = function(e) {
                 document.getElementById('preview').style.visibility = 'visible';
                 document.getElementById('preview').src = e.target.result;
@@ -82,17 +96,47 @@
         }
     }
 
-    var tabEl = document.querySelector('button[data-bs-toggle="tab"]')
+    const fileInput = document.querySelector('#image-upload');
+    let file_check = 0;
+    let tmp = '';
+
+    fileInput.addEventListener('change', function() {
+        if (fileInput.files.length === 0) {
+            // 파일이 선택되지 않은 경우
+        } else {
+            console.log("엘레레");
+            file_check = 1;
+        }
+    });
+
+    let tabEl = document.querySelector('button[data-bs-toggle="tab"]');
+
     tabEl.addEventListener('hidden.bs.tab', function (event) {
-        console.log('ae');
-        document.getElementById('write_card').style.width = "70%";
-        var tmp = document.getElementById('preview').src;
-        console.log(tmp);
-        document.getElementById("preview2").src = tmp;
+        tmp = document.getElementById('preview').src;
+        setTimeout(function() {
+            console.log(file_check);
+            if (file_check === 1) {
+                document.getElementById('write').style.display = 'none';
+                document.getElementById('fav').style.display = 'block';
+                document.getElementById('write_card').style.width = "70%";
+                document.getElementById("preview2").src = tmp;
+            }
+        }, 100); // setTimeout을 사용하여 file_check 값이 변경된 후에 실행되도록 설정합니다.
         event.target // newly activated tab
         event.relatedTarget // previous active tab
-    })
+    });
 
+    tabEl.addEventListener('shown.bs.tab', function (event) {
+        document.getElementById('write_card').style.width = "30%";
+        document.getElementById('write').style.display = 'block';
+        document.getElementById('fav').style.display = 'none';
+        event.target // newly activated tab
+        event.relatedTarget // previous active tab
+    });
+
+
+
+    /* 이전으로 하면 30% 사진없어도 크기 변경 안하게 */
 </script>
 </body>
 </html>

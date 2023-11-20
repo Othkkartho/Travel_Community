@@ -160,15 +160,6 @@
         .chart{
             margin-top: 150px;
         }
-        #bar-chart{
-            float:left;
-            margin-left: 50px;
-            margin-right: 50px;
-        }
-        #bar-chart2{
-            float:right;
-            margin-right: 50px;
-        }
         #footerbg{
             float: left;
         }
@@ -241,7 +232,9 @@
             height: 50px;
             text-align: center;
         }
-
+        .region_select{
+            margin-top: 10px;
+        }
         .form-group label{
           color: #2FAF53;
         }
