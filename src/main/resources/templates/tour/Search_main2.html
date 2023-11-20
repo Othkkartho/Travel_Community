@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="layout/headSetting::minSetting">
+<head th:replace="~{layout/headSetting::minSetting}">
     <title>커뮤니티</title>
 </head>
 <script src="/js/jquery-3.7.1.min.js" > </script>
 <body>
-<div th:replace="layout/header::indexHeader"></div>
+<div th:replace="~{layout/header::indexHeader}"></div>
 <table class="table">
     <thead>
     <tr>
@@ -89,8 +89,8 @@
             </div>
         </div>
     </div>
-    <div th:replace="layout/login::login"></div>
-    <div th:replace="layout/footer::footer"></div>
+    <div th:replace="~{layout/login::login}"></div>
+    <div th:replace="~{layout/footer::footer}"></div>
 
     <script>
         $(document).ready(function () {
