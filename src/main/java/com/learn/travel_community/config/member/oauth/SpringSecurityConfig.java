@@ -34,6 +34,7 @@ public class SpringSecurityConfig {
                                         new AntPathRequestMatcher("/profile"),
                                         new AntPathRequestMatcher("/board/**"),
                                         new AntPathRequestMatcher("/tour/**"),
+                                        new AntPathRequestMatcher("/travel/**"),
                                         new AntPathRequestMatcher("/error**")
                                 ).permitAll()
                                 .anyRequest().authenticated()

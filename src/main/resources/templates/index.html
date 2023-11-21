@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
 <head th:replace="~{layout/headSetting::userSetting}">
     <title>MyTravelDiary</title>
 </head>
@@ -47,38 +48,82 @@
 
     <div class="row justify-content-between chart">
         <canvas id="bar-chart" width="500"  height="450"></canvas>
-        <script> new Chart(document.getElementById("bar-chart"), {
-            type: 'bar',
-            data: {
-            labels: ["서울", "수원", "담양", "천안"],
-            datasets: [{
-                    label: "국내 여행 인기 지역 (명)",
-                    backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9"],
-                    data: [5478,2267,734,784]
-                }]
-            },
-            options: {
-                responsive: false,
-                legend: { display: false },
-            }
-        });
+        <script>
+            $(document).ready(function(){
+                $.ajax({
+                    type:'POST',
+                    async:false,              // 비동기
+                    url:'/travel/tripAdvisor',
+                    dataType:'text',
+                    data:{gender: "남자"},
+                    success: function(data) {
+                        var jsonObject = JSON.parse(data);
+
+                        const filteredData = jsonObject.filter(item => item.age_group === '20');
+
+                        const labels = filteredData.map(item => item.tour_name);
+                        const chartData = filteredData.map(item => parseFloat(item.region_interest_score))
+
+                        new Chart(document.getElementById("bar-chart"), {
+                            type: 'bar',
+                            data: {
+                                labels: labels,
+                                datasets: [{
+                                    label: "국내 여행 인기 지역 남성",
+                                    backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9"],
+                                    data: chartData
+                                }]
+                            },
+                            options: {
+                                responsive: false,
+                                legend: { display: false },
+                            }
+                        });
+                    },
+                    error : function(error){
+                        alert("error : "+error); //에러
+                    }
+                });    //ajax
+            });
         </script>
         <canvas id="bar-chart2" width="500"  height="450"></canvas>
-        <script> new Chart(document.getElementById("bar-chart2"), {
-            type: 'pie',
-            data: {
-                labels: ["오사카", "도쿄", "후쿠오카", "교토"],
-                datasets: [{
-                    label: "해외 여행 인기 지역 (명)",
-                    backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9"],
-                    data: [2478,5267,734,784,433]
-                }]
-            },
-            options: {
-                responsive: false,
-                legend: { display: false },
-            }
-        });
+        <script>
+            $(document).ready(function(){
+                $.ajax({
+                    type: 'POST',
+                    async: false,              // 비동기
+                    url: '/travel/tripAdvisor',
+                    dataType: 'text',
+                    data:{gender: "여자"},
+                    success: function(data) {
+                        var jsonObject = JSON.parse(data);
+
+                        const filteredData = jsonObject.filter(item => item.age_group === '20');
+
+                        const labels = filteredData.map(item => item.tour_name);
+                        const chartData = filteredData.map(item => parseFloat(item.region_interest_score))
+
+                        new Chart(document.getElementById("bar-chart2"), {
+                            type: 'bar',
+                            data: {
+                                labels: labels,
+                                datasets: [{
+                                    label: "국내 여행 인기 지역 여성",
+                                    backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9"],
+                                    data: chartData
+                                }]
+                            },
+                            options: {
+                                responsive: false,
+                                legend: { display: false },
+                            }
+                        });
+                    },
+                    error : function(error){
+                        alert("error : "+error); //에러
+                    }
+                });    //ajax
+            });
         </script>
     </div>
     </div> <!-- 컨테이너 -->
