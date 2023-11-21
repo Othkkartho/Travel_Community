@@ -59,6 +59,8 @@
                     success: function(data) {
                         var jsonObject = JSON.parse(data);
 
+                        jsonObject.sort((a, b) => parseFloat(b.region_interest_score) - parseFloat(a.region_interest_score));
+
                         const filteredData = jsonObject.filter(item => item.age_group === '20');
 
                         const labels = filteredData.map(item => item.tour_name);
@@ -97,6 +99,8 @@
                     data:{gender: "여자"},
                     success: function(data) {
                         var jsonObject = JSON.parse(data);
+
+                        jsonObject.sort((a, b) => parseFloat(b.region_interest_score) - parseFloat(a.region_interest_score));
 
                         const filteredData = jsonObject.filter(item => item.age_group === '20');
 

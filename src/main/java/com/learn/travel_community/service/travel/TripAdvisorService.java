@@ -26,4 +26,18 @@ public class TripAdvisorService implements TripAdvisorRepository {
 
         return resultList;
     }
+
+    @Override
+    public List<Map<String, Object>> getTripAdvisor() {
+        String sql = "SELECT td.detail_id, td.rank_no, td.detail_name, tl.tour_name" +
+                " FROM tourdetail as td" +
+                " join tourlist as tl" +
+                " on td.tourlist_id = tl.tourlist_id";
+
+        BaseDB db = new BaseDB();
+
+        List<Map<String, Object>> resultList = db.baseDB(sql);
+
+        return resultList;
+    }
 }

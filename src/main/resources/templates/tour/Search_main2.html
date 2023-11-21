@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
 <head th:replace="~{layout/headSetting::minSetting}">
     <title>커뮤니티</title>
 </head>
-<script src="/js/jquery-3.7.1.min.js" > </script>
 <body>
 <div th:replace="~{layout/header::indexHeader}"></div>
 <table class="table">
@@ -92,12 +92,22 @@
     <div th:replace="~{layout/login::login}"></div>
     <div th:replace="~{layout/footer::footer}"></div>
 
-    <script>
+    <script th:inline="javascript">
         $(document).ready(function () {
+            var tourListJson = [[${tourListJson}]];
+
+            var json = JSON.parse(tourListJson);
+
             // 모든 area 태그에 대한 클릭 이벤트 처리
             $('map[name="image-map"] area').click(function () {
                 // 클릭된 area 태그의 alt 속성 값 가져오기
                 var altValue = $(this).attr('alt');
+
+                const filteredData = json.filter(item => item.tour_name === altValue);
+
+                filteredData.sort((a, b) => parseFloat(a.rank_no) - parseFloat(b.rank_no));
+
+                console.log(filteredData)
 
                 // 해당 alt 값으로 모달 열기
                 if (altValue) {

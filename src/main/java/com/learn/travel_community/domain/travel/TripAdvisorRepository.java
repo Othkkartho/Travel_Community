@@ -11,4 +11,6 @@ import java.util.Map;
 
 public interface TripAdvisorRepository {
     public List<Map<String, Object>> getTripAdvisor(Map<String, Object> param);
+
+    public List<Map<String, Object>> getTripAdvisor();
 }

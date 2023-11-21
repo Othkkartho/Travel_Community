@@ -8,12 +8,6 @@ import java.util.*;
 
 @Slf4j
 public class BaseDB {
-    @Value("${database.url}")
-    private String url = "jdbc:mysql://localhost:3307/travel?serverTimezone=Asia/Seoul&characterEncoding=UTF-8";
-    @Value("${database.username}")
-    private String user = "traveler";
-    @Value("${database.password}")
-    private String passwd = "Baejjae8218@";
 
     public List<Map<String, Object>> baseDB (String sql) {
 //        log.info("*********** {} ***********", "BaseDB baseDB Start");
@@ -21,6 +15,9 @@ public class BaseDB {
 //            log.info("*********** sql : {} ***********", sql);
             List<Map<String, Object>> resultList = new ArrayList<>();
 
+            String url = "jdbc:mysql://localhost:3307/travel?serverTimezone=Asia/Seoul&characterEncoding=UTF-8";
+            String user = "traveler";
+            String passwd = "Baejjae8218@";
             Connection con = DriverManager.getConnection(url, user, passwd);
 
             Statement stmt = con.createStatement();
@@ -36,8 +33,6 @@ public class BaseDB {
                 resultList.add(resultMap);
                 // log.info("*********** resultMap : {} ***********", resultMap);
             }
-
-            Collections.sort(resultList, Comparator.comparing(m -> (String) m.get("region_interest_score"), Comparator.reverseOrder()));
 
 //            log.info("*********** resultList : {} ***********", resultList);
 
