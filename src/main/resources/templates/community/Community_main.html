@@ -59,7 +59,7 @@
             </a>
           </div>
         </div>
-        <div class="col-md-3" th:if="${board.storedFileName}">
+        <div class="col-md-3" th:if="${board.storedFileName != null and not #lists.isEmpty(board.storedFileName)}">
           <img th:src="@{'/images/board/' + ${board.storedFileName[0]}}" class="img-fluid rounded-start"  id="post_img" alt="...">
         </div>
       </div>

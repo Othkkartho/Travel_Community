@@ -24,7 +24,7 @@
       <div class="card">
         <div id="detail_carousel" class="carousel slide" data-bs-ride="false">
           <div class="carousel-inner" th:if="${board.storedFileName}">
-            <div class="carousel-item active">
+            <div class="carousel-item active" th:if="${#lists.size(board.storedFileName) > 0}">
               <img th:src="@{'/images/board/' + ${board.storedFileName[0]}}"  class="d-block w-100" alt="...">
             </div>
             <div th:if="${#lists.size(board.storedFileName) > 1}">
