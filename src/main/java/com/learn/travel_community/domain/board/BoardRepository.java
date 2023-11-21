@@ -18,4 +18,6 @@ public interface BoardRepository extends JpaRepository<BoardEntity, Long> {
     List<BoardEntity> findTop10ByMemberOrderByCreatedTimeDesc(Member member);
 
     BoardEntity findAllById(Long boardId);
+
+    List<BoardEntity> findAllByAgeGroup(Integer ageGroup);
 }

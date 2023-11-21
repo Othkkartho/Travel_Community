@@ -21,17 +21,20 @@ public class BoardDTO {
     private String boardTitle;
     private String boardContents;
     private int boardHits;
+    private Integer ageGroup;
     private LocalDateTime boardCreatedTime;
     private LocalDateTime boardUpdatedTime;
+    private List<BoardFileEntity> boardFileEntityList;
 
     private List<MultipartFile> boardFile; // save.html -> Controller 파일 담는 용도
     private List<String> originalFileName; // 원본 파일 이름
     private List<String> storedFileName; // 서버 저장용 파일 이름
     private int fileAttached; // 파일 첨부 여부(첨부 1, 미첨부 0)
 
-    public BoardDTO(Long id, Member member, List<BoardFileEntity> boardFileEntity, String boardTitle, int boardHits, LocalDateTime boardCreatedTime) {
+    public BoardDTO(Long id, Member member, List<BoardFileEntity> boardFileEntityList, String boardTitle, String boardContents, int boardHits, LocalDateTime boardCreatedTime) {
         this.id = id;
         this.member = member;
+        this.boardFileEntityList = boardFileEntityList;
         this.boardTitle = boardTitle;
         this.boardHits = boardHits;
         this.boardCreatedTime = boardCreatedTime;

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
 <head th:replace="~{layout/headSetting::minSetting}">
     <title>커뮤니티</title>
 </head>
@@ -11,20 +11,22 @@
     <a class="btn btn-primary main_write" role="button" href="/board/save">글쓰기</a>
   </div>
 </div>
-<div class="d-flex justify-content-center row" id="main_card">
+<div class="d-flex justify-content-center row" id="main_card" th:each="board: ${recommendList}">
   <div class="col-sm-3">
-    <div class="card" >
-      <img src="/images/testImg/travel.jpg" class="card-img-top" alt="...">
+    <div class="card">
+        <img th:src="@{'/images/board/' + ${board.storedFileName[0]}}" th:if="${board.storedFileName != null and not #lists.isEmpty(board.storedFileName)}" class="img-fluid rounded-start" alt="...">
+      <a th:href="@{|/board/${board.id}|(page=${boardList.number + 1})}">
       <div class="card-body">
         <p class="card-text" id="card_region">제주</p>
         <p class="card-text" id="card_by">좋아요</p>
-        <p class="card-text" id="card_like">7</p>
+        <p class="card-text" id="card_like">[[${likeCount.get(bid)}]]</p>
         <br><br>
-        <h5 class="card-title" id="card_title">단풍 여행</h5>
+        <h5 class="card-title" id="card_title">[[${board.boardTitle}]]</h5>
         <br>
         <p class="card-text" id="card_by">By</p>
         <p class="card-text" id="card_name">관리자</p>
       </div>
+      </a>
     </div>
   </div>
 </div>

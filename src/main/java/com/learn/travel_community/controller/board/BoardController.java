@@ -16,6 +16,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,9 +24,13 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
+
+import static com.learn.travel_community.dto.board.BoardDTO.toBoardDTO;
 
 @Controller
 @RequiredArgsConstructor
@@ -121,10 +126,15 @@ public class BoardController {
         boardService.delete(boardEntity.getMember().getUid(), id);
         return "redirect:/board/paging";
     }
-
+    @Transactional
     @GetMapping("/paging")
-    public String paging(@PageableDefault(page = 1) Pageable pageable, Model model) {
+    public String paging(@PageableDefault(page = 1) Pageable pageable, Model model) throws Exception {
         Page<BoardDTO> boardList = boardService.paging(pageable);
+
+        List<BoardDTO> recommendList = boardRepository.findAllByAgeGroup(1).stream()
+                .map(boardEntity -> toBoardDTO(boardEntity))
+                .collect(Collectors.toList());
+
         List<LikeDto> likesList = likesRepository.getBoardsLikesCount();
         Map<Long, Long> likeMap = new HashMap<>();
 
@@ -147,6 +157,7 @@ public class BoardController {
             endPage = boardList.getTotalPages() == 0 ? -1 : boardList.getTotalPages();
 
         model.addAttribute("boardList", boardList);
+        model.addAttribute("recommendList", recommendList);
         model.addAttribute("startPage", startPage);
         model.addAttribute("endPage", endPage);
         model.addAttribute("likeCount", likeMap);
