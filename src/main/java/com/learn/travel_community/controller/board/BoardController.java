@@ -127,14 +127,13 @@ public class BoardController {
     @GetMapping("/paging")
     public String paging(@PageableDefault(page = 1) Pageable pageable, Model model) {
         SessionMember member = (SessionMember) httpSession.getAttribute("user");
-        Integer age = 20;
-        Integer gender = 2;
-        if (member != null) {
-            model.addAttribute("userName", member.getNickname());
-            model.addAttribute("profileImg", member.getPicture());
-            age = memberRepository.findByEmail(member.getEmail()).get().getAge();
-            gender = memberRepository.findByEmail(member.getEmail()).get().getGender();
-        }
+
+        model.addAttribute("userName", member != null ? member.getNickname() : null);
+        model.addAttribute("profileImg", member != null ? member.getPicture() : null);
+
+        int age = member != null ? memberRepository.findByEmail(member.getEmail()).get().getAge() : 20;
+        int gender = member != null ? memberRepository.findByEmail(member.getEmail()).get().getGender() : 2;
+        gender = gender == 0 ? 2 : gender;
 
         Page<BoardDTO> boardList = boardService.paging(pageable);
 
