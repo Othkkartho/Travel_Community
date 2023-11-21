@@ -11,8 +11,9 @@
             <div class="carousel-inner">
                 <div th:each="recommendContents, iterStat : ${boardRecommendDTOs}" class="carousel-item active" th:classappend="${iterStat.index == 0} ? 'active'">
                     <a th:href="@{|/board/${recommendContents.id}}">
-                        <img th:each="image : ${recommendContents.storedFileName}" th:src="@{'/images/board/' + ${image}}"
-                             th:if="${image != null}" class="d-block w-100" alt="..." id="slide">
+                        <img th:if="${recommendContents.storedFileName != null and not #lists.isEmpty(recommendContents.storedFileName)}"
+                             th:src="@{'/images/board/' + ${recommendContents.storedFileName[0]}}"
+                             class="d-block w-100" alt="..." id="slide">
 
                         <div class="text-overlay-main" th:text="${recommendContents.boardTitle}">
                             <br>
