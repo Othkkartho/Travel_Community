@@ -24,13 +24,10 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
-import static com.learn.travel_community.dto.board.BoardDTO.toBoardDTO;
 
 @Controller
 @RequiredArgsConstructor
@@ -128,21 +125,23 @@ public class BoardController {
     }
     @Transactional
     @GetMapping("/paging")
-    public String paging(@PageableDefault(page = 1) Pageable pageable, Model model) throws Exception {
-        Page<BoardDTO> boardList = boardService.paging(pageable);
-
-        List<BoardDTO> recommendList = boardRepository.findAllByAgeGroup(1).stream()
-                .map(boardEntity -> toBoardDTO(boardEntity))
-                .collect(Collectors.toList());
-
-        List<LikeDto> likesList = likesRepository.getBoardsLikesCount();
-        Map<Long, Long> likeMap = new HashMap<>();
-
+    public String paging(@PageableDefault(page = 1) Pageable pageable, Model model) {
         SessionMember member = (SessionMember) httpSession.getAttribute("user");
+        Integer age = 20;
+        Integer gender = 2;
         if (member != null) {
             model.addAttribute("userName", member.getNickname());
             model.addAttribute("profileImg", member.getPicture());
+            age = memberRepository.findByEmail(member.getEmail()).get().getAge();
+            gender = memberRepository.findByEmail(member.getEmail()).get().getGender();
         }
+
+        Page<BoardDTO> boardList = boardService.paging(pageable);
+
+        List<BoardDTO> recommendList = boardService.findRecommendList(age, gender);
+
+        List<LikeDto> likesList = likesRepository.getBoardsLikesCount();
+        Map<Long, Long> likeMap = new HashMap<>();
 
         for (LikeDto l: likesList) {
             likeMap.put(l.getBid(), l.getLikeCount());
@@ -181,20 +180,5 @@ public class BoardController {
         likeService.dislikes(member, board);
 
         return "redirect:/board/" + id;
-    }
-
-    public void deleteExistingImages(BoardEntity boardEntity) {
-        List<BoardFileEntity> boardFileEntities = boardFileRepository.findAllByBoardId(boardEntity.getId());
-        for (BoardFileEntity boardFileEntity : boardFileEntities) {
-            String storedFileName = boardFileEntity.getStoredFileName();
-            if (storedFileName != null) {
-                Path imagePath = Paths.get(System.getProperty("user.dir") + uploadFolder + "board/" + storedFileName);
-                try {
-                    Files.delete(imagePath);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
     }
 }

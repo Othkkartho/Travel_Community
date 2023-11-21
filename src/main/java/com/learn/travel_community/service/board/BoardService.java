@@ -9,6 +9,8 @@ import com.learn.travel_community.domain.member.Member;
 import com.learn.travel_community.domain.member.MemberRepository;
 import com.learn.travel_community.dto.board.BoardDTO;
 import static com.learn.travel_community.dto.board.BoardDTO.toBoardDTO;
+
+import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
@@ -26,6 +28,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 
 @Service
@@ -165,4 +168,9 @@ public class BoardService {
         }
     }
 
+    public List<BoardDTO> findRecommendList(Integer ageGroup, int gender) {
+        return boardRepository.findAllByAgeGroupAndGender(ageGroup, gender).stream()
+                .map(boardEntity -> toBoardDTO(boardEntity))
+                .collect(Collectors.toList());
+    }
 }

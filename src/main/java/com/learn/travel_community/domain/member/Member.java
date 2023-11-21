@@ -38,7 +38,7 @@ public class Member extends BaseTimeEntity {
     private int age;    // 나이대 10, 20, 30 등 저장, 0은 비공개
 
     @Column
-    private int gender; // 0: 비공개, 1: 남성, 2: 여성
+    private int gender; // 0: 비공개, 1: 여성, 2: 남성
 
     @Column(length = 500)
     private String introduce;

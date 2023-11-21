@@ -28,6 +28,9 @@ public class BoardEntity extends BaseTimeEntity {
     @Column(columnDefinition = "integer default 0")
     private Integer ageGroup;
 
+    @Column(columnDefinition = "integer default 0")
+    private Integer gender;
+
     @Column
     private int boardHits;
 
