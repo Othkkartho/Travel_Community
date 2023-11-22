@@ -5,33 +5,36 @@
     <title>MyTravelDiary</title>
 </head>
 <body>
-    <div th:replace="~{layout/header::indexHeader}"></div>
-    <div class="container" id="index_main_container"> <!-- 컨테이너 -->
-        <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
-            <div class="carousel-inner">
-                <div th:each="recommendContents, iterStat : ${boardRecommendDTOs}" class="carousel-item active" th:classappend="${iterStat.index == 0} ? 'active'">
-                    <a th:href="@{|/board/${recommendContents.id}}">
-                        <img th:if="${recommendContents.storedFileName != null and not #lists.isEmpty(recommendContents.storedFileName)}"
-                             th:src="@{'/images/board/' + ${recommendContents.storedFileName[0]}}"
-                             class="d-block w-100" alt="..." id="slide">
+<div th:replace="~{layout/header::indexHeader}"></div>
+<div class="container" id="index_main_container"> <!-- 컨테이너 -->
+    <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner">
+            <div th:each="recommendContents, iterStat : ${boardRecommendDTOs}" class="carousel-item active"
+                 th:classappend="${iterStat.index == 0} ? 'active'">
+                <a th:href="@{|/board/${recommendContents.id}}">
+                    <img th:if="${recommendContents.storedFileName != null and not #lists.isEmpty(recommendContents.storedFileName)}"
+                         th:src="@{'/images/board/' + ${recommendContents.storedFileName[0]}}"
+                         class="d-block w-100" alt="..." id="slide">
 
-                        <div class="text-overlay-main" th:text="${recommendContents.boardTitle}">
-                            <br>
-                            <div class="text-overlay" th:text="${recommendContents.boardContents}">
-                            </div>
+                    <div class="text-overlay-main" th:text="${recommendContents.boardTitle}">
+                        <br>
+                        <div class="text-overlay" th:text="${recommendContents.boardContents}">
                         </div>
-                    </a>
-                </div>
+                    </div>
+                </a>
             </div>
-            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Previous</span>
-            </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Next</span>
-            </button>
         </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls"
+                data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls"
+                data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
     <div class="container index_main_wordcloud">
         <div class="row">
             <div class="col">
@@ -49,16 +52,17 @@
     </div>
 
     <div class="row justify-content-between chart">
-        <canvas id="bar-chart" width="500"  height="450"></canvas>
+
+        <canvas id="bar-chart" width="500" height="450"></canvas>
         <script>
-            $(document).ready(function(){
+            $(document).ready(function () {
                 $.ajax({
-                    type:'POST',
-                    async:false,              // 비동기
-                    url:'/travel/tripAdvisor',
-                    dataType:'text',
-                    data:{gender: "남자"},
-                    success: function(data) {
+                    type: 'POST',
+                    async: false,              // 비동기
+                    url: '/travel/tripAdvisor',
+                    dataType: 'text',
+                    data: {gender: "남자"},
+                    success: function (data) {
                         var jsonObject = JSON.parse(data);
 
                         jsonObject.sort((a, b) => parseFloat(b.region_interest_score) - parseFloat(a.region_interest_score));
@@ -74,32 +78,32 @@
                                 labels: labels,
                                 datasets: [{
                                     label: "국내 여행 인기 지역 남성",
-                                    backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9"],
+                                    backgroundColor: ["#3e95cd", "#8e5ea2", "#3cba9f", "#e8c3b9"],
                                     data: chartData
                                 }]
                             },
                             options: {
                                 responsive: false,
-                                legend: { display: false },
+                                legend: {display: false},
                             }
                         });
                     },
-                    error : function(error){
-                        alert("error : "+error); //에러
-                    }
+                    error: function (error) {
+                        alert("error : " + error); //에러
+                    },
                 });    //ajax
             });
         </script>
-        <canvas id="bar-chart2" width="500"  height="450"></canvas>
+        <canvas id="bar-chart2" width="500" height="450"></canvas>
         <script>
-            $(document).ready(function(){
+            $(document).ready(function () {
                 $.ajax({
                     type: 'POST',
                     async: false,              // 비동기
                     url: '/travel/tripAdvisor',
                     dataType: 'text',
-                    data:{gender: "여자"},
-                    success: function(data) {
+                    data: {gender: "여자"},
+                    success: function (data) {
                         var jsonObject = JSON.parse(data);
 
                         jsonObject.sort((a, b) => parseFloat(b.region_interest_score) - parseFloat(a.region_interest_score));
@@ -115,28 +119,27 @@
                                 labels: labels,
                                 datasets: [{
                                     label: "국내 여행 인기 지역 여성",
-                                    backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9"],
+                                    backgroundColor: ["#3e95cd", "#8e5ea2", "#3cba9f", "#e8c3b9"],
                                     data: chartData
                                 }]
                             },
                             options: {
                                 responsive: false,
-                                legend: { display: false },
+                                legend: {display: false},
                             }
                         });
                     },
-                    error : function(error){
-                        alert("error : "+error); //에러
+                    error: function (error) {
+                        alert("error : " + error); //에러
                     }
                 });    //ajax
             });
         </script>
     </div>
-    </div> <!-- 컨테이너 -->
-    <!-- 로그인 -->
-    <!-- Modal -->
-    <div th:replace="~{layout/login::login}"></div>
-
-    <div th:replace="~{layout/footer::footer}"></div>
+</div> <!-- 컨테이너 -->
+<!-- 로그인 -->
+<!-- Modal -->
+<div th:replace="~{layout/login::login}"></div>
+<div th:replace="~{layout/footer::footer}"></div>
 </body>
 </html>

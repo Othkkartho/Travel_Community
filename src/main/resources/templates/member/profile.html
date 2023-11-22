@@ -77,22 +77,23 @@
 
         <div id="mypage-detail" class="col-8 border border-2 rounded-top">
             <!-- 탭 내용 -->
-            <div class="tab-content" id="myTabContent">
+            <div class="tab-content" id="myTabContent" th:each="board : ${boardList}" th:with="userday=${#strings.setSplit(board.createdTime, 'T')[0]}, usertime=${#strings.setSplit(board.createdTime, 'T')[1]}" >
                 <div class="tab-pane fade show active" id="write" role="tabpanel" aria-labelledby="write-tab">
-                    <ul id="write-tab" th:each="board : ${boardList}">
-                        <a th:href="|/board/${board.id}|"><li>[[${board.boardTitle}]]</li></a>
-                        <p th:href="|/board/${board.createdTime}|"><li>[[${board.createdTime}]]</li></p>
+                    <ul id="write-tab" class="row justify-content-between"  >
+                        <a class="col-6" th:href="|/board/${board.id}|"><li>[[${board.boardTitle}]]</li></a>
+                        <p class="col-3" th:text="|${userday} ${#strings.substring(usertime, 0, 8)}|"></p>
                     </ul>
                 </div>
                 <div class="tab-pane fade" id="fav" role="tabpanel" aria-labelledby="fav-tab">
-                    <ul th:each="like : ${likesList}">
-                        <a th:href="|/board/${like.board.id}|"><li>[[${like.board.boardTitle}]]</li></a>
-                        <p>테스트</p>
+                    <ul th:each="like : ${likesList}" class="row justify-content-between">
+                        <a class="col-6"  th:href="|/board/${like.board.id}|"><li>[[${like.board.boardTitle}]]</li></a>
+                        <p class="col-3" th:text="|${userday} ${#strings.substring(usertime, 0, 8)}|"></p>
                     </ul>
                 </div>
                 <div class="tab-pane fade" id="comment" role="tabpanel" aria-labelledby="comment-tab">
-                    <ul th:each="comment : ${commentList}">
-                        <a th:href="|/board/${comment.boardEntity.id}|"><li>[[${comment.commentContents}]]</li></a>
+                    <ul th:each="comment : ${commentList}" class="row justify-content-between">
+                        <a class="col-6" th:href="|/board/${comment.boardEntity.id}|"><li>[[${comment.commentContents}]]</li></a>
+                        <p class="col-3" th:text="|${userday} ${#strings.substring(usertime, 0, 8)}|"></p>
                     </ul>
                 </div>
                 <div class="tab-pane fade" id="scrab" role="tabpanel" aria-labelledby="scrab-tab">
@@ -119,14 +120,18 @@
 </body>
 
 
-    <script>
-        var mNum = 0;
-        var dis = document.getElementById("profile-morderator")
+    <script th:inline="javascript">
+        console.log("test");
+        let mNum = 0;
+        /*
+        let dis = document.getElementById("profile-morderator")
         if (mNum === 1){
             dis.style.display = "block";
         } else {
             dis.style.display = "none";
         }
+        */
+
     </script>
 
 </html>

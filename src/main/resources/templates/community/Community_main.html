@@ -34,12 +34,12 @@
 <div class="main_post">
   <div class="d-flex justify-content-center" id="post">
     <div class="card mb-3" id="post_1">
-      <div class="row community_main_post" th:each="board: ${boardList}">
+      <div class="row community_main_post" th:each="board: ${boardList}" >
         <div class="col-md-2" th:with="bid=${board.id}">
-          <div class="card-body">
+          <div class="card-body" th:with="userday=${#strings.setSplit(board.member.createdTime, 'T')[0]}, usertime=${#strings.setSplit(board.member.createdTime, 'T')[1]}">
             <p class="card-text" id="post_region">경기</p>
-            <p class="card-text" id="post_time">1</p>
-            <p class="card-text" id="post_time2">시간 전</p>
+            <p class="card-text" id="post_time" th:text="${userday}"></p>
+            <p class="card-text" id="post_time" th:text="${#strings.substring(usertime, 0, 8)}"></p>
             <br><br>
             <p class="card-text" id="card_by">좋아요</p>
             <p class="card-text" id="card_like">[[${likeCount.get(bid)}]]</p>
@@ -93,5 +93,7 @@
 </div>
 <div th:replace="~{layout/login::login}"></div>
 <div th:replace="~{layout/footer::footer}"></div>
+<script th:inline="javascript">
+</script>
 </body>
 </html>

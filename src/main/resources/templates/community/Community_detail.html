@@ -45,10 +45,10 @@
         <div class="row" id="detail_icon">
           <div class="col">
             <button id="detail_imgheart" th:unless="${dolike}">
-              <a th:href="|/board/like/${board.id}|"><img th:src="|/images/board/heart.svg|" id="detail_img_like" alt="좋아요"></a>
+              <a th:href="|/board/like/${board.id}|"><img th:src="|/images/board/heart.svg|" id="detail_img_dislike" alt="좋아요"></a>
             </button>
             <button id="detail_imgheart" th:if="${dolike}">
-              <a th:href="|/board/dislike/${board.id}|"><img th:src="|/images/board/heart.svg|" id="detail_img_like" alt="좋아요"></a>
+              <a th:href="|/board/dislike/${board.id}|"><img th:src="|/images/board/heart-fill.svg|" id="detail_img_like" alt="좋아요"></a>
             </button>
             <button id="detail_imgchat">
               <img src="/images/main/logo/chat-fill.svg"   id="detail_img" alt="...">

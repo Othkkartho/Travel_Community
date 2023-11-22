@@ -29,7 +29,7 @@
                     <div class="contents">
                         <div class="upload-box">
                             <div id="drop-file" class="drag-file">
-                                <img src="" alt="파일 아이콘" class="image" >
+                                <img src="/images/board/images.svg" onclick="imageupload()" alt="파일 아이콘" class="image" >
                                 <img src="" alt="미리보기 이미지" id="preview" />
                             </div>
                             <label class="file-label" id="image-label" for="image-upload">이미지 업로드</label>
@@ -77,6 +77,9 @@
 <div th:replace="~{layout/footer::footer}"></div>
 
 <script>
+    function  imageupload() {
+        document.getElementById("image-upload").click();
+    }
     function readURL(input) {
         if (input.files && input.files[0]) {
             let reader = new FileReader();
@@ -100,9 +103,8 @@
 
     fileInput.addEventListener('change', function() {
         if (fileInput.files.length === 0) {
-            // 파일이 선택되지 않은 경우
+
         } else {
-            console.log("엘레레");
             file_check = 1;
         }
     });
@@ -118,6 +120,12 @@
                 document.getElementById('fav').style.display = 'block';
                 document.getElementById('write_card').style.width = "70%";
                 document.getElementById("preview2").src = tmp;
+            }
+            else {
+                document.getElementById('preview2').style.visibility = 'hidden';
+                document.getElementById('write').style.display = 'none';
+                document.getElementById('write_card').style.width = "40%";
+                document.getElementById('fav').style.display = 'block';
             }
         }, 100); // setTimeout을 사용하여 file_check 값이 변경된 후에 실행되도록 설정합니다.
         event.target // newly activated tab
