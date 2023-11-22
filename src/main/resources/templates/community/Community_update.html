@@ -23,7 +23,7 @@
         <div class="contents">
           <div class="upload-box">
             <div id="drop-file" class="drag-file">
-              <img src="" alt="파일 아이콘" class="image" >
+              <img src="/images/board/images.svg" onclick="imageupload()" alt="파일 아이콘" class="image" >
               <img src="" alt="미리보기 이미지" id="preview" />
             </div>
             <label class="file-label" id="image-label" for="image-upload">이미지 업로드</label>
@@ -39,6 +39,9 @@
 <script th:inline="javascript">
   const boardUpdate = () => {
     document.updateForm.submit();
+  }
+  function  imageupload() {
+    document.getElementById("image-upload").click();
   }
   function readURL(input) {
         if (input.files && input.files[0]) {

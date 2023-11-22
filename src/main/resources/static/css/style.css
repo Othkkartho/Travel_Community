@@ -167,6 +167,9 @@
             height: 50px;
             margin-right: 50px;
         }
+        .profile{
+            margin-bottom: 10px;
+        }
         #profile-menu{
             position: absolute;
             right: 40px;
@@ -285,6 +288,9 @@
         }
         .main_write{
             margin-top: 30px;
+        }
+        .main_write_submit{
+            margin-top: 5px;
         }
         .community_main_paging > .btn-primary{
             margin: 5px;
