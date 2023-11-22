@@ -11,8 +11,8 @@
     <a class="btn btn-primary main_write" role="button" href="/board/save">글쓰기</a>
   </div>
 </div>
-<div class="d-flex justify-content-center row" id="main_card" th:each="board: ${recommendList}">
-  <div class="col-sm-3">
+<div class="d-flex justify-content-center row" id="main_card">
+  <div class="col-sm-3"  th:each="board: ${recommendList}">
     <div class="card">
         <img th:src="@{'/images/board/' + ${board.storedFileName[0]}}" th:if="${board.storedFileName != null and not #lists.isEmpty(board.storedFileName)}" class="img-fluid rounded-start" alt="...">
       <a th:href="@{|/board/${board.id}|(page=${boardList.number + 1})}">
