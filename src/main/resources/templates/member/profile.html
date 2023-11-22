@@ -5,15 +5,15 @@
     <title>MyTravelDiary</title>
 </head>
 <body>
-    <div th:unless="${userName}">
-        <div th:replace="~{layout/header::memberHeader}"></div>
-    </div>
-    <div th:if="${userName}">
-        <div th:replace="~{layout/header::indexHeader}"></div>
-    </div>
-    <div class="container"> <!-- 컨테이너 -->
+<div th:unless="${userName}">
+    <div th:replace="~{layout/header::memberHeader}"></div>
+</div>
+<div th:if="${userName}">
+    <div th:replace="~{layout/header::indexHeader}"></div>
+</div>
+<div class="container"> <!-- 컨테이너 -->
     <!-- 프로필 커버-->
-    <div id="mypage-cover">    
+    <div id="mypage-cover">
     </div>
     <!-- 프로필 아이콘 및 이름 좋아요-->
     <div class="d-flex bd-highlight mb-3" id="mypage-icon" th:object="${member}">
@@ -45,9 +45,9 @@
     </div>
 
     <div id="mypage-main" class="row">
-    
+
         <!-- 프로필 정보-->
-        <div id="mypage-info" class="col-3" th:object="${member}">
+        <div id="mypage-info" class="col-3 rounded-top border border-2" th:object="${member}">
             <ul id="mypage-info-detail">
                 <li id="mypage-age">
                     <div th:if="*{age == 0}">
@@ -75,44 +75,49 @@
             </ul>
         </div>
 
-    <div id="mypage-detail" class="col-8">
-        <!-- 탭 내용 -->
-        <div class="tab-content" id="myTabContent">
-            <div class="tab-pane fade show active" id="write" role="tabpanel" aria-labelledby="write-tab">
-                <ul id="write-tab" th:each="board : ${boardList}">
-                    <a th:href="|/board/${board.id}|"><li>[[${board.boardTitle}]]</li></a>
-                </ul>
-            </div>
-            <div class="tab-pane fade" id="fav" role="tabpanel" aria-labelledby="fav-tab">
-                <ul th:each="like : ${likesList}">
-                    <a th:href="|/board/${like.board.id}|"><li>[[${like.board.boardTitle}]]</li></a>
-                </ul>
-            </div>
-            <div class="tab-pane fade" id="comment" role="tabpanel" aria-labelledby="comment-tab">
-                <ul th:each="comment : ${commentList}">
-                    <a th:href="|/board/${comment.boardEntity.id}|"><li>[[${comment.commentContents}]]</li></a>
-                </ul>
-            </div>
-            <div class="tab-pane fade" id="scrab" role="tabpanel" aria-labelledby="scrab-tab">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-12 col-md-4" th:each="scrap : ${scrapList}"> <!-- 각 이미지와 텍스트를 4개의 컬럼으로 나눔 -->
-                            <div class="position-relative">
-                                <img src="/images/testImg/travel.jpg" alt="이미지" class="img-fluid">
-                                <div class="text-overlay">[[${scrap.detailEntity.detailName}]]</div>
+        <div id="mypage-detail" class="col-8 border border-2 rounded-top">
+            <!-- 탭 내용 -->
+            <div class="tab-content" id="myTabContent">
+                <div class="tab-pane fade show active" id="write" role="tabpanel" aria-labelledby="write-tab">
+                    <ul id="write-tab" th:each="board : ${boardList}">
+                        <a th:href="|/board/${board.id}|"><li>[[${board.boardTitle}]]</li></a>
+                        <p th:href="|/board/${board.createdTime}|"><li>[[${board.createdTime}]]</li></p>
+                    </ul>
+                </div>
+                <div class="tab-pane fade" id="fav" role="tabpanel" aria-labelledby="fav-tab">
+                    <ul th:each="like : ${likesList}">
+                        <a th:href="|/board/${like.board.id}|"><li>[[${like.board.boardTitle}]]</li></a>
+                        <p>테스트</p>
+                    </ul>
+                </div>
+                <div class="tab-pane fade" id="comment" role="tabpanel" aria-labelledby="comment-tab">
+                    <ul th:each="comment : ${commentList}">
+                        <a th:href="|/board/${comment.boardEntity.id}|"><li>[[${comment.commentContents}]]</li></a>
+                    </ul>
+                </div>
+                <div class="tab-pane fade" id="scrab" role="tabpanel" aria-labelledby="scrab-tab">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-12 col-md-4" th:each="scrap : ${scrapList}"> <!-- 각 이미지와 텍스트를 4개의 컬럼으로 나눔 -->
+                                <div class="position-relative">
+                                    <img src="/images/testImg/travel.jpg" alt="이미지" class="img-fluid">
+                                    <div class="text-overlay">[[${scrap.detailEntity.detailName}]]</div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-          </div>
         </div>
     </div>
 
     <br>
     <br>
-        <div th:replace="~{layout/login::login}"></div>
-        <div th:replace="~{layout/footer::footer}"></div>
+</div>
+<div th:replace="~{layout/login::login}"></div>
+<div th:replace="~{layout/footer::footer}"></div>
+</body>
+
 
     <script>
         var mNum = 0;
@@ -123,5 +128,5 @@
             dis.style.display = "none";
         }
     </script>
-</body>
+
 </html>

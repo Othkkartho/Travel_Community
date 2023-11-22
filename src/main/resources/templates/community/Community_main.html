@@ -34,7 +34,7 @@
 <div class="main_post">
   <div class="d-flex justify-content-center" id="post">
     <div class="card mb-3" id="post_1">
-      <div class="row" th:each="board: ${boardList}">
+      <div class="row community_main_post" th:each="board: ${boardList}">
         <div class="col-md-2" th:with="bid=${board.id}">
           <div class="card-body">
             <p class="card-text" id="post_region">경기</p>
@@ -61,35 +61,36 @@
             </a>
           </div>
         </div>
-        <div class="col-md-3" th:if="${board.storedFileName != null and not #lists.isEmpty(board.storedFileName)}">
+        <div class="col-md-3 community_main_postimg" th:if="${board.storedFileName != null and not #lists.isEmpty(board.storedFileName)}">
           <img th:src="@{'/images/board/' + ${board.storedFileName[0]}}" class="img-fluid rounded-start"  id="post_img" alt="...">
         </div>
       </div>
     </div>
   </div>
 </div>
-<a th:href="@{/board/paging(page=1)}">First</a>
-<!-- 이전 링크 활성화 비활성화 -->
-<!-- boardList.getNumber() 사용자:2페이지 getNumber()=1 -->
-<a th:href="${boardList.first} ? '#' : @{/board/paging(page=${boardList.number})}">prev</a>
+<div class="community_main_paging d-flex justify-content-center">
+  <a th:href="@{/board/paging(page=1)}" class="btn btn-primary">First</a>
+  <!-- 이전 링크 활성화 비활성화 -->
+  <!-- boardList.getNumber() 사용자:2페이지 getNumber()=1 -->
+  <a th:href="${boardList.first} ? '#' : @{/board/paging(page=${boardList.number})}" class="btn btn-primary">prev</a>
 
-<!-- 페이지 번호 링크(현재 페이지는 숫자만)
+  <!-- 페이지 번호 링크(현재 페이지는 숫자만)
         for(int page=startPage; page<=endPage; page++)-->
-<span th:each="page: ${#numbers.sequence(startPage, endPage)}">
-<!-- 현재페이지는 링크 없이 숫자만 -->
+  <span th:each="page: ${#numbers.sequence(startPage, endPage)}">
+  <!-- 현재페이지는 링크 없이 숫자만 -->
     <span th:if="${page == boardList.number + 1}" th:text="${page}"></span>
   <!-- 현재페이지 번호가 아닌 다른 페이지번호에는 링크를 보여줌 -->
     <span th:unless="${page == boardList.number + 1}">
-        <a th:href="@{/board/paging(page=${page})}" th:text="${page}"></a>
+        <a th:href="@{/board/paging(page=${page})}" th:text="${page}" ></a>
     </span>
-</span>
+  </span>
 
-<!-- 다음 링크 활성화 비활성화
-    사용자: 2페이지, getNumber: 1, 3페이지-->
-<a th:href="${boardList.last} ? '#' : @{/board/paging(page=${boardList.number + 2})}">next</a>
-<!-- 마지막 페이지로 이동 -->
-<a th:href="@{/board/paging(page=${boardList.totalPages})}">Last</a>
-
+  <!-- 다음 링크 활성화 비활성화
+      사용자: 2페이지, getNumber: 1, 3페이지-->
+  <a th:href="${boardList.last} ? '#' : @{/board/paging(page=${boardList.number + 2})}" class="btn btn-primary">next</a>
+  <!-- 마지막 페이지로 이동 -->
+  <a th:href="@{/board/paging(page=${boardList.totalPages})}" class="btn btn-primary">Last</a>
+</div>
 <div th:replace="~{layout/login::login}"></div>
 <div th:replace="~{layout/footer::footer}"></div>
 </body>

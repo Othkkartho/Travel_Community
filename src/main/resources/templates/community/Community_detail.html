@@ -61,7 +61,6 @@
             <!-- <p class="card-text" id="detail_name">[[${board.member.nickname}]]</p> -->
           </div>
           <div class="col-auto">
-            <p class="card-text" id="detail_title">[[${board.boardTitle}]]</p>
           </div>
           <div class="col-auto">
             <a id="detail_expand" data-bs-toggle="collapse" href="#detail_expandcotent" role="button" aria-expanded="false" aria-controls="collapseExample">
@@ -72,17 +71,14 @@
       </div>
       <div class="collapse" id="detail_expandcotent">
         <div class="card card-body">
+          <p class="card-text" id="detail_title">[[${board.boardTitle}]]</p> <!-- 제목  -->
           [[${board.boardContents}]]
           <div class="row" id="detail_comment2">
             <div class="col-auto">
               <div id="comment-list">
                 <table>
                   <thead>
-                  <tr>
-                    <th>작성자</th>
-                    <th>내용</th>
-                    <th>작성 일자</th>
-                  </tr>
+
                   </thead>
                   <tbody>
                   <tr th:each="comment, commentStat: ${commentList}">
@@ -95,8 +91,8 @@
               </div>
               <div class="input-group mb-3" id="comment-write" th:if="${userName}">
                 <form action="/comment/save" method="post">
-                  <label for="commentContents">내용: </label>
-                  <textarea class="form-control" id="commentContents" name="commentContents" rows="5" required></textarea>
+                  <label for="commentContents"></label>
+                  <textarea class="form-control comment_textarea" id="commentContents" name="commentContents" rows="1" required></textarea>
                   <br>
                   <input type="hidden" class="form-control" aria-label="detail_comment" aria-describedby="button-addon2" name="boardId" th:value="${board.id}"/>
                   <button class="btn btn-primary" id="comment-write-btn" type="submit">댓글 작성</button>

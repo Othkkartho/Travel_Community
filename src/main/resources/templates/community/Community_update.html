@@ -7,12 +7,19 @@
 </head>
 <body>
 <div th:replace="~{layout/header::indexHeader}"></div>
-<div class="update_main">
-  <form action="/board/update" method="post" name="updateForm" enctype="multipart/form-data">  <input type="hidden" name="id" th:value="${boardUpdate.id}">
-    writer: <input type="text" name="boardWriter" th:value="${boardUpdate.member.nickname}" readonly> <br>
-    title: <input type="text" name="boardTitle" th:value="${boardUpdate.boardTitle}"> <br>
-    contents: <textarea name="boardContents" cols="30" rows="10" th:text="${boardUpdate.boardContents}"></textarea> <br>
-      <div class="tab-pane fade show active" id="write" role="tabpanel" aria-labelledby="write-tab">
+<div class="update_main container-fluid d-flex justify-content-center">
+  <form action="/board/update" method="post" name="updateForm" enctype="multipart/form-data">
+    <div class="row update_form">
+      <input type="hidden" class="form-control" name="id" th:value="${boardUpdate.id}">
+        <label class="from-label">작성자</label>
+        <input type="text" class="form-control" name="boardWriter" th:value="${boardUpdate.member.nickname}" readonly>
+        <label class="from-label">제목</label>
+        <input type="text" class="form-control" name="boardTitle" th:value="${boardUpdate.boardTitle}">
+        <label class="from-label">내용</label>
+        <textarea name="boardContents" class="form-control" cols="30" rows="10" th:text="${boardUpdate.boardContents}"></textarea>
+    </div>
+    <div class="row update_form">
+    <div class="tab-pane fade show active" id="write" role="tabpanel" aria-labelledby="write-tab">
         <div class="contents">
           <div class="upload-box">
             <div id="drop-file" class="drag-file">
@@ -23,8 +30,9 @@
             <input type="file" id="image-upload" name="boardFile" multiple onchange="readURL(this);"></div>
         </div>
       </div>
-    <input type="hidden" name="boardHits" th:value="${boardUpdate.boardHits}">
-    <input type="button" value="글수정" onclick="boardUpdate()">
+    </div>
+      <input type="hidden" name="boardHits" th:value="${boardUpdate.boardHits}">
+      <input type="button" class="btn btn-primary" value="글수정" onclick="boardUpdate()">
   </form>
 </div> <!-- end mupdate_main -->
 <div th:replace="~{layout/footer::footer}"></div>

@@ -214,6 +214,7 @@
         }
         #mypage-detail{
             background-color: white;
+            margin-left: 5px;
         }
         #mypage-detail img{
             margin-top: 20px;
@@ -283,6 +284,24 @@
         .main_write{
             margin-top: 30px;
         }
+        .community_main_paging > .btn-primary{
+            margin: 5px;
+        }
+        .community_main_paging > span{
+            font-size: large;
+            font-weight: 600;
+            margin: 5px;
+            padding-top: 5px;
+        }
+        .community_main_post{
+            border: 2px solid;
+            border-color: #fafafa;
+            margin: 10px;
+            border-radius: 10px;
+        }
+        .community_main_postimg{
+            padding: 0 !important;
+        }
         .position-relative img{
             width: 400px;
         }
@@ -326,6 +345,10 @@
 
           #detail_list{
               margin-left: 15px;
+          }
+          .comment_textarea{
+              width: 100%;
+              height: 60px;
           }
           #detail_comment{
               margin-left: 4px;
@@ -408,13 +431,10 @@
               margin-top: 10px;
               resize: none;
           }
-          #addCommentButton{
-
+          .update_form{
+              max-width: 80%;
+              margin: 20px;
           }
-
-
-
-
           #root {
               width: 100%;
               margin: 0 auto;

@@ -208,6 +208,7 @@
         }
         #mypage-detail{
             background-color: white;
+            margin-left: 5px;
         }
         #mypage-detail img{
             margin-top: 20px;
@@ -339,6 +340,12 @@
           font-size: larger;
           font-weight: bold;
           
+        }
+        .comment_textarea{
+                width: 100%;
+                height: 6.25em;
+                border: none;
+                resize: none;
         }
         .file-label {
           margin-top: 30px;
