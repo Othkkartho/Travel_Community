@@ -15,13 +15,16 @@ public class TagEntity {
     private Long Id;
 
     @Column(name = "name")
-    private String Name;
+    private String tagName;
 
-    @ManyToOne
-    @JoinColumn(name = "bid")
+    @Column(name = "tourlistId", updatable = false, insertable = false)
+    private Long tourlistId;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "board_id")
     private BoardEntity boardEntity;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "tourlistId")
     private TourListEntity tourListEntity;
 }

@@ -17,7 +17,7 @@
         <img th:src="@{'/images/board/' + ${board.storedFileName[0]}}" th:if="${board.storedFileName != null and not #lists.isEmpty(board.storedFileName)}" class="img-fluid rounded-start" alt="...">
       <a th:href="@{|/board/${board.id}|(page=${boardList.number + 1})}">
       <div class="card-body">
-        <p class="card-text" id="card_region">제주</p>
+        <p class="card-text" id="card_region" th:if="${board.tagEntity != null}" th:text="${board.tagEntity.tagName}"></p>
         <p class="card-text" id="card_by">좋아요</p>
         <p class="card-text" id="card_like">[[${likeCount.get(bid)}]]</p>
         <br><br>
@@ -37,7 +37,7 @@
       <div class="row community_main_post" th:each="board: ${boardList}" >
         <div class="col-md-2" th:with="bid=${board.id}">
           <div class="card-body" th:with="userday=${#strings.setSplit(board.member.createdTime, 'T')[0]}, usertime=${#strings.setSplit(board.member.createdTime, 'T')[1]}">
-            <p class="card-text" id="post_region">경기</p>
+            <p class="card-text" id="post_region" th:if="${board.tagEntity != null}" th:text="${board.tagEntity.tagName}" ></p>
             <p class="card-text" id="post_time" th:text="${userday}"></p>
             <p class="card-text" id="post_time" th:text="${#strings.substring(usertime, 0, 8)}"></p>
             <br><br>

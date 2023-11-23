@@ -3,6 +3,7 @@ package com.learn.travel_community.dto.board;
 import com.learn.travel_community.domain.board.BoardEntity;
 import com.learn.travel_community.domain.board.BoardFileEntity;
 import com.learn.travel_community.domain.member.Member;
+import com.learn.travel_community.domain.tour.TagEntity;
 import lombok.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -25,19 +26,29 @@ public class BoardDTO {
     private LocalDateTime boardCreatedTime;
     private LocalDateTime boardUpdatedTime;
     private List<BoardFileEntity> boardFileEntityList;
+    private TagEntity tagEntity;
+    private String tagName;
+
+    private Long tourlistId;
 
     private List<MultipartFile> boardFile; // save.html -> Controller 파일 담는 용도
     private List<String> originalFileName; // 원본 파일 이름
     private List<String> storedFileName; // 서버 저장용 파일 이름
-    private int fileAttached; // 파일 첨부 여부(첨부 1, 미첨부 0)
+    private int fileAttached = 0; // 파일 첨부 여부(첨부 1, 미첨부 0)
 
-    public BoardDTO(Long id, Member member, List<BoardFileEntity> boardFileEntityList, String boardTitle, String boardContents, int boardHits, LocalDateTime boardCreatedTime) {
+    public BoardDTO(Long id, Member member, String boardTitle, String boardContents, int boardHits, Integer ageGroup, LocalDateTime boardCreatedTime,
+                    LocalDateTime boardUpdatedTime, List<BoardFileEntity> boardFileEntityList, String tagName, Long tourlistId) {
         this.id = id;
         this.member = member;
-        this.boardFileEntityList = boardFileEntityList;
         this.boardTitle = boardTitle;
+        this.boardContents = boardContents;
         this.boardHits = boardHits;
+        this.ageGroup = ageGroup;
         this.boardCreatedTime = boardCreatedTime;
+        this.boardUpdatedTime = boardUpdatedTime;
+        this.boardFileEntityList = boardFileEntityList;
+        this.tagName = tagName;
+        this.tourlistId = tourlistId;
     }
 
     public static BoardDTO toBoardDTO(BoardEntity boardEntity) {
@@ -49,6 +60,12 @@ public class BoardDTO {
         boardDTO.setBoardHits(boardEntity.getBoardHits());
         boardDTO.setBoardCreatedTime(boardEntity.getCreatedTime());
         boardDTO.setBoardUpdatedTime(boardEntity.getUpdatedTime());
+        boardDTO.setTagName(boardDTO.getTagName());
+        if (boardEntity.getTagEntityList() != null && !boardEntity.getTagEntityList().isEmpty()) {
+            boardDTO.setTagEntity(boardEntity.getTagEntityList().get(0)); // get the first tag
+        } else {
+            boardDTO.setTagEntity(null);
+        }
         if (boardEntity.getFileAttached() == 0) {
             boardDTO.setFileAttached(boardEntity.getFileAttached()); // 0
         } else {

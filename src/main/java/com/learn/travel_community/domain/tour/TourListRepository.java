@@ -9,4 +9,5 @@ public interface TourListRepository extends JpaRepository<TourListEntity, Long> 
 
    TourListEntity findTourNameByTourlistId(Long tourlistId);
 
+   TourListEntity findByTourName(String tourName);
 }

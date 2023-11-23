@@ -28,7 +28,7 @@ public class TourListEntity {
     private Long countryId;
 
     @OneToMany(mappedBy = "tourListEntity", fetch = FetchType.EAGER)
-    private List<TagEntity> tag;
+    private List<TagEntity> tagEntityList;
 
     @OneToMany(mappedBy = "tourListEntity", fetch = FetchType.EAGER)
     private List<TourdetailEntity> tourdetailEntityList;
