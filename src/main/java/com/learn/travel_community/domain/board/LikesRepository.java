@@ -21,6 +21,6 @@ public interface LikesRepository extends JpaRepository<Likes, Long> {
     @Query(value = "select l from Likes l where l.board=:bid")
     List<Likes> getBoardLikesCount(@Param("bid") Long bid);
 
-    @Query(value = "select count(*) from Likes l where l.member.uid=:uid")
+    @Query(value = "select count(*) from Likes l where l.board.member.uid=:uid")
     Long getMemberLikesCount(@Param("uid") Long uid);
 }
