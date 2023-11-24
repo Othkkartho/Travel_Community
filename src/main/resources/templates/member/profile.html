@@ -21,8 +21,8 @@
         <p class="p-2 bd-highlight align-self-center"> [[*{nickname}]] </p>
         <p class="p-2 bd-highlight align-self-center"> 좋아요 </p>
         <p class="p-2 bd-highlight align-self-center" id="icon-fav">[[${likeCount}]]</p>
-        <a class="btn btn-primary ms-auto p-2 bd-highlight align-self-center" id="profile_imgedit" role="button" href="/member/profileImg/modify">프로필 이미지 수정</a>
-        <a class="btn btn-primary p-2 bd-highlight align-self-center" id="profile_edit" href="/member/edit" role="button" >회원정보 수정</a>
+        <a th:unless="${userName}" class="btn btn-primary ms-auto p-2 bd-highlight align-self-center" id="profile_imgedit" role="button" href="/member/profileImg/modify">프로필 이미지 수정</a>
+        <a th:unless="${userName}" class="btn btn-primary p-2 bd-highlight align-self-center" id="profile_edit" href="/member/edit" role="button" >회원정보 수정</a>
     </div>
 
     <!-- 프로필 탭 -->
@@ -87,7 +87,7 @@
                 <div class="tab-pane fade" id="fav" role="tabpanel" aria-labelledby="fav-tab">
                     <ul th:each="like : ${likesList}" class="row justify-content-between">
                         <a class="col-6"  th:href="|/board/${like.board.id}|"><li>[[${like.board.boardTitle}]]</li></a>
-                        <p class="col-3" th:text="|${userday} ${#strings.substring(usertime, 0, 8)}|"></p>
+<!--                        <p class="col-3" th:text="|${userday} ${#strings.substring(usertime, 0, 8)}|"></p>-->
                     </ul>
                 </div>
                 <div class="tab-pane fade" id="comment" role="tabpanel" aria-labelledby="comment-tab">
