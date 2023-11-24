@@ -30,14 +30,14 @@
 <div class="d-flex justify-content-center 워드클라우드">
     <div class="container 둘러보기">
         <h3>사이트별 워드 클라우드</h3>
-        <div class="img_list row">
+        <div class="img_wc row">
             <div class="col-sm-6 ">
-                <img th:src="${naverImage}" alt="Word Cloud">
+                <img th:src="${'/images/wc/' + tourDetailDto.detailName + '.jpg'}" alt="Word Cloud">
                 <h5>네이버</h5>
                 <h5>2023.09.01~2023.10.31</h5>
             </div>
             <div class="col-sm-6">
-                <img th:src="${tripadvisorImage}" alt="Word Cloud">
+                <img th:src="${'/images/wc/' + tourDetailDto.detailName + '.jpg'}" alt="Word Cloud">
                 <h5>트립어드바이저</h5>
                 <h5>2023.09.01~2023.10.31</h5>
             </div>
@@ -58,6 +58,7 @@
 
 
 <script>
+    console.log(tourDetailDto);
 </script>
 </body>
 </html>

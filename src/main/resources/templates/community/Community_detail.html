@@ -51,7 +51,7 @@
               <a th:href="|/board/dislike/${board.id}|"><img th:src="|/images/board/heart-fill.svg|" id="detail_img_like" alt="좋아요"></a>
             </button>
             <button id="detail_imgchat">
-              <img src="/images/main/logo/chat-fill.svg"   id="detail_img" alt="...">
+              <img src="/images/main/logo/chat-fill.svg"   id="detail_img" data-bs-toggle="collapse" href="#detail_expandcotent" role="button" aria-expanded="false" aria-controls="collapseExample" alt="...">
             </button>
           </div>
         </div>
@@ -61,11 +61,6 @@
             <!-- <p class="card-text" id="detail_name">[[${board.member.nickname}]]</p> -->
           </div>
           <div class="col-auto">
-          </div>
-          <div class="col-auto">
-            <a id="detail_expand" data-bs-toggle="collapse" href="#detail_expandcotent" role="button" aria-expanded="false" aria-controls="collapseExample">
-              더보기
-            </a>
           </div>
         </div>
       </div>
@@ -123,12 +118,6 @@
     $("#detail_comment2").hide();
   })
 
-  const heartIcon = document.getElementById('detail_img_like');
-
-
-  heartIcon.addEventListener('click', function() {
-    heartIcon.classList.toggle('red'); // 클릭할 때마다 'red' 클래스를 토글하여 색상을 변경합니다.
-  });
 
 </script>
 </body>

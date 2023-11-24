@@ -108,8 +108,9 @@
 
                 $('.search_modal_detail').text('');
                 $.each(filteredData, function(index, value){
-                    $('.search_modal_detail').append("<p class='tour_"+ index +  "' >" +  value.detail_name + "</p>");
+                    $('.search_modal_detail').append("<li><a href='/tour/detail/" + value.detail_id + "' class='tour_" + index + "'>" + value.detail_name + "</a></li>");
                     console.log(index + " : " + value.detail_name);
+                    console.log(index + " : " + value.detail_id);
                 })
 
                 // 해당 alt 값으로 모달 열기

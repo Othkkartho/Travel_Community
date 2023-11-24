@@ -38,22 +38,34 @@
     <div class="container index_main_wordcloud">
         <div class="row">
             <div class="col">
-                <img src="/images/main/img/word_trip.png" alt="트립어드바이저">
+                <img src="/images/main/img/대한민국WC.jpg" alt="트립어드바이저">
                 <h5>트립어드바이저</h5>
                 <p>2023-09-01 ~ 2023-10-31</p>
             </div>
             <div class="col">
-                <img src="/images/main/img/word_naver.png" alt="네이버">
+                <img src="/images/main/img/제주WC.jpg" alt="네이버">
                 <h5>네이버</h5>
                 <p>2023-09-01 ~ 2023-10-31</p>
             </div>
         </div>
 
+
     </div>
 
     <div class="row justify-content-between chart">
-
-        <canvas id="bar-chart" width="500" height="450"></canvas>
+        <div class="row">
+            <div class="col-6 d-flex justify-content-start">
+                <button class="btn btn-primary col-1 changebtn_m_20"  type="button">20대</button>
+                <button class="btn btn-primary col-1 changebtn_m_30"  type="button">30대</button>
+                <button class="btn btn-primary col-1 changebtn_m_40"  type="button">40대</button>
+            </div>
+            <div class="col-6 d-flex justify-content-end">
+                <button class="btn btn-primary col-1 changebtn_w_20"  type="button">20대</button>
+                <button class="btn btn-primary col-1 changebtn_w_30"  type="button">30대</button>
+                <button class="btn btn-primary col-1 changebtn_w_40"  type="button">40대</button>
+            </div>
+        </div>
+        <canvas id="barchart" width="500" height="450"></canvas>
         <script>
             $(document).ready(function () {
                 $.ajax({
@@ -72,7 +84,8 @@
                         const labels = filteredData.map(item => item.tour_name);
                         const chartData = filteredData.map(item => parseFloat(item.region_interest_score))
 
-                        new Chart(document.getElementById("bar-chart"), {
+                        const ctx = document.getElementById('barchart').getContext('2d');
+                        const barChart = new Chart(ctx, {
                             type: 'bar',
                             data: {
                                 labels: labels,
@@ -87,14 +100,60 @@
                                 legend: {display: false},
                             }
                         });
+
+                        const button_20 = document.querySelector(".changebtn_m_20");
+                        const button_30 = document.querySelector(".changebtn_m_30");
+                        const button_40 = document.querySelector(".changebtn_m_40");
+
+
+                        const buttonClickHandler20 = () =>{
+                            const filteredData = jsonObject.filter(item => item.age_group === '20');
+                            const labels = filteredData.map(item => item.tour_name);
+                            const chartData = filteredData.map(item => parseFloat(item.region_interest_score))
+                            addData(barChart, labels, chartData);
+                        };
+
+                        const buttonClickHandler30 = () =>{
+                            const filteredData = jsonObject.filter(item => item.age_group === '30');
+                            const labels = filteredData.map(item => item.tour_name);
+                            const chartData = filteredData.map(item => parseFloat(item.region_interest_score))
+                            addData(barChart, labels, chartData);
+                        };
+                        const buttonClickHandler40 = () =>{
+                            const filteredData = jsonObject.filter(item => item.age_group === '40');
+                            const labels = filteredData.map(item => item.tour_name);
+                            const chartData = filteredData.map(item => parseFloat(item.region_interest_score))
+                            addData(barChart, labels, chartData);
+                        };
+
+                        button_20.addEventListener('click',buttonClickHandler20);
+                        button_30.addEventListener('click',buttonClickHandler30);
+                        button_40.addEventListener('click',buttonClickHandler40);
+                        const removeData = (chart) => {
+                            chart.data.labels = [];
+                            chart.data.datasets.forEach((dataset) => {
+                                dataset.data = [];
+                            });
+                            chart.update();
+                        }
+
+                        const addData = (chart, labels, newData) => {
+                            removeData(chart);
+                            chart.data.labels = labels;
+                            chart.data.datasets.forEach((dataset) => {
+                                dataset.data = newData;
+                            });
+                            chart.update();
+                        }
                     },
                     error: function (error) {
                         alert("error : " + error); //에러
                     },
                 });    //ajax
             });
+
         </script>
-        <canvas id="bar-chart2" width="500" height="450"></canvas>
+        <canvas id="barchart2" width="500" height="450"></canvas>
         <script>
             $(document).ready(function () {
                 $.ajax({
@@ -113,7 +172,8 @@
                         const labels = filteredData.map(item => item.tour_name);
                         const chartData = filteredData.map(item => parseFloat(item.region_interest_score))
 
-                        new Chart(document.getElementById("bar-chart2"), {
+                        const ctx = document.getElementById('barchart2').getContext('2d');
+                        const barChart2 = new Chart(ctx, {
                             type: 'bar',
                             data: {
                                 labels: labels,
@@ -128,6 +188,51 @@
                                 legend: {display: false},
                             }
                         });
+
+                        const button_20 = document.querySelector(".changebtn_w_20");
+                        const button_30 = document.querySelector(".changebtn_w_30");
+                        const button_40 = document.querySelector(".changebtn_w_40");
+
+
+                        const buttonClickHandler20 = () =>{
+                            const filteredData = jsonObject.filter(item => item.age_group === '20');
+                            const labels = filteredData.map(item => item.tour_name);
+                            const chartData = filteredData.map(item => parseFloat(item.region_interest_score))
+                            addData(barChart2, labels, chartData);
+                        };
+
+                        const buttonClickHandler30 = () =>{
+                            const filteredData = jsonObject.filter(item => item.age_group === '30');
+                            const labels = filteredData.map(item => item.tour_name);
+                            const chartData = filteredData.map(item => parseFloat(item.region_interest_score))
+                            addData(barChart2, labels, chartData);
+                        };
+                        const buttonClickHandler40 = () =>{
+                            const filteredData = jsonObject.filter(item => item.age_group === '40');
+                            const labels = filteredData.map(item => item.tour_name);
+                            const chartData = filteredData.map(item => parseFloat(item.region_interest_score))
+                            addData(barChart2, labels, chartData);
+                        };
+
+                        button_20.addEventListener('click',buttonClickHandler20);
+                        button_30.addEventListener('click',buttonClickHandler30);
+                        button_40.addEventListener('click',buttonClickHandler40);
+                        const removeData = (chart) => {
+                            chart.data.labels = [];
+                            chart.data.datasets.forEach((dataset) => {
+                                dataset.data = [];
+                            });
+                            chart.update();
+                        }
+
+                        const addData = (chart, labels, newData) => {
+                            removeData(chart);
+                            chart.data.labels = labels;
+                            chart.data.datasets.forEach((dataset) => {
+                                dataset.data = newData;
+                            });
+                            chart.update();
+                        }
                     },
                     error: function (error) {
                         alert("error : " + error); //에러
