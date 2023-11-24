@@ -7,6 +7,9 @@ import com.learn.travel_community.domain.board.BoardFileRepository;
 import com.learn.travel_community.domain.board.BoardRepository;
 import com.learn.travel_community.domain.member.Member;
 import com.learn.travel_community.domain.member.MemberRepository;
+import com.learn.travel_community.domain.tour.TagEntity;
+import com.learn.travel_community.domain.tour.TagRepository;
+import com.learn.travel_community.domain.tour.TourListRepository;
 import com.learn.travel_community.dto.board.BoardDTO;
 import static com.learn.travel_community.dto.board.BoardDTO.toBoardDTO;
 
@@ -37,6 +40,8 @@ public class BoardService {
     private final BoardRepository boardRepository;
     private final BoardFileRepository boardFileRepository;
     private final MemberRepository memberRepository;
+    private final TagRepository tagRepository;
+    private final TourListRepository tourListRepository;
     private final HttpSession httpSession;
     @Value("${file.path}")
     private String uploadFolder;
@@ -47,8 +52,12 @@ public class BoardService {
             // 첨부 파일 없음.
             BoardEntity boardEntity = BoardEntity.toSaveEntity(member, boardDTO);
             boardRepository.save(boardEntity);
+
+
+            addTag(boardEntity.getId(), boardDTO.getTagName());
         } else {
             BoardEntity boardEntity = BoardEntity.toSaveFileEntity(member, boardDTO);
+            boardEntity.setFileAttached(1);
             Long savedId = boardRepository.save(boardEntity).getId();
             BoardEntity board = boardRepository.findById(savedId).get();
             // 첨부 파일 있음.
@@ -61,6 +70,8 @@ public class BoardService {
                 BoardFileEntity boardFileEntity = BoardFileEntity.toBoardFileEntity(board, originalFilename, storedFileName);
                 boardFileRepository.save(boardFileEntity);
             }
+
+                addTag(boardEntity.getId(), boardDTO.getTagName());
         }
     }
 
@@ -172,5 +183,17 @@ public class BoardService {
         return boardRepository.findAllByAgeGroupAndGender(ageGroup, gender).stream()
                 .map(boardEntity -> toBoardDTO(boardEntity))
                 .collect(Collectors.toList());
+    }
+
+    private void addTag(Long boardId, String tagName) {
+        Long tourlistId = tourListRepository.findByTourName(tagName).getTourlistId();
+        if (tourlistId != null) {
+            TagEntity tagEntity = new TagEntity();
+            tagEntity.setTagName(tagName);
+            tagEntity.setTourListEntity(tourListRepository.findByTourName(tagName));
+            tagEntity.setBoardEntity(boardRepository.findAllById(boardId));
+
+            tagRepository.save(tagEntity);
+        }
     }
 }
