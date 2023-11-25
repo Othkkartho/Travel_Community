@@ -89,7 +89,7 @@
               <div class="input-group row" id="comment-write" th:if="${userName}">
                 <form action="/comment/save" method="post">
                   <label for="commentContents"></label>
-                  <textarea class="form-control col-8 comment_textarea" id="commentContents" name="commentContents" rows="1" required></textarea>
+                  <textarea class="form-control comment_textarea" id="commentContents" name="commentContents" rows="4" cols="50" required></textarea>
                   <br>
                   <input type="hidden" class="form-control" aria-label="detail_comment" aria-describedby="button-addon2" name="boardId" th:value="${board.id}"/>
                   <button class="btn btn-primary" id="comment-write-btn" type="submit">댓글 작성</button>
