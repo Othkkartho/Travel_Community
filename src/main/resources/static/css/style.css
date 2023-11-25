@@ -563,10 +563,6 @@
               width: 400px;
               height: 250px;
           }
-
-          .둘러보기 {
-              max-height: 800px;
-          }
           .둘러보기 h3, p {
               text-align: start;
           }
@@ -583,7 +579,7 @@
               height: 265px;
           }
           .region_new {
-              margin-top: 100px;
+              margin-top: 50px;
           }
           #detail_img_like {
               cursor: pointer; /* 마우스 커서를 포인터로 변경하여 클릭 가능하도록 설정 */
@@ -599,4 +595,13 @@
           }
           .trip_check{
               margin-top: 40px;
+          }
+          .wc{
+              width: 100%;
+              object-fit: cover;
+              margin-top: 30px;
+              margin-bottom: 20px;
+          }
+          .chart_m > button, .chart_w > button {
+              margin: 20px;
           }

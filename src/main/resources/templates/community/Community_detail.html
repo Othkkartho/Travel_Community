@@ -75,11 +75,13 @@
                   <thead>
 
                   </thead>
-                  <tbody>
-                  <tr th:each="comment, commentStat: ${commentList}">
+                  <tbody th:each="comment, commentStat: ${commentList}" th:with="usertime=${#strings.setSplit(comment.createdTime, 'T')[1]}">
+                  <tr>
                     <a th:href="@{'/member/profile/' + ${comment.member.uid}}"><td th:text="${comment.member.nickname}"></td></a>
+                    <td th:text="|${#strings.setSplit(comment.createdTime, 'T')[0]} ${#strings.substring(usertime, 0, 8)}|"></td>
+                  </tr>
+                  <tr>
                     <td th:text="${comment.commentContents}"></td>
-                    <td th:text="${comment.createdTime}"></td>
                   </tr>
                   </tbody>
                 </table>
