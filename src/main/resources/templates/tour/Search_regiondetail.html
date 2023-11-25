@@ -5,11 +5,6 @@
 </head>
 <script src="/js/jquery-3.7.1.min.js" > </script>
 <body>
-<form action="/user/scrap/" method="post">
-    <input type="hidden" name="detailId" th:value="${detailId}">
-    <input type="submit" value="스크랩">
-</form>
-<hr>
 
 <div th:replace="~{layout/header::indexHeader}"></div>
 <div class="d-flex justify-content-center 메인">
@@ -17,14 +12,14 @@
         <h3>[[${tourDetailDto.detailName}]]</h3>
         <div class="img_list row">
             <div class="col-sm-6 ">
-                <img src="/images/testImg/cafe.jpg">
+                <img th:src="${'/images/travel/' + tourDetailDto.detailName + '_1.jpg'}" alt="Main img">
             </div>
             <div class="col-sm-6">
                 <div class="row">
-                    <img src="/images/testImg/cafe.jpg">
+                    <img th:src="${'/images/travel/' + tourDetailDto.detailName + '_2.jpg'}" alt="Main img">
                 </div>
                 <div class="row">
-                    <img src="/images/testImg/cafe.jpg">
+                    <img th:src="${'/images/travel/' + tourDetailDto.detailName + '_3.jpg'}" alt="Main img">
                 </div>
             </div>
         </div>
@@ -38,32 +33,38 @@
         <h3>사이트 별 워드 클라우드</h3>
         <div class="img_wc row">
             <div class="col-sm-6 ">
-                <img th:src="${naverCloudImage}" alt="Word Cloud">
+                <img class="wc" th:src="${'/images/tour/wc_naver/' + tourDetailDto.tourListEntity.tourName + 'WC.jpg'}" alt="Word Cloud">
                 <h5>[[${tourName}]](네이버)</h5>
                 <h5>2023.09.01~2023.10.31</h5>
             </div>
             <div class="col-sm-6 ">
-                <img th:src="${tripadvisorCloudImage}" alt="Word Cloud">
+                <img class="wc" th:src="${'/images/tour/wc_tripadvisor/' + tourDetailDto.tourListEntity.tourName + 'WC.jpg'}" alt="Word Cloud">
                 <h5>[[${tourName}]](트립 어드바이저)</h5>
                 <h5>2023.09.01~2023.10.31</h5>
             </div>
         </div>
         <div class="img_wc row">
             <div class="col-sm-6 ">
-                <img th:src="${wordCloudImage}" alt="Word Cloud">
+                <img th:src="${'/images/wc/' + tourDetailDto.detailName + '.jpg'}" alt="Word Cloud">
                 <h5>[[${tourDetailDto.detailName}]]</h5>
                 <h5>2023.09.01~2023.10.31</h5>
             </div>
         </div>
+        <form action="/user/scrap/" method="post">
+            <input type="hidden" name="detailId" th:value="${detailId}">
+            <input class="btn btn-primary" type="submit" value="스크랩">
+        </form>
     </div>
 </div>
 
-<div class="container 지역 커뮤니티 최신글 둘러보기 region_new">
-    <h3>지역 커뮤니티 최신글</h3>
-    <a herf="">야외 자리도  즐기기 좋은 카페 26곳</a><br>
-    <a herf="">강남 팝업스토어</a><br>
-    <a herf="">성수동 카페거리</a><br>
-    <a herf="">성수 아더 스페이스 2.0 플래그십 스토어</a><br>
+<div class="container 지역 커뮤니티 최신글 region_new">
+    <div class="row">
+        <h3>지역 커뮤니티 최신글</h3>
+        <a herf="">야외 자리도  즐기기 좋은 카페 26곳</a><br>
+        <a herf="">강남 팝업스토어</a><br>
+        <a herf="">성수동 카페거리</a><br>
+        <a herf="">성수 아더 스페이스 2.0 플래그십 스토어</a><br>
+    </div>
 </div>
 
 <div th:replace="~{layout/login::login}"></div>
