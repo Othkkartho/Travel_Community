@@ -605,3 +605,6 @@
           .chart_m > button, .chart_w > button {
               margin: 20px;
           }
+          .scrap_btn{
+              padding-right: 0 !important;
+          }
