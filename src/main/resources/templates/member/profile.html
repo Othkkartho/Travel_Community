@@ -102,7 +102,7 @@
                             <div class="col-12 col-md-4" th:each="scrap : ${scrapList}"> <!-- 각 이미지와 텍스트를 4개의 컬럼으로 나눔 -->
                                 <div class="position-relative">
                                     <a class="col-6" th:href="|/tour/detail/${scrap.detailId}|">
-                                    <img src="/images/testImg/travel.jpg" alt="이미지" class="img-fluid">
+                                    <img th:src="'/images/travel/' + ${scrap.detailEntity.detailName} + '_1.jpg'" alt="이미지" class="img-fluid">
                                     <div >[[${scrap.detailEntity.detailName}]]</div>
                                     </a>
                                 </div>

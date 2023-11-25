@@ -11,26 +11,36 @@
     <a class="btn btn-primary main_write" role="button" href="/board/save">글쓰기</a>
   </div>
 </div>
-<div class="d-flex justify-content-center row" id="main_card">
-  <div class="col-sm-3"  th:each="board: ${recommendList}">
-    <div class="card">
-        <img th:src="@{'/images/board/' + ${board.storedFileName[0]}}" th:if="${board.storedFileName != null and not #lists.isEmpty(board.storedFileName)}" class="img-fluid rounded-start" alt="...">
-      <a th:href="@{|/board/${board.id}|(page=${boardList.number + 1})}">
-      <div class="card-body">
-        <p class="card-text" id="card_region" th:if="${board.tagEntity != null}" th:text="${board.tagEntity.tagName}"></p>
-        <p class="card-text" id="card_by">좋아요</p>
-        <p class="card-text" id="card_like">[[${likeCount.get(bid)}]]</p>
-        <br><br>
-        <h5 class="card-title" id="card_title">[[${board.boardTitle}]]</h5>
-        <br>
-        <p class="card-text" id="card_by">By</p>
-        <p class="card-text" id="card_name">관리자</p>
+<div class="container-xxl">
+  <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+    <div class="carousel-inner">
+      <div th:each="recommendContents, iterStat : ${recommendList}" class="carousel-item active"
+           th:classappend="${iterStat.index == 0} ? 'active'">
+        <a th:href="@{|/board/${recommendContents.id}}">
+          <img th:if="${recommendContents.storedFileName != null and not #lists.isEmpty(recommendContents.storedFileName)}"
+               th:src="@{'/images/board/' + ${recommendContents.storedFileName[0]}}"
+               class="d-block w-100" alt="..." id="slide">
+          <div class="text-overlay-main">
+            <div th:text="${recommendContents.boardTitle}">
+            </div>
+            <div class="text-overlay" th:text="${recommendContents.ageGroup} + '대 ' + (${recommendContents.gender == 1 ? '여성' : recommendContents.gender == 2 ? '남성' : ''}) + ' ' + ${recommendContents.theme}">
+            </div>
+          </div>
+        </a>
       </div>
-      </a>
+      <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls"
+              data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls"
+              data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+      </button>
     </div>
   </div>
 </div>
-
 <div class="main_post">
   <div class="d-flex justify-content-center" id="post">
     <div class="card mb-3" id="post_1">
