@@ -133,6 +133,7 @@ public class BoardController {
 
         int age = member != null ? memberRepository.findByEmail(member.getEmail()).get().getAge() : 20;
         int gender = member != null ? memberRepository.findByEmail(member.getEmail()).get().getGender() : 2;
+        age = age == 0 ? 20 : age;
         gender = gender == 0 ? 2 : gender;
 
         Page<BoardDTO> boardList = boardService.paging(pageable);
