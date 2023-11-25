@@ -77,21 +77,21 @@
 
         <div id="mypage-detail" class="col-8 border border-2 rounded-top">
             <!-- 탭 내용 -->
-            <div class="tab-content" id="myTabContent" th:each="board : ${boardList}" th:with="userday=${#strings.setSplit(board.createdTime, 'T')[0]}, usertime=${#strings.setSplit(board.createdTime, 'T')[1]}" >
+            <div class="tab-content" id="myTabContent">
                 <div class="tab-pane fade show active" id="write" role="tabpanel" aria-labelledby="write-tab">
-                    <ul id="write-tab" class="row justify-content-between"  >
+                    <ul th:each="board : ${boardList}" id="write-tab" class="row justify-content-between" th:with="userday=${#strings.setSplit(board.createdTime, 'T')[0]}, usertime=${#strings.setSplit(board.createdTime, 'T')[1]}">
                         <a class="col-6" th:href="|/board/${board.id}|"><li>[[${board.boardTitle}]]</li></a>
                         <p class="col-3" th:text="|${userday} ${#strings.substring(usertime, 0, 8)}|"></p>
                     </ul>
                 </div>
                 <div class="tab-pane fade" id="fav" role="tabpanel" aria-labelledby="fav-tab">
-                    <ul th:each="like : ${likesList}" class="row justify-content-between">
+                    <ul th:each="like : ${likesList}" class="row justify-content-between" th:with="userday=${#strings.setSplit(like.createdTime, 'T')[0]}, usertime=${#strings.setSplit(like.createdTime, 'T')[1]}">
                         <a class="col-6"  th:href="|/board/${like.board.id}|"><li>[[${like.board.boardTitle}]]</li></a>
-                        <!--<p class="col-3" th:text="|${userday} ${#strings.substring(usertime, 0, 8)}|"></p>-->
+                        <p class="col-3" th:text="|${userday} ${#strings.substring(usertime, 0, 8)}|"></p>
                     </ul>
                 </div>
                 <div class="tab-pane fade" id="comment" role="tabpanel" aria-labelledby="comment-tab">
-                    <ul th:each="comment : ${commentList}" class="row justify-content-between">
+                    <ul th:each="comment : ${commentList}" class="row justify-content-between" th:with="userday=${#strings.setSplit(comment.createdTime, 'T')[0]}, usertime=${#strings.setSplit(comment.createdTime, 'T')[1]}">
                         <a class="col-6" th:href="|/board/${comment.boardEntity.id}|"><li>[[${comment.commentContents}]]</li></a>
                         <p class="col-3" th:text="|${userday} ${#strings.substring(usertime, 0, 8)}|"></p>
                     </ul>

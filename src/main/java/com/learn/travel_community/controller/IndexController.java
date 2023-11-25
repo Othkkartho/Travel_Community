@@ -24,15 +24,20 @@ public class IndexController {
     @Transactional
     @GetMapping("/")
     public String index(Model model) {
-        SessionMember member = (SessionMember) httpSession.getAttribute("user");
-        int age = member == null ? 20 : memberRepository.findByEmail(member.getEmail()).get().getAge();
-        int gender = member == null ? 2 : memberRepository.findByEmail(member.getEmail()).get().getGender();
-        age = age == 0 ? 20 : age;
-        gender = gender == 0 ? 1 : gender;
+        int age = 20;
+        int gender = 2;
 
-        if (member != null) {
-            model.addAttribute("userName", member.getNickname());
-            model.addAttribute("profileImg", member.getPicture());
+        if(httpSession.getAttribute("user") != null) {
+            SessionMember member = (SessionMember) httpSession.getAttribute("user");
+            age = member == null ? 20 : memberRepository.findByEmail(member.getEmail()).get().getAge();
+            gender = member == null ? 2 : memberRepository.findByEmail(member.getEmail()).get().getGender();
+            age = age == 0 ? 20 : age;
+            gender = gender == 0 ? 1 : gender;
+
+            if (member != null) {
+                model.addAttribute("userName", member.getNickname());
+                model.addAttribute("profileImg", member.getPicture());
+            }
         }
 
         List<BoardDTO> boardRecommendDtos = boardService.findRecommendList(age, gender);
