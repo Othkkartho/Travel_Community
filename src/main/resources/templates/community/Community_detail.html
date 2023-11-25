@@ -11,7 +11,7 @@
     <div class="col-sm-6" id="post_border">
       <div class="row">
         <div class="col">
-          <a th:href="|/member/profile/${board.member.uid}|">
+          <a class="member_name" th:href="|/member/profile/${board.member.uid}|">
             <img src="/images/profile/profile.png" class="dropdown-toggle" type="button" id="post_profile" data-bs-toggle="dropdown" aria-expanded="false">
             <p class="card-text" id="card_name">[[${board.member.nickname}]]</p>
           </a>
@@ -66,8 +66,8 @@
       </div>
       <div class="collapse" id="detail_expandcotent">
         <div class="card card-body">
-          <p class="card-text" id="detail_title">[[${board.boardTitle}]]</p> <!-- 제목  -->
-          [[${board.boardContents}]]
+          <h4 class="card-text detail_title" id="detail_title">[[${board.boardTitle}]]</h4> <!-- 제목  -->
+          <p class="comment-list">[[${board.boardContents}]]</p>
           <div class="row" id="detail_comment2">
             <div class="col-auto">
               <div id="comment-list">
@@ -77,19 +77,19 @@
                   </thead>
                   <tbody th:each="comment, commentStat: ${commentList}" th:with="usertime=${#strings.setSplit(comment.createdTime, 'T')[1]}">
                   <tr>
-                    <a th:href="@{'/member/profile/' + ${comment.member.uid}}"><td th:text="${comment.member.nickname}"></td></a>
+                    <a th:href="@{'/member/profile/' + ${comment.member.uid}}"><td class="comment_name" th:text="${comment.member.nickname}"></td></a>
                     <td th:text="|${#strings.setSplit(comment.createdTime, 'T')[0]} ${#strings.substring(usertime, 0, 8)}|"></td>
                   </tr>
                   <tr>
-                    <td th:text="${comment.commentContents}"></td>
+                    <td class="comment_margin" th:text="${comment.commentContents}"></td>
                   </tr>
                   </tbody>
                 </table>
               </div>
-              <div class="input-group mb-3" id="comment-write" th:if="${userName}">
+              <div class="input-group row" id="comment-write" th:if="${userName}">
                 <form action="/comment/save" method="post">
                   <label for="commentContents"></label>
-                  <textarea class="form-control comment_textarea" id="commentContents" name="commentContents" rows="1" required></textarea>
+                  <textarea class="form-control col-8 comment_textarea" id="commentContents" name="commentContents" rows="1" required></textarea>
                   <br>
                   <input type="hidden" class="form-control" aria-label="detail_comment" aria-describedby="button-addon2" name="boardId" th:value="${board.id}"/>
                   <button class="btn btn-primary" id="comment-write-btn" type="submit">댓글 작성</button>

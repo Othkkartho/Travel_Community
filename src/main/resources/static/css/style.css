@@ -85,7 +85,7 @@
           .img-fluid{
             filter: brightness(70%);
             height: 210px !important;
-            object-fit: fill;
+            object-fit: cover;
           }
           .text-overlay-main{
             position: absolute;
@@ -342,7 +342,7 @@
               margin-top: 60px;
           }
           #post_border{
-              width: 30%;
+              width: 50%;
               padding: 0 !important;
               border: solid;
               border-width: 3px;
@@ -607,4 +607,45 @@
           }
           .scrap_btn{
               padding-right: 0 !important;
+          }
+          .detail_title{
+              padding: 10px;
+          }
+          .comment-list{
+              padding: 10px;
+              border: 1px solid #2FAF53;
+              border-radius: 15px;
+          }
+          .detail_comment{
+              margin: 10px;
+          }
+          .comment_margin{
+              height: 40px;
+          }
+          .comment_name{
+              font-size: large;
+              font-weight: bold;
+          }
+          .member_name{
+              text-decoration: none;
+              font-size: large;
+          }
+          .tour_detail_top{
+              margin-top: 50px;
+          }
+          .tour_detail_title{
+              font-weight: bold;
+          }
+          .tour_detail_img_left{
+              max-height: 530px;
+          }
+          .tour_detail_exp{
+              margin-bottom: 100px;
+          }
+          .tour_wc_img{
+              margin-top: 50px;
+          }
+
+          .tour_wc_text{
+              margin-top: 20px;
           }

@@ -9,19 +9,19 @@
 <div th:replace="~{layout/header::indexHeader}"></div>
 <div class="d-flex justify-content-center 메인">
     <div class="container 둘러보기">
-        <div class="row">
+        <div class="row ">
             <div class="col-6 d-flex justify-content-start">
-                <h3>[[${tourDetailDto.detailName}]]</h3>
+                <h3 class="tour_detail_title tour_detail_top">[[${tourDetailDto.detailName}]]</h3>
             </div>
             <div class="col-6 d-flex justify-content-end scrap_btn">
                 <form action="/user/scrap/" method="post">
                     <input type="hidden" name="detailId" th:value="${detailId}">
-                    <input class="btn btn-primary" type="submit" value="스크랩">
+                    <input class="btn btn-primary tour_detail_top" type="submit" value="스크랩">
                 </form>
             </div>
         </div>
         <div class="img_list row">
-            <div class="col-sm-6 ">
+            <div class="col-sm-6 tour_detail_img_left">
                 <img th:src="${'/images/travel/' + tourDetailDto.detailName + '_1.jpg'}" alt="Main img">
             </div>
             <div class="col-sm-6">
@@ -34,7 +34,7 @@
             </div>
         </div>
         <h3>[[${tourDetailDto.detailName}]] 상세 설명</h3>
-        <p>[[${tourDetailDto.detailExp}]]</p>
+        <p class="tour_detail_exp">[[${tourDetailDto.detailExp}]]</p>
     </div>
 </div>
 
@@ -55,8 +55,8 @@
         </div>
         <div class="img_wc row">
             <div class="col-sm-6 ">
-                <img th:src="${'/images/wc/' + tourDetailDto.detailName + '.jpg'}" alt="Word Cloud">
-                <h5>[[${tourDetailDto.detailName}]]</h5>
+                <img class="tour_wc_img" th:src="${'/images/wc/' + tourDetailDto.detailName + '.jpg'}" alt="Word Cloud">
+                <h5 class="tour_wc_text">[[${tourDetailDto.detailName}]]</h5>
                 <h5>2023.09.01~2023.10.31</h5>
             </div>
         </div>
