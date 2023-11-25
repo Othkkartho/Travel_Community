@@ -21,7 +21,7 @@ public class TourListEntity {
     @Column(length = 200)
     private String tourName;
 
-    @Column
+    @Column(length = 500)
     private String tourExp;
 
     @Column(insertable=false, updatable=false)
