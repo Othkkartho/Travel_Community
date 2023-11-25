@@ -4,8 +4,6 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.List;
-
 @Entity
 @Setter
 @Getter
@@ -23,8 +21,4 @@ public class BoardRecommendEntity {
 
     @Column
     private String theme;
-
-    @OneToMany(mappedBy = "boardRecommendEntity", fetch = FetchType.EAGER)
-    private List<RecommendContentEntity> recommendContents;
-
 }

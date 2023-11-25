@@ -87,11 +87,13 @@ public class TourListController {
         String tourName = tourListEntity.getTourName();
 
         // Load images from both folders
-        String naverImageResource = "/images/tour/wc_naver/" + tourName + "_wordcloud.jpg";
-        String tripadvisorImageResource = "/images/tour/wc_tripadvisor/" + tourName + "_wordcloud.jpg";
+        String wordCloudImageResource = "/images/wc/" + tourName + "/" + tourDetailDto.getDetailName() + ".jpg";
+        String naverImageResource = "images/tour/wc_naver/" + tourName + "WC.jpg";
+        String tripadvisorImageResource = "images/tour/wc_tripadvisor/" + tourName + "WC.jpg";
 
-        model.addAttribute("naverImage", naverImageResource);
-        model.addAttribute("tripadvisorImage", tripadvisorImageResource);
+        model.addAttribute("naverCloudImage", naverImageResource);
+        model.addAttribute("tripadvisorCloudImage", tripadvisorImageResource);
+        model.addAttribute("wordCloudImage", wordCloudImageResource);
         model.addAttribute("tourDetailDto", tourDetailDto);
         model.addAttribute("tourName", tourName);
 

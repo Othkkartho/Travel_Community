@@ -87,7 +87,7 @@
                 <div class="tab-pane fade" id="fav" role="tabpanel" aria-labelledby="fav-tab">
                     <ul th:each="like : ${likesList}" class="row justify-content-between">
                         <a class="col-6"  th:href="|/board/${like.board.id}|"><li>[[${like.board.boardTitle}]]</li></a>
-<!--                        <p class="col-3" th:text="|${userday} ${#strings.substring(usertime, 0, 8)}|"></p>-->
+                        <!--<p class="col-3" th:text="|${userday} ${#strings.substring(usertime, 0, 8)}|"></p>-->
                     </ul>
                 </div>
                 <div class="tab-pane fade" id="comment" role="tabpanel" aria-labelledby="comment-tab">
@@ -101,8 +101,10 @@
                         <div class="row">
                             <div class="col-12 col-md-4" th:each="scrap : ${scrapList}"> <!-- 각 이미지와 텍스트를 4개의 컬럼으로 나눔 -->
                                 <div class="position-relative">
+                                    <a class="col-6" th:href="|/tour/detail/${scrap.detailId}|">
                                     <img src="/images/testImg/travel.jpg" alt="이미지" class="img-fluid">
-                                    <div class="text-overlay">[[${scrap.detailEntity.detailName}]]</div>
+                                    <div >[[${scrap.detailEntity.detailName}]]</div>
+                                    </a>
                                 </div>
                             </div>
                         </div>
@@ -120,7 +122,7 @@
 </body>
 
 
-    <script th:inline="javascript">
+<script th:inline="javascript">
         console.log("test");
         let mNum = 0;
         /*

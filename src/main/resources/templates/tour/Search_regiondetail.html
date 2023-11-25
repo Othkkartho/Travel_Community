@@ -5,6 +5,12 @@
 </head>
 <script src="/js/jquery-3.7.1.min.js" > </script>
 <body>
+<form action="/user/scrap/" method="post">
+    <input type="hidden" name="detailId" th:value="${detailId}">
+    <input type="submit" value="스크랩">
+</form>
+<hr>
+
 <div th:replace="~{layout/header::indexHeader}"></div>
 <div class="d-flex justify-content-center 메인">
     <div class="container 둘러보기">
@@ -29,16 +35,23 @@
 
 <div class="d-flex justify-content-center 워드클라우드">
     <div class="container 둘러보기">
-        <h3>사이트별 워드 클라우드</h3>
+        <h3>사이트 별 워드 클라우드</h3>
         <div class="img_wc row">
             <div class="col-sm-6 ">
-                <img th:src="${'/images/wc/' + tourDetailDto.detailName + '.jpg'}" alt="Word Cloud">
-                <h5>네이버</h5>
+                <img th:src="${naverCloudImage}" alt="Word Cloud">
+                <h5>[[${tourName}]](네이버)</h5>
                 <h5>2023.09.01~2023.10.31</h5>
             </div>
-            <div class="col-sm-6">
-                <img th:src="${'/images/wc/' + tourDetailDto.detailName + '.jpg'}" alt="Word Cloud">
-                <h5>트립어드바이저</h5>
+            <div class="col-sm-6 ">
+                <img th:src="${tripadvisorCloudImage}" alt="Word Cloud">
+                <h5>[[${tourName}]](트립 어드바이저)</h5>
+                <h5>2023.09.01~2023.10.31</h5>
+            </div>
+        </div>
+        <div class="img_wc row">
+            <div class="col-sm-6 ">
+                <img th:src="${wordCloudImage}" alt="Word Cloud">
+                <h5>[[${tourDetailDto.detailName}]]</h5>
                 <h5>2023.09.01~2023.10.31</h5>
             </div>
         </div>

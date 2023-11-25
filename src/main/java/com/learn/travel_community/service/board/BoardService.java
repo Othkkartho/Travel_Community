@@ -13,7 +13,6 @@ import com.learn.travel_community.domain.tour.TourListRepository;
 import com.learn.travel_community.dto.board.BoardDTO;
 import static com.learn.travel_community.dto.board.BoardDTO.toBoardDTO;
 
-import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;

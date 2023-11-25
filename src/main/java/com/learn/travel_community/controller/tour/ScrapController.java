@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -51,7 +52,7 @@ public class ScrapController {
     }
 
     @PostMapping("/user/scrap/") // Post Mapping 스크랩 추가
-    public Object userScrapAdd(@RequestParam final String detailId) throws Exception {
+    public String userScrapAdd(@RequestParam final String detailId) throws Exception {
         final BasicResponse result = new BasicResponse();
         final ScrapEntity scrapEntity = new ScrapEntity();
         Member member = memberRepository.findByEmail(((SessionMember) httpSession.getAttribute("user")).getEmail()).orElse(null);
@@ -65,7 +66,7 @@ public class ScrapController {
 
         result.status = true;
         result.data = "success";
-        return new ResponseEntity<>(result, HttpStatus.OK);
+        return "tour/Search_main2";
     }
 
     @DeleteMapping("/user/scrap/") // Delete Mapping 필요 스크랩 취소
