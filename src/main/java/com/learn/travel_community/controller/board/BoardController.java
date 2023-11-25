@@ -38,7 +38,6 @@ public class BoardController {
     private final CommentService commentService;
     private final HttpSession httpSession;
     private final BoardRepository boardRepository;
-    private final BoardFileRepository boardFileRepository;
     private final LikeService likeService;
     private final LikesRepository likesRepository;
     private final ViewRepository viewRepository;

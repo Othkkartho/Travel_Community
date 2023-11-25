@@ -1,10 +1,7 @@
 package com.learn.travel_community.service.board;
 
 import com.learn.travel_community.config.member.oauth.dto.SessionMember;
-import com.learn.travel_community.domain.board.BoardEntity;
-import com.learn.travel_community.domain.board.BoardFileEntity;
-import com.learn.travel_community.domain.board.BoardFileRepository;
-import com.learn.travel_community.domain.board.BoardRepository;
+import com.learn.travel_community.domain.board.*;
 import com.learn.travel_community.domain.member.Member;
 import com.learn.travel_community.domain.member.MemberRepository;
 import com.learn.travel_community.domain.tour.TagEntity;
@@ -41,6 +38,8 @@ public class BoardService {
     private final MemberRepository memberRepository;
     private final TagRepository tagRepository;
     private final TourListRepository tourListRepository;
+    private final BoardRecommendRepository boardRecommendRepository;
+
     private final HttpSession httpSession;
     @Value("${file.path}")
     private String uploadFolder;
@@ -179,9 +178,21 @@ public class BoardService {
     }
 
     public List<BoardDTO> findRecommendList(Integer ageGroup, int gender) {
-        return boardRepository.findAllByAgeGroupAndGender(ageGroup, gender).stream()
-                .map(boardEntity -> toBoardDTO(boardEntity))
-                .collect(Collectors.toList());
+        String theme = boardRecommendRepository.findThemeByAgeAndGender(ageGroup, gender).getTheme();
+
+        List<BoardEntity> boardEntities = boardRepository.findAllByAgeGroupAndGender(ageGroup, gender);
+        List<BoardDTO> boardDTOs = new ArrayList<>();
+
+        for (BoardEntity boardEntity : boardEntities) {
+            BoardDTO boardDTO = toBoardDTO(boardEntity);
+            boardDTO.setAgeGroup(ageGroup);
+            boardDTO.setGender(gender);
+            boardDTO.setTheme(theme);
+
+            boardDTOs.add(boardDTO);
+        }
+
+        return boardDTOs;
     }
 
     private void addTag(Long boardId, String tagName) {

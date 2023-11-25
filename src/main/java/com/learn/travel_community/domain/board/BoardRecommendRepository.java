@@ -7,5 +7,5 @@ import java.util.List;
 
 @Repository
 public interface BoardRecommendRepository extends JpaRepository<BoardRecommendEntity, Long> {
-    List<BoardRecommendEntity> findAllByAgeAndGender(int age, int gender);
+    BoardRecommendEntity findThemeByAgeAndGender(int age, int gender);
 }

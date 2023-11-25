@@ -23,20 +23,22 @@ public class BoardDTO {
     private String boardContents;
     private int boardHits;
     private Integer ageGroup;
+    private Integer gender;
+
     private LocalDateTime boardCreatedTime;
     private LocalDateTime boardUpdatedTime;
     private List<BoardFileEntity> boardFileEntityList;
     private TagEntity tagEntity;
     private String tagName;
-
     private Long tourlistId;
+    private String theme;
 
     private List<MultipartFile> boardFile; // save.html -> Controller 파일 담는 용도
     private List<String> originalFileName; // 원본 파일 이름
     private List<String> storedFileName; // 서버 저장용 파일 이름
     private int fileAttached = 0; // 파일 첨부 여부(첨부 1, 미첨부 0)
 
-    public BoardDTO(Long id, Member member, String boardTitle, String boardContents, int boardHits, Integer ageGroup, LocalDateTime boardCreatedTime,
+    public BoardDTO(Long id, Member member, String boardTitle, String boardContents, int boardHits, Integer ageGroup, Integer gender, String theme, LocalDateTime boardCreatedTime,
                     LocalDateTime boardUpdatedTime, List<BoardFileEntity> boardFileEntityList, String tagName, Long tourlistId) {
         this.id = id;
         this.member = member;
@@ -44,6 +46,8 @@ public class BoardDTO {
         this.boardContents = boardContents;
         this.boardHits = boardHits;
         this.ageGroup = ageGroup;
+        this.gender = gender;
+        this.theme = theme;
         this.boardCreatedTime = boardCreatedTime;
         this.boardUpdatedTime = boardUpdatedTime;
         this.boardFileEntityList = boardFileEntityList;
@@ -61,6 +65,9 @@ public class BoardDTO {
         boardDTO.setBoardCreatedTime(boardEntity.getCreatedTime());
         boardDTO.setBoardUpdatedTime(boardEntity.getUpdatedTime());
         boardDTO.setTagName(boardDTO.getTagName());
+        boardDTO.setAgeGroup(boardEntity.getAgeGroup());
+        boardDTO.setGender(boardEntity.getGender());
+        boardDTO.setTheme(boardDTO.getTheme());
         if (boardEntity.getTagEntityList() != null && !boardEntity.getTagEntityList().isEmpty()) {
             boardDTO.setTagEntity(boardEntity.getTagEntityList().get(0)); // get the first tag
         } else {

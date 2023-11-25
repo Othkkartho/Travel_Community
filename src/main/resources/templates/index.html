@@ -15,14 +15,13 @@
                     <img th:if="${recommendContents.storedFileName != null and not #lists.isEmpty(recommendContents.storedFileName)}"
                          th:src="@{'/images/board/' + ${recommendContents.storedFileName[0]}}"
                          class="d-block w-100" alt="..." id="slide">
-
-                    <div class="text-overlay-main" th:text="${recommendContents.boardTitle}">
-                        <br>
-                        <div class="text-overlay" th:text="${recommendContents.boardContents}">
+                    <div class="text-overlay-main">
+                        <div th:text="${recommendContents.boardTitle}">
+                        </div>
+                        <div class="text-overlay" th:text="${recommendContents.ageGroup} + '대 ' + (${recommendContents.gender == 1 ? '여성' : recommendContents.gender == 2 ? '남성' : ''}) + ' ' + ${recommendContents.theme}">
                         </div>
                     </div>
                 </a>
-            </div>
         </div>
         <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls"
                 data-bs-slide="prev">
