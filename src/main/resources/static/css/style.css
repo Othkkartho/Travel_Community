@@ -9,8 +9,11 @@
           .index_main_wordcloud img {
               width: 100%;
               object-fit: cover;
-              margin-top: 30px;
               margin-bottom: 20px;
+              margin-top: 20px;
+          }
+          .index_main_wordcloud_text {
+              margin-top: 50px;
           }
           .index_main_wordcloud h5,.index_main_wordcloud p {
               text-align: center;
