@@ -16,7 +16,7 @@ public class TourdetailEntity {
         @Column
         private String detailName;
 
-        @Column(length = 200)
+        @Column(length = 1000)
         private String detailExp;
 
         @Column
