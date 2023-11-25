@@ -27,6 +27,7 @@ public class IndexController {
         SessionMember member = (SessionMember) httpSession.getAttribute("user");
         int age = member == null ? 20 : memberRepository.findByEmail(member.getEmail()).get().getAge();
         int gender = member == null ? 2 : memberRepository.findByEmail(member.getEmail()).get().getGender();
+        age = age == 0 ? 20 : age;
         gender = gender == 0 ? 1 : gender;
 
         if (member != null) {

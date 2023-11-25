@@ -13,6 +13,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -21,7 +22,7 @@ import java.util.List;
 
 @RequiredArgsConstructor
 @CrossOrigin(origins = { "*" }, maxAge = 3600)
-@RestController
+@Controller
 public class ScrapController {
     @Autowired
     ScrapRepository scrapRepository;
@@ -66,7 +67,7 @@ public class ScrapController {
 
         result.status = true;
         result.data = "success";
-        return "tour/Search_main2";
+        return "redirect:/tour/search";
     }
 
     @DeleteMapping("/user/scrap/") // Delete Mapping 필요 스크랩 취소
