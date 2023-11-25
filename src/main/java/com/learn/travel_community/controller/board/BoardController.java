@@ -13,6 +13,7 @@ import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
@@ -24,6 +25,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -139,6 +141,26 @@ public class BoardController {
         Page<BoardDTO> boardList = boardService.paging(pageable);
 
         List<BoardDTO> recommendList = boardService.findRecommendList(age, gender);
+
+        List<BoardDTO> filteredBoardList = new ArrayList<>();
+        List<Long> recommendPostIds = new ArrayList<>();
+        for (BoardDTO post : boardList.getContent()) {
+            for (BoardDTO recommendPost : recommendList) {
+                if (post.getId().equals(recommendPost.getId())) {
+                    recommendPostIds.add(post.getId());
+                    break;
+                }
+            }
+        }
+
+        for (BoardDTO post : boardList.getContent()) {
+            if (!recommendPostIds.contains(post.getId()) && (post.getAgeGroup() == null || post.getGender() == null)) {
+                filteredBoardList.add(post);
+            }
+        }
+
+        boardList = new PageImpl<>(filteredBoardList, boardList.getPageable(), boardList.getTotalElements());
+
 
         List<LikeDto> likesList = likesRepository.getBoardsLikesCount();
         Map<Long, Long> likeMap = new HashMap<>();

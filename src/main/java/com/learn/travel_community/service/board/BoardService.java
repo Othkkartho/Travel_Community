@@ -99,6 +99,7 @@ public class BoardService {
         }
     }
 
+    @Transactional
     public void update(Member member, BoardDTO boardDTO) throws IOException {
         Member currentMember = memberRepository.findByEmail(((SessionMember) httpSession.getAttribute("user")).getEmail()).orElse(null);
 
@@ -113,6 +114,8 @@ public class BoardService {
             // 기존 이미지 삭제
             if (boardDTO.getBoardFile().size() > 0) {
                 deleteExistingImages(board);
+                List<BoardFileEntity> boardFileEntityList = boardFileRepository.findAllByBoardId(savedId);
+                boardFileRepository.deleteAll(boardFileEntityList);
             }
 
             for (MultipartFile boardFile : boardDTO.getBoardFile()) {
@@ -152,7 +155,7 @@ public class BoardService {
     @Transactional
     public Page<BoardDTO> paging(Pageable pageable) {
         int page = pageable.getPageNumber() - 1;
-        int pageLimit = 5; // 한 페이지에 보여줄 글 갯수
+        int pageLimit = 15; // 한 페이지에 보여줄 글 갯수
         // 한페이지당 10개씩 글을 보여주고 정렬 기준은 id 기준으로 내림차순 정렬
         // page 위치에 있는 값은 0부터 시작
         Page<BoardEntity> boardEntities =
