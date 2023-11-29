@@ -16,7 +16,7 @@
             <p class="card-text" id="card_name">[[${board.member.nickname}]]</p>
           </a>
         </div>
-        <div class="col text-lg-end" th:if="${userEmail} == ${board.member.email}">
+        <div class="col text-lg-end" th:if="${userName} == ${board.member.nickname}">
           <a th:href="|/board/update/${board.id}|"><button type="button" class="btn btn-light">수정</button></a>
           <a th:href="|/board/delete/${board.id}|"><button type="button" class="btn btn-light">삭제</button></a>
         </div>
@@ -55,6 +55,10 @@
             </button>
           </div>
         </div>
+        <div class="detail_contents">
+          <h4 class="card-text detail_title" id="detail_title">[[${board.boardTitle}]]</h4> <!-- 제목  -->
+          <p class="comment-list">[[${board.boardContents}]]</p>
+        </div>
         <br>
         <div class="row g-0" id="detail_list">
           <div class="col-auto">
@@ -66,8 +70,6 @@
       </div>
       <div class="collapse" id="detail_expandcotent">
         <div class="card card-body">
-          <h4 class="card-text detail_title" id="detail_title">[[${board.boardTitle}]]</h4> <!-- 제목  -->
-          <p class="comment-list">[[${board.boardContents}]]</p>
           <div class="row" id="detail_comment2">
             <div class="col-auto">
               <div id="comment-list">
@@ -79,16 +81,10 @@
                   <tr>
                     <a th:href="@{'/member/profile/' + ${comment.member.uid}}"><td class="comment_name" th:text="${comment.member.nickname}"></td></a>
                     <td th:text="|${#strings.setSplit(comment.createdTime, 'T')[0]} ${#strings.substring(usertime, 0, 8)}|"></td>
-                    <td>
-                      <form th:action="@{'/comment/delete'}" th:method="delete" th:if="${comment.member.email} == ${userEmail}">
-                        <input type="hidden" class="form-control" aria-label="detail_comment" aria-describedby="button-addon2" name="boardId" th:value="${board.id}"/>
-                        <input type="hidden" class="form-control" aria-label="detail_comment" aria-describedby="button-addon2" name="commentId" th:value="${comment.id}"/>
-                        <button type="submit" class="btn btn-primary comment_del">댓글 삭제</button>
-                      </form>
-                    </td>
+                    <a><td><button type="button" class="btn btn-primary comment_del">댓글 삭제</button></td></a>
                   </tr>
                   <tr>
-                    <td class="comment_margin" th:text="${comment.commentContents}"></td>
+                    <td th:text="${comment.commentContents}"></td>
                   </tr>
                   </tbody>
                 </table>
