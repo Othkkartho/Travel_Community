@@ -5,6 +5,7 @@
           }
           #index_main_container{
               width: 80%;
+              margin-top: 20px;
           }
           .index_main_wordcloud img {
               width: 100%;
@@ -14,9 +15,16 @@
           }
           .index_main_wordcloud_text {
               margin-top: 50px;
+              color: #2FAF53 !important;
+              font-weight: bold !important;
+              font-size: x-large !important;
+
           }
+
           .index_main_wordcloud h5,.index_main_wordcloud p {
               text-align: center;
+              font-weight: bold;
+              font-size: large;
           }
 
           .inner {
@@ -51,6 +59,7 @@
           #dropdownMenuButton img{
               width: 50px;
               margin-right: 10px;
+              border-radius: 20%;
           }
 
           .weegle_inner {
@@ -86,6 +95,7 @@
 
           }
           .img-fluid{
+              min-width: 100%;
             filter: brightness(70%);
             height: 210px !important;
             object-fit: cover;
@@ -195,7 +205,7 @@
             padding: 30px;
             width: 150px;
             height: 150px;
-
+            border-radius: 50%;
         }
         #mypage-icon p{
             font-size: larger;
@@ -290,10 +300,16 @@
             margin-top: 50px;
         }
         .main_write{
-            margin-top: 30px;
+            margin-top: 10px;
+        }
+        .main_write_div{
+            margin-right: 10px;
         }
         .main_write_submit{
             margin-top: 5px;
+        }
+        .community_main_container{
+            margin-top: 20px;
         }
         .community_main_paging > .btn-primary{
             margin: 5px;
@@ -647,4 +663,45 @@
 
           .tour_wc_text{
               margin-top: 20px;
+          }
+          .profile_img{
+              border-radius: 50%;
+          }
+          .btn-primary{
+              background-color: #2FAF53 !important;
+              border-color: #2FAF53 !important;
+          }
+          .search_modal_title{
+              margin-top: 20px;
+              color: #2FAF53 !important;
+              font-size: large !important;
+              font-weight: bold !important;
+          }
+          .search_modal_detail > li > a{
+              text-decoration: none;
+              color: black;
+              margin-top: 5px;
+          }
+          .tour_detail_title{
+              color: #2FAF53 ;
+              font-weight: bold ;
+          }
+          .둘러보기 > h3 {
+              color: #2FAF53 ;
+              font-weight: bold ;
+              margin-top: 20px;
+          }
+          .img_wc > div > h4{
+              font-weight: bold;
+          }
+          .region_new > div > h3{
+              color: #2FAF53 ;
+              font-weight: bold ;
+          }
+          .region_new > div > a{
+              margin-left: 10px;
+              margin-bottom: 3px;
+          }
+          .comment_del{
+              margin-left: 10px;
           }

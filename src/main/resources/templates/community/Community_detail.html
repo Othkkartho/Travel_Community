@@ -79,9 +79,7 @@
                   <tr>
                     <a th:href="@{'/member/profile/' + ${comment.member.uid}}"><td class="comment_name" th:text="${comment.member.nickname}"></td></a>
                     <td th:text="|${#strings.setSplit(comment.createdTime, 'T')[0]} ${#strings.substring(usertime, 0, 8)}|"></td>
-                  </tr>
-                  <tr>
-                    <td class="comment_margin" th:text="${comment.commentContents}"></td>
+                    <a><td><button type="button" class="btn btn-primary comment_del">댓글 삭제</button></td></a>
                   </tr>
                   </tbody>
                 </table>
