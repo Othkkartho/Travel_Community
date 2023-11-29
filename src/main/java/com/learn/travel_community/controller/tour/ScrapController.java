@@ -53,7 +53,7 @@ public class ScrapController {
     }
 
     @PostMapping("/user/scrap/") // Post Mapping 스크랩 추가
-    public String userScrapAdd(@RequestParam final String detailId) throws Exception {
+    public String userScrapAdd(@RequestParam final String detailId) {
         final BasicResponse result = new BasicResponse();
         final ScrapEntity scrapEntity = new ScrapEntity();
         Member member = memberRepository.findByEmail(((SessionMember) httpSession.getAttribute("user")).getEmail()).orElse(null);
@@ -71,18 +71,12 @@ public class ScrapController {
     }
 
     @DeleteMapping("/user/scrap/") // Delete Mapping 필요 스크랩 취소
-    public Object userScrapRemove(@RequestParam final String username, @RequestParam final Long detailId) throws Exception {
+    public String userScrapRemove(@RequestParam final String scrapId) {
         final BasicResponse result = new BasicResponse();
-        final ScrapEntity deleteScrap = new ScrapEntity();
-        final Member member = memberRepository.getMemberByNickname(username).orElseThrow(Exception::new);
-        final TourdetailEntity tourdetailEntity = tourDetailRepository.getOne(detailId);
-        deleteScrap.setMember(member);
-        deleteScrap.setDetailEntity(tourdetailEntity);
-        scrapRepository.delete(deleteScrap);
+        scrapRepository.deleteBySid(Long.valueOf(scrapId));
 
         result.status = true;
         result.data = "success";
-        return new ResponseEntity<>(result, HttpStatus.OK);
+        return "redirect:/tour/search";
     }
-
 }

@@ -16,6 +16,10 @@ spring:
       - db
   main:
     allow-bean-definition-overriding: true
+  mvc:
+    hidden-method:
+      filter:
+        enabled: true
 
 # 게시판 이미지 파일 저장 경로 설정
 file:

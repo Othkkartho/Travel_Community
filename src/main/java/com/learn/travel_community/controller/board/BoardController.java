@@ -22,9 +22,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -83,6 +80,7 @@ public class BoardController {
             if (member != null) {
                 model.addAttribute("userName", member.getNickname());
                 model.addAttribute("profileImg", member.getPicture());
+                model.addAttribute("userEmail", member.getEmail());
             }
 
             model.addAttribute("dolike", likesRepository.findByMemberAndBoard(member, board));

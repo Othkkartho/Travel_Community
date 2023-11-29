@@ -31,13 +31,10 @@ public class CommentService {
     }
 
     public List<CommentEntity> findAll(BoardEntity boardEntity) {
-        List<CommentEntity> commentEntities = commentRepository.findAllByBoardEntity(boardEntity);
-
-        return commentEntities;
+        return commentRepository.findAllByBoardEntity(boardEntity);
     }
 
     public void delete(Long commentId) {
-        CommentEntity commentEntity = commentRepository.findById(commentId).orElse(null);
-        commentRepository.delete(commentEntity);
+        commentRepository.deleteById(commentId);
     }
 }

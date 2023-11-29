@@ -13,9 +13,13 @@
             <div class="col-6 d-flex justify-content-start">
                 <h3 class="tour_detail_title tour_detail_top">[[${tourDetailDto.detailName}]]</h3>
             </div>
-            <div class="col-6 d-flex justify-content-end scrap_btn">
-                <form action="/user/scrap/" method="post">
+            <div class="col-6 d-flex justify-content-end scrap_btn" th:if="${userName}">
+                <form action="/user/scrap/" method="post" th:unless="${scrap}">
                     <input type="hidden" name="detailId" th:value="${detailId}">
+                    <input class="btn btn-primary tour_detail_top" type="submit" value="스크랩">
+                </form>
+                <form th:action="@{'/user/scrap/'}" th:method="delete" th:if="${scrap}">
+                    <input type="hidden" name="scrapId" th:value="${scrap.sid}">
                     <input class="btn btn-primary tour_detail_top" type="submit" value="스크랩">
                 </form>
             </div>

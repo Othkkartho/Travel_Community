@@ -5,10 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.learn.travel_community.config.member.oauth.dto.SessionMember;
 import com.learn.travel_community.domain.member.Member;
 import com.learn.travel_community.domain.member.MemberRepository;
-import com.learn.travel_community.domain.tour.TotalEntity;
-import com.learn.travel_community.domain.tour.TotalRepository;
-import com.learn.travel_community.domain.tour.TourListEntity;
-import com.learn.travel_community.domain.tour.TourListRepository;
+import com.learn.travel_community.domain.tour.*;
 import com.learn.travel_community.domain.travel.TripAdvisorRepository;
 import com.learn.travel_community.dto.tour.TourDetailDto;
 import com.learn.travel_community.dto.tour.TourListDto;
@@ -36,10 +33,13 @@ public class TourListController {
     @Autowired
     private final TourListRepository tourListRepository;
     private final HttpSession httpSession;
+    private final ScrapRepository scrapRepository;
     @Autowired
     private final TotalRepository totalRepository;
     @Resource(name="tripAdviserService")
     private TripAdvisorRepository tripAdvisorRepository;
+    @Autowired
+    private TourDetailRepository tourDetailRepository;
 
     @GetMapping("/search")
     public String search(@RequestParam(required = false, defaultValue = "1") Long countryId, LocalDate date, Model model) throws JsonProcessingException {
@@ -80,6 +80,9 @@ public class TourListController {
                 model.addAttribute("userName", member.getNickname());
                 model.addAttribute("profileImg", member.getPicture());
             }
+
+            ScrapEntity scrapEntity = scrapRepository.findByMemberAndDetailEntity(member, tourDetailRepository.findAllByDetailId(detailId));
+            model.addAttribute("scrap", scrapEntity);
         }
 
         TourDetailDto tourDetailDto = tourListService.findAllByDetailId(detailId);

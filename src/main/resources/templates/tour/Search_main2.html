@@ -5,40 +5,6 @@
 </head>
 <body>
 <div th:replace="~{layout/header::indexHeader}"></div>
-<!--
-<table class="table">
-   <thead>
-   <tr>
-       <th>순위</th>
-       <th>국가 ID</th>
-       <th>투어 목록 ID</th>
-       <th>투어 이름</th>
-       <th>투어 체험</th>
-       <th>투어 이미지</th>
-   </tr>
-   </thead>
-
-   <tbody>
-   <tr th:each="tourListDto : ${tourListDtos}" data-tourlistId="${tourListDto.tourlistId}">
-       <td th:text="${tourListDto.countryId}"></td>
-       <td th:text="${tourListDto.tourlistId}"></td>
-       <td th:text="${tourListDto.tourName}"></td>
-       <td th:text="${tourListDto.tourExp}"></td>
-       <td th:text="${tourListDto.tourImage}"></td>
-
-       <td>
-           <ul>
-               <li th:each="tourDetailDto : ${tourListDto.tourdetailEntities}">
-                   <a th:href="${'/tour/detail/'} + ${tourDetailDto.detailId}"><span th:text="${tourDetailDto.detailName}"></span></a>
-                   <br />
-                   <span th:text="${tourName}"></span>
-               </li>
-           </ul>
-       </td>
-   </tr>
-   </tbody>
-</table>
--->
    <div class="main">
        <div class="imgmap">
            <img src="/images/travel/map.png" usemap="#image-map">
