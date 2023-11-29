@@ -81,10 +81,16 @@
                   <tr>
                     <a th:href="@{'/member/profile/' + ${comment.member.uid}}"><td class="comment_name" th:text="${comment.member.nickname}"></td></a>
                     <td th:text="|${#strings.setSplit(comment.createdTime, 'T')[0]} ${#strings.substring(usertime, 0, 8)}|"></td>
-                    <a><td><button type="button" class="btn btn-primary comment_del">댓글 삭제</button></td></a>
+                    <td>
+                      <form th:action="@{'/comment/delete'}" th:method="delete" th:if="${comment.member.email} == ${userEmail}">
+                        <input type="hidden" class="form-control" aria-label="detail_comment" aria-describedby="button-addon2" name="boardId" th:value="${board.id}"/>
+                        <input type="hidden" class="form-control" aria-label="detail_comment" aria-describedby="button-addon2" name="commentId" th:value="${comment.id}"/>
+                        <button type="submit" class="btn btn-primary comment_del">댓글 삭제</button>
+                      </form>
+                    </td>
                   </tr>
                   <tr>
-                    <td th:text="${comment.commentContents}"></td>
+                    <td class="comment_margin" th:text="${comment.commentContents}"></td>
                   </tr>
                   </tbody>
                 </table>
