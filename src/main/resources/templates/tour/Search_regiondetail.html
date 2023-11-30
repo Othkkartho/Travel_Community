@@ -20,7 +20,7 @@
                 </form>
                 <form th:action="@{'/user/scrap/'}" th:method="delete" th:if="${scrap}">
                     <input type="hidden" name="scrapId" th:value="${scrap.sid}">
-                    <input class="btn btn-primary tour_detail_top" type="submit" value="스크랩">
+                    <input class="btn btn-primary tour_detail_top" type="submit" value="스크랩 삭제">
                 </form>
             </div>
         </div>

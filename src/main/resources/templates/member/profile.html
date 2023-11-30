@@ -62,14 +62,14 @@
                         성별: 비공개
                     </div>
                     <div th:if="*{gender == 1}">
-                        성별: 남성
+                        성별: 여성
                     </div>
                     <div th:if="*{gender == 2}">
-                        성별: 여성
+                        성별: 남성
                     </div>
                 </li>
                 <li id="mypage-etc">
-                    세부사항
+                    세부사항<br>
                     [[*{introduce}]]
                 </li>
             </ul>
